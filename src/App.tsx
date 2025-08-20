@@ -82,7 +82,7 @@ function App() {
         aiControlled: true,
         llmProvider: {
           provider: 'ollama',
-          model: 'mistral:7b',
+          model: 'llama3:latest',
           baseUrl: 'http://localhost:11434',
           temperature: 0.8
         },
@@ -114,7 +114,7 @@ function App() {
         aiControlled: true,
         llmProvider: {
           provider: 'ollama',
-          model: 'gemma2:9b',
+          model: 'llama3:latest',
           baseUrl: 'http://localhost:11434',
           temperature: 0.8
         },

@@ -18,6 +18,11 @@ export interface ProceedingEvent {
   metadata?: Record<string, any>;
 }
 
+export interface AICallbacks {
+  setAIProcessing: (isProcessing: boolean, operation?: string) => void;
+  setAIProgress: (current: number, total: number) => void;
+}
+
 export class ProceedingsEngine {
   private currentCase: Case;
   private agents: Map<string, CourtroomAgent>;
@@ -27,15 +32,18 @@ export class ProceedingsEngine {
   private phaseHandlers: Map<ProceedingPhase, () => Promise<void>>;
   private currentSpeaker: string | null = null;
   private sidebarActive: boolean = false;
+  private aiCallbacks?: AICallbacks;
 
   constructor(
     caseData: Case, 
-    settings: SimulationSettings
+    settings: SimulationSettings,
+    aiCallbacks?: AICallbacks
   ) {
     this.currentCase = caseData;
     this.settings = settings;
     this.agents = new Map();
     this.phaseHandlers = new Map();
+    this.aiCallbacks = aiCallbacks;
     
     this.initializeAgents();
     this.initializePhaseHandlers();
@@ -110,18 +118,29 @@ export class ProceedingsEngine {
       await this.announcePhase('Jury Selection');
       
       const juryMembers = this.currentCase.participants.filter(p => p.role === 'jury-member');
+      const selectedJurors = juryMembers.slice(0, this.settings.jurySize);
       
-      for (const juror of juryMembers.slice(0, this.settings.jurySize)) {
+      this.aiCallbacks?.setAIProcessing(true, 'Selecting jury members');
+      this.aiCallbacks?.setAIProgress(0, selectedJurors.length);
+      
+      for (let i = 0; i < selectedJurors.length; i++) {
+        const juror = selectedJurors[i];
         const agent = this.agents.get(juror.id);
         if (agent) {
+          this.aiCallbacks?.setAIProcessing(true, `Evaluating juror ${i + 1}: ${juror.name}`);
           await agent.think('Being selected for jury duty in case: ' + this.currentCase.title);
+          this.aiCallbacks?.setAIProgress(i + 1, selectedJurors.length);
+          await this.delay(300); // Small delay to show progress
         }
       }
       
+      this.aiCallbacks?.setAIProcessing(true, 'Judge finalizing jury selection');
       await this.generateAndRecordStatement(
         this.findParticipantByRole('judge'),
         `The jury has been selected. We have ${this.settings.jurySize} jurors for this case.`
       );
+      
+      this.aiCallbacks?.setAIProcessing(false);
     }
     
     this.transitionToPhase('opening-statements');
@@ -135,11 +154,13 @@ export class ProceedingsEngine {
     if (prosecutor) {
       const agent = this.agents.get(prosecutor.id);
       if (agent) {
+        this.aiCallbacks?.setAIProcessing(true, `${prosecutor.name} preparing opening statement`);
         const thoughts = await agent.think('Preparing opening statement');
         const statement = await agent.generateStatement(
           `Opening statement for the ${this.currentCase.type} case: ${this.currentCase.summary}`
         );
         await this.generateAndRecordStatement(prosecutor, statement);
+        this.aiCallbacks?.setAIProcessing(false);
       }
     }
     
@@ -147,11 +168,13 @@ export class ProceedingsEngine {
     if (defense) {
       const agent = this.agents.get(defense.id);
       if (agent) {
+        this.aiCallbacks?.setAIProcessing(true, `${defense.name} preparing defense opening statement`);
         const thoughts = await agent.think('Preparing defense opening statement');
         const statement = await agent.generateStatement(
           `Defense opening statement for: ${this.currentCase.summary}`
         );
         await this.generateAndRecordStatement(defense, statement);
+        this.aiCallbacks?.setAIProcessing(false);
       }
     }
     
@@ -222,10 +245,12 @@ export class ProceedingsEngine {
     if (prosecutor) {
       const agent = this.agents.get(prosecutor.id);
       if (agent) {
+        this.aiCallbacks?.setAIProcessing(true, `${prosecutor.name} preparing closing argument`);
         const statement = await agent.generateStatement(
           'Closing argument summarizing the evidence and why the defendant/respondent should be found liable/guilty'
         );
         await this.generateAndRecordStatement(prosecutor, statement);
+        this.aiCallbacks?.setAIProcessing(false);
       }
     }
     
@@ -233,10 +258,12 @@ export class ProceedingsEngine {
     if (defense) {
       const agent = this.agents.get(defense.id);
       if (agent) {
+        this.aiCallbacks?.setAIProcessing(true, `${defense.name} preparing closing argument`);
         const statement = await agent.generateStatement(
           'Closing argument emphasizing reasonable doubt and why the defendant should be acquitted/found not liable'
         );
         await this.generateAndRecordStatement(defense, statement);
+        this.aiCallbacks?.setAIProcessing(false);
       }
     }
     

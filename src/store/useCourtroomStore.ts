@@ -21,6 +21,9 @@ interface CourtroomState {
   activeSpeaker: string | null;
   events: ProceedingEvent[];
   isSimulationRunning: boolean;
+  isProcessingAI: boolean;
+  currentAIOperation: string | null;
+  aiProgress: { current: number; total: number } | null;
   
   setCurrentCase: (caseData: Case) => void;
   setUserRole: (role: ParticipantRole | null) => void;
@@ -41,6 +44,9 @@ interface CourtroomState {
   processUserInput: (input: string) => void;
   triggerObjection: (type: string) => void;
   presentEvidence: (evidenceId: string) => void;
+  
+  setAIProcessing: (isProcessing: boolean, operation?: string) => void;
+  setAIProgress: (current: number, total: number) => void;
   
   saveCase: () => void;
   loadCase: (caseId: string) => void;
@@ -67,10 +73,16 @@ export const useCourtroomStore = create<CourtroomState>()(
       activeSpeaker: null,
       events: [],
       isSimulationRunning: false,
+      isProcessingAI: false,
+      currentAIOperation: null,
+      aiProgress: null,
 
       setCurrentCase: (caseData) => {
         set({ currentCase: caseData });
-        const engine = new ProceedingsEngine(caseData, get().simulationSettings);
+        const engine = new ProceedingsEngine(caseData, get().simulationSettings, {
+          setAIProcessing: get().setAIProcessing,
+          setAIProgress: get().setAIProgress,
+        });
         set({ proceedingsEngine: engine });
       },
 
@@ -138,7 +150,11 @@ export const useCourtroomStore = create<CourtroomState>()(
         if (get().proceedingsEngine && get().currentCase) {
           const newEngine = new ProceedingsEngine(
             get().currentCase!,
-            get().simulationSettings
+            get().simulationSettings,
+            {
+              setAIProcessing: get().setAIProcessing,
+              setAIProgress: get().setAIProgress,
+            }
           );
           set({ proceedingsEngine: newEngine });
         }
@@ -301,6 +317,19 @@ export const useCourtroomStore = create<CourtroomState>()(
           const caseData = JSON.parse(savedCase) as Case;
           get().setCurrentCase(caseData);
         }
+      },
+
+      setAIProcessing: (isProcessing, operation) => {
+        set({ 
+          isProcessingAI: isProcessing, 
+          currentAIOperation: operation || null 
+        });
+      },
+
+      setAIProgress: (current, total) => {
+        set({ 
+          aiProgress: { current, total } 
+        });
       },
 
       exportTranscript: () => {

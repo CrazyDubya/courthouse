@@ -9,6 +9,9 @@ export const ControlPanel: React.FC = () => {
     userRole,
     simulationSettings,
     isSimulationRunning,
+    isProcessingAI,
+    currentAIOperation,
+    aiProgress,
     setUserRole,
     updateSimulationSettings,
     startSimulation,
@@ -66,6 +69,30 @@ export const ControlPanel: React.FC = () => {
           {currentCase?.currentPhase.replace('-', ' ') || 'Not Started'}
         </p>
       </div>
+
+      {/* AI Processing Status */}
+      {isProcessingAI && (
+        <div className="mb-6 bg-blue-900/50 border border-blue-600 rounded-lg p-4">
+          <h3 className="text-lg font-semibold mb-2 text-blue-400">AI Processing</h3>
+          <div className="flex items-center space-x-2 mb-2">
+            <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-blue-400"></div>
+            <span className="text-blue-300">
+              {currentAIOperation || 'Generating AI response...'}
+            </span>
+          </div>
+          {aiProgress && (
+            <div className="w-full bg-gray-700 rounded-full h-2">
+              <div 
+                className="bg-blue-500 h-2 rounded-full transition-all duration-300"
+                style={{ width: `${(aiProgress.current / aiProgress.total) * 100}%` }}
+              ></div>
+              <p className="text-xs text-gray-400 mt-1">
+                {aiProgress.current} / {aiProgress.total}
+              </p>
+            </div>
+          )}
+        </div>
+      )}
 
       <div className="mb-6">
         <h3 className="text-lg font-semibold mb-2">Your Role</h3>
