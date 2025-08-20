@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useCourtroomStore } from '../store/useCourtroomStore';
 import { ParticipantRole, LLMProvider, ObjectionType } from '../types';
 import { motion } from 'framer-motion';
+import { OllamaInstancePanel } from './OllamaInstancePanel';
 
 export const ControlPanel: React.FC = () => {
   const {
@@ -25,6 +26,7 @@ export const ControlPanel: React.FC = () => {
 
   const [userInput, setUserInput] = useState('');
   const [selectedObjection, setSelectedObjection] = useState<ObjectionType>('relevance');
+  const [showOllamaPanel, setShowOllamaPanel] = useState(false);
 
   const availableRoles: ParticipantRole[] = [
     'judge', 'prosecutor', 'defense-attorney', 'plaintiff-attorney', 
@@ -252,7 +254,7 @@ export const ControlPanel: React.FC = () => {
         </div>
       )}
 
-      <div className="mt-6">
+      <div className="mt-6 space-y-2">
         <button
           onClick={handleExportTranscript}
           disabled={!currentCase || currentCase.transcript.length === 0}
@@ -260,7 +262,19 @@ export const ControlPanel: React.FC = () => {
         >
           Export Transcript
         </button>
+        
+        <button
+          onClick={() => setShowOllamaPanel(true)}
+          className="w-full py-2 px-4 bg-indigo-600 hover:bg-indigo-700 rounded transition-colors"
+        >
+          🤖 Manage AI Models
+        </button>
       </div>
+
+      <OllamaInstancePanel 
+        isOpen={showOllamaPanel}
+        onClose={() => setShowOllamaPanel(false)}
+      />
     </motion.div>
   );
 };
