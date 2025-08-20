@@ -1,3 +1,250 @@
-# courthouse
+# LLM Courtroom Simulator
+
+An AI-powered 3D virtual courtroom simulation that uses multiple Large Language Models (LLMs) to create realistic legal proceedings. Each participant in the courtroom is controlled by an AI agent with unique personality traits, backgrounds, and objectives.
+
+## Features
+
+### Core Capabilities
+- **3D Courtroom Environment**: Built with Three.js and React Three Fiber for immersive visualization
+- **Multi-Agent System**: Each courtroom participant is an autonomous AI agent with:
+  - Unique personality traits (assertiveness, empathy, analytical thinking, etc.)
+  - Professional background and experience
+  - Emotional states that evolve during proceedings
+  - Memory systems (short-term, long-term, working memory)
+  - Personal motivations and objectives
+
+### Legal Proceedings Simulation
+- **Complete Trial Phases**:
+  - Pre-trial proceedings
+  - Jury selection
+  - Opening statements
+  - Plaintiff/Prosecution case presentation
+  - Defense case presentation
+  - Witness examination and cross-examination
+  - Closing arguments
+  - Jury deliberation
+  - Verdict
+  - Sentencing (for criminal cases)
+
+### Evidence Management
+- Support for multiple evidence types (documents, images, videos, testimony, physical evidence)
+- Chain of custody tracking
+- Discovery process simulation
+- Privilege protection
+- Evidence admissibility determinations
+
+### Interactive Features
+- **User Role Selection**: Take control of any participant (judge, attorney, defendant, witness, jury member) or observe as all roles are AI-controlled
+- **Real-time Interventions**: Make objections, present evidence, or speak during proceedings
+- **Adjustable Simulation Settings**:
+  - Simulation speed control
+  - Auto-progress or manual phase advancement
+  - Detail level (abbreviated to full proceedings)
+  - Jury size configuration (6-12 members)
+
+### LLM Integration
+Supports multiple LLM providers for diverse AI behaviors:
+- OpenAI (GPT-4)
+- Anthropic (Claude)
+- Ollama (local models)
+- LM Studio
+- OpenRouter
+- Groq
+- Grok
+- Custom local endpoints
+
+## Installation
+
+1. Clone the repository:
+```bash
+git clone https://github.com/yourusername/llm-courtroom-simulator.git
+cd llm-courtroom-simulator
+```
+
+2. Install dependencies:
+```bash
+npm install
+```
+
+3. Configure API keys (optional, for cloud LLM providers):
+   - The application will prompt for API keys when needed
+   - Keys are stored securely in local storage
+   - Local models (Ollama, LM Studio) don't require API keys
+
+4. Start the development server:
+```bash
+npm run dev
+```
+
+5. Open your browser to `http://localhost:3000`
+
+## Usage
+
+### Quick Start
+1. Launch the application
+2. Click "Load Sample Case & Begin" to start with a pre-configured criminal case
+3. Select your role (or remain as an observer)
+4. Click "Start Simulation" to begin the proceedings
+5. Watch as AI agents conduct the trial, or intervene if you've selected a participant role
+
+### Controlling the Simulation
+- **Start/Stop/Pause**: Control simulation flow with the control panel buttons
+- **Speed Adjustment**: Use the speed slider (0.5x to 3x normal speed)
+- **Manual Progression**: Disable auto-progress to manually advance through phases
+- **User Actions** (when controlling a participant):
+  - Type statements in the input field
+  - Make objections (attorneys only)
+  - Present evidence
+  - Respond to questions
+
+### Creating Custom Cases
+The system supports custom case creation with:
+- Case type selection (criminal, civil, family, corporate, constitutional)
+- Legal system choice (common law, civil law, religious, customary, mixed)
+- Custom participant configuration
+- Evidence submission
+- Charge/claim specification
+
+## Architecture
+
+### Technology Stack
+- **Frontend**: React with TypeScript
+- **3D Graphics**: Three.js + React Three Fiber
+- **State Management**: Zustand
+- **Styling**: Tailwind CSS
+- **Animations**: Framer Motion
+- **Build Tool**: Vite
+
+### Agent System (Inspired by Microsoft TinyTroupe)
+Each agent features:
+- **Cognitive Architecture**:
+  - Thought generation before actions
+  - Action planning with confidence levels
+  - Evidence evaluation and analysis
+  - Emotional state tracking
+
+- **Memory Systems**:
+  - Short-term memory for recent events
+  - Long-term memory for persistent knowledge
+  - Working memory for current context
+  - Belief systems affecting decisions
+  - Relationship tracking with other participants
+
+- **Daily Routines**: Agents have simulated daily activities relevant to their roles (case preparation, research, client meetings, etc.)
+
+### Proceedings Engine
+The engine orchestrates the trial flow:
+- Phase management and transitions
+- Turn-taking and speaker management
+- Objection handling and rulings
+- Evidence presentation
+- Sidebar conferences
+- Transcript recording
+
+## Configuration
+
+### LLM Provider Setup
+Each participant can use a different LLM provider. Configure in the settings:
+
+```javascript
+{
+  provider: 'openai',
+  model: 'gpt-4-turbo-preview',
+  apiKey: 'your-api-key',
+  temperature: 0.7,
+  maxTokens: 1000
+}
+```
+
+### Local Model Setup (Ollama)
+1. Install Ollama: https://ollama.ai
+2. Pull a model: `ollama pull llama2`
+3. The simulator will automatically detect and use local Ollama models
+
+### Simulation Settings
+```javascript
+{
+  realtimeSpeed: 1,          // 1x normal speed
+  autoProgress: true,         // Automatic phase advancement
+  detailLevel: 'standard',   // abbreviated/standard/detailed/full
+  enableObjections: true,     // Allow AI objections
+  enableSidebar: true,        // Enable sidebar conferences
+  jurySize: 6,               // 6-12 jury members
+  allowUserIntervention: true // Allow user to interrupt
+}
+```
+
+## Development
+
+### Project Structure
+```
+src/
+├── components/        # React components
+│   ├── Courtroom3D.tsx
+│   ├── ControlPanel.tsx
+│   └── TranscriptViewer.tsx
+├── services/         # Core services
+│   ├── agents/       # Agent system
+│   ├── llm/          # LLM providers
+│   └── ProceedingsEngine.ts
+├── store/            # State management
+├── types/            # TypeScript definitions
+└── utils/            # Utilities
+```
+
+### Adding New LLM Providers
+1. Extend `BaseLLMProvider` class
+2. Implement `generateResponse()` and `validateConfig()`
+3. Register in `LLMProviderFactory`
+
+### Customizing Agent Behaviors
+Modify agent personalities and behaviors in `CourtroomAgent.ts`:
+- Adjust personality trait ranges
+- Modify emotional response patterns
+- Customize role-specific behaviors
+- Add new memory types or cognitive functions
+
+## Future Enhancements
+
+### Planned Features
+- **Advanced Evidence Handling**:
+  - Real document parsing (PDFs, images)
+  - Video evidence playback with timestamp citations
+  - Automated evidence analysis and relevance scoring
+
+- **Enhanced Realism**:
+  - Procedural rule enforcement
+  - Case law citations
+  - Legal precedent consideration
+  - Jurisdiction-specific procedures
+
+- **Multi-case Support**:
+  - Case templates library
+  - Historical case replay
+  - Comparative case analysis
+
+- **Training Mode**:
+  - Law student practice scenarios
+  - Performance evaluation
+  - Feedback and scoring systems
+
+- **Collaboration Features**:
+  - Multi-user support
+  - Real-time collaboration
+  - Remote participation
+
+## Contributing
+Contributions are welcome! Please feel free to submit pull requests or open issues for bugs and feature requests.
+
+## License
+MIT License - see LICENSE file for details
+
+## Acknowledgments
+- Inspired by Microsoft TinyTroupe for agent simulation concepts
+- Three.js community for 3D rendering capabilities
+- OpenAI, Anthropic, and other LLM providers for AI capabilities
+
+## Support
+For issues, questions, or suggestions, please open an issue on GitHub or contact the development team.
 
 This repository was initialized by Terragon.
