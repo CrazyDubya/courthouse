@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Courthouse Simulator - LLM Powered Mock Courtroom</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #1a1a1a;
+            color: #ffffff;
+            overflow: hidden;
+        }
+
+        #app {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+        }
+
+        #courtroom-container {
+            flex: 1;
+            position: relative;
+        }
+
+        #courtroom-canvas {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        #ui-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 100;
+        }
+
+        .ui-panel {
+            position: absolute;
+            background: rgba(0, 0, 0, 0.8);
+            border: 1px solid #444;
+            border-radius: 8px;
+            padding: 15px;
+            pointer-events: all;
+            backdrop-filter: blur(5px);
+        }
+
+        #control-panel {
+            top: 20px;
+            right: 20px;
+            width: 300px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        #case-info {
+            top: 20px;
+            left: 20px;
+            width: 350px;
+            max-height: 50vh;
+            overflow-y: auto;
+        }
+
+        #action-log {
+            bottom: 20px;
+            left: 20px;
+            width: 400px;
+            height: 300px;
+            overflow-y: auto;
+        }
+
+        #character-status {
+            bottom: 20px;
+            right: 20px;
+            width: 300px;
+            height: 200px;
+            overflow-y: auto;
+        }
+
+        .panel-title {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #4CAF50;
+            border-bottom: 1px solid #444;
+            padding-bottom: 5px;
+        }
+
+        .button {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px 5px 5px 0;
+            font-size: 14px;
+            transition: background 0.3s;
+        }
+
+        .button:hover {
+            background: #45a049;
+        }
+
+        .button:disabled {
+            background: #666;
+            cursor: not-allowed;
+        }
+
+        .button.secondary {
+            background: #2196F3;
+        }
+
+        .button.secondary:hover {
+            background: #1976D2;
+        }
+
+        .button.danger {
+            background: #f44336;
+        }
+
+        .button.danger:hover {
+            background: #d32f2f;
+        }
+
+        .select, .input {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0;
+            border: 1px solid #444;
+            border-radius: 4px;
+            background: #333;
+            color: white;
+            font-size: 14px;
+        }
+
+        .action-item {
+            padding: 8px;
+            margin: 5px 0;
+            border-left: 3px solid #4CAF50;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 0 4px 4px 0;
+            font-size: 13px;
+        }
+
+        .action-item .timestamp {
+            color: #888;
+            font-size: 11px;
+        }
+
+        .action-item .role {
+            color: #4CAF50;
+            font-weight: bold;
+        }
+
+        .character-card {
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #444;
+            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .character-name {
+            font-weight: bold;
+            color: #4CAF50;
+        }
+
+        .character-role {
+            color: #888;
+            font-size: 12px;
+        }
+
+        .character-status {
+            color: #4CAF50;
+            font-size: 11px;
+        }
+
+        .phase-indicator {
+            text-align: center;
+            padding: 10px;
+            background: #4CAF50;
+            color: white;
+            font-weight: bold;
+            margin-bottom: 15px;
+            border-radius: 4px;
+        }
+
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background: #2a2a2a;
+            padding: 30px;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .loading-spinner {
+            border: 3px solid #444;
+            border-top: 3px solid #4CAF50;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            animation: spin 1s linear infinite;
+            display: inline-block;
+            margin-right: 10px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .form-group {
+            margin: 15px 0;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #ccc;
+        }
+
+        .checkbox-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 10px 0;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .checkbox-item input[type="checkbox"] {
+            margin: 0;
+        }
+
+        .evidence-item {
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #444;
+            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .evidence-title {
+            font-weight: bold;
+            color: #4CAF50;
+        }
+
+        .evidence-type {
+            color: #888;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div id="courtroom-container">
+            <canvas id="courtroom-canvas"></canvas>
+            
+            <div id="ui-overlay">
+                <!-- Case Information Panel -->
+                <div id="case-info" class="ui-panel">
+                    <div class="panel-title">Case Information</div>
+                    <div id="case-details">
+                        <p><strong>Title:</strong> <span id="case-title">No case loaded</span></p>
+                        <p><strong>Type:</strong> <span id="case-type">-</span></p>
+                        <p><strong>Status:</strong> <span id="case-status">-</span></p>
+                        <p><strong>Description:</strong></p>
+                        <div id="case-description">No case loaded</div>
+                    </div>
+                </div>
+
+                <!-- Control Panel -->
+                <div id="control-panel" class="ui-panel">
+                    <div class="panel-title">Simulation Control</div>
+                    
+                    <div class="phase-indicator" id="current-phase">
+                        Not Started
+                    </div>
+
+                    <div class="form-group">
+                        <button class="button" id="new-case-btn">New Case</button>
+                        <button class="button secondary" id="load-case-btn">Load Case</button>
+                    </div>
+
+                    <div class="form-group">
+                        <button class="button" id="start-simulation-btn" disabled>Start Simulation</button>
+                        <button class="button secondary" id="pause-simulation-btn" disabled>Pause</button>
+                    </div>
+
+                    <div class="form-group">
+                        <button class="button secondary" id="sidebar-btn" disabled>Request Sidebar</button>
+                        <button class="button secondary" id="objection-btn" disabled>Object</button>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Simulation Speed:</label>
+                        <input type="range" id="speed-slider" min="1" max="10" value="5" class="input">
+                    </div>
+
+                    <div class="form-group">
+                        <button class="button" id="llm-config-btn">Configure LLM</button>
+                        <button class="button secondary" id="settings-btn">Settings</button>
+                    </div>
+                </div>
+
+                <!-- Action Log -->
+                <div id="action-log" class="ui-panel">
+                    <div class="panel-title">Action Log</div>
+                    <div id="action-list">
+                        <p style="color: #888; text-align: center;">No actions yet...</p>
+                    </div>
+                </div>
+
+                <!-- Character Status -->
+                <div id="character-status" class="ui-panel">
+                    <div class="panel-title">Active Characters</div>
+                    <div id="character-list">
+                        <p style="color: #888; text-align: center;">No characters loaded...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- New Case Modal -->
+    <div id="new-case-modal" class="modal">
+        <div class="modal-content">
+            <h2>Create New Case</h2>
+            <form id="new-case-form">
+                <div class="form-group">
+                    <label for="case-title-input">Case Title:</label>
+                    <input type="text" id="case-title-input" class="input" placeholder="e.g., State v. Johnson" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="case-type-select">Case Type:</label>
+                    <select id="case-type-select" class="select" required>
+                        <option value="">Select case type...</option>
+                        <option value="criminal">Criminal</option>
+                        <option value="civil">Civil</option>
+                        <option value="family">Family</option>
+                        <option value="corporate">Corporate</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="legal-system-select">Legal System:</label>
+                    <select id="legal-system-select" class="select" required>
+                        <option value="">Select legal system...</option>
+                        <option value="common_law">Common Law</option>
+                        <option value="civil_law">Civil Law</option>
+                        <option value="criminal">Criminal</option>
+                        <option value="family">Family</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="case-desc-input">Description:</label>
+                    <textarea id="case-desc-input" class="input" rows="4" placeholder="Brief description of the case..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>User Controlled Roles:</label>
+                    <div class="checkbox-group" id="user-roles-checkboxes">
+                        <!-- Will be populated dynamically -->
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="jury-size-input">Jury Size:</label>
+                    <input type="number" id="jury-size-input" class="input" min="6" max="12" value="6">
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" class="button">Create Case</button>
+                    <button type="button" class="button secondary" id="cancel-new-case">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- LLM Configuration Modal -->
+    <div id="llm-config-modal" class="modal">
+        <div class="modal-content">
+            <h2>LLM Configuration</h2>
+            <form id="llm-config-form">
+                <div class="form-group">
+                    <label for="llm-provider-select">Provider:</label>
+                    <select id="llm-provider-select" class="select" required>
+                        <option value="openai">OpenAI</option>
+                        <option value="anthropic">Anthropic</option>
+                        <option value="ollama">Ollama</option>
+                        <option value="local_compatible">Local Compatible</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="llm-model-input">Model:</label>
+                    <input type="text" id="llm-model-input" class="input" placeholder="e.g., gpt-4, claude-3-sonnet">
+                </div>
+
+                <div class="form-group">
+                    <label for="llm-api-key-input">API Key:</label>
+                    <input type="password" id="llm-api-key-input" class="input" placeholder="Your API key (stored locally)">
+                </div>
+
+                <div class="form-group">
+                    <label for="llm-base-url-input">Base URL (for local/custom providers):</label>
+                    <input type="text" id="llm-base-url-input" class="input" placeholder="http://localhost:1234">
+                </div>
+
+                <div class="form-group">
+                    <label for="llm-temperature-input">Temperature:</label>
+                    <input type="range" id="llm-temperature-input" class="input" min="0" max="1" step="0.1" value="0.7">
+                    <span id="temperature-value">0.7</span>
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" class="button">Save Configuration</button>
+                    <button type="button" class="button secondary" id="cancel-llm-config">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Settings Modal -->
+    <div id="settings-modal" class="modal">
+        <div class="modal-content">
+            <h2>Simulation Settings</h2>
+            <form id="settings-form">
+                <div class="form-group">
+                    <label for="simulation-depth-select">Simulation Depth:</label>
+                    <select id="simulation-depth-select" class="select">
+                        <option value="abbreviated">Abbreviated</option>
+                        <option value="standard" selected>Standard</option>
+                        <option value="full">Full</option>
+                        <option value="custom">Custom</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" id="allow-objections"> Allow Objections
+                    </label>
+                </div>
+
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" id="allow-sidebars"> Allow Sidebars
+                    </label>
+                </div>
+
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" id="include-pretrial"> Include Pre-trial
+                    </label>
+                </div>
+
+                <div class="form-group">
+                    <label for="evidence-video-length">Evidence Video Length (seconds):</label>
+                    <input type="number" id="evidence-video-length" class="input" min="1" max="60" value="5">
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" class="button">Save Settings</button>
+                    <button type="button" class="button secondary" id="cancel-settings">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script type="module" src="./main.ts"></script>
+</body>
+</html>
