@@ -1,0 +1,47 @@
+{
+    "case_number": "CASE-001",
+    "title": "State v. Mark Jensen",
+    "summary": "Mark Jensen is accused of embezzling funds from his employer, Acme Corporation. The prosecution alleges that Mr. Jensen diverted company funds to a personal account over a period of two years. The defense argues that Mr. Jensen was framed by a disgruntled colleague.",
+    "legal_system": "US State - California",
+    "plaintiff": {
+        "name": "State of California",
+        "lawyer": "Ms. Adler"
+    },
+    "defendant": {
+        "name": "Mark Jensen",
+        "lawyer": "Mr. Faye"
+    },
+    "evidence": [
+        {
+            "id": "EVID-001",
+            "type": "text",
+            "title": "Bank Statements",
+            "description": "Bank statements from the defendant's personal account showing large, regular deposits.",
+            "file": "evidence/case-001/bank_statements.txt"
+        },
+        {
+            "id": "EVID-002",
+            "type": "text",
+            "title": "Internal Audit Report",
+            "description": "An internal audit report from Acme Corporation detailing the missing funds.",
+            "file": "evidence/case-001/audit_report.txt"
+        },
+        {
+            "id": "EVID-003",
+            "type": "image",
+            "title": "Security Camera Footage Still",
+            "description": "A still image from a security camera showing the defendant using an unauthorized computer terminal.",
+            "file": "evidence/case-001/security_still.jpg"
+        }
+    ],
+    "witnesses": [
+        {
+            "name": "Dr. Evelyn Reed",
+            "bio": "A forensic accountant who reviewed the financial records for the prosecution."
+        },
+        {
+            "name": "Mr. Samuel Jones",
+            "bio": "A former colleague of the defendant who will testify for the defense."
+        }
+    ]
+}

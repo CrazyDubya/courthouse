@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mock Courtroom</title>
+    <style>
+        body { margin: 0; font-family: sans-serif; }
+        canvas { display: block; }
+        #ui-container {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        #dialogue-container {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            right: 10px;
+            height: 150px;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-y: scroll;
+        }
+        .dialogue-message {
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div id="ui-container">
+        <h3>Choose Your Role</h3>
+        <button id="role-prosecutor">Play as Prosecutor (Ms. Adler)</button>
+        <button id="role-defense">Play as Defense (Mr. Faye)</button>
+        <button id="role-spectator">Spectator</button>
+        <hr>
+        <div id="input-container" style="display: none;">
+            <h3>Your Turn</h3>
+            <input type="text" id="user-input" size="50" placeholder="Enter your statement...">
+            <button id="send-button">Send</button>
+        </div>
+    </div>
+
+    <div id="dialogue-container">
+        <div id="dialogue"></div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>
