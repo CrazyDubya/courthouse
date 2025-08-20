@@ -1,0 +1,15 @@
+{
+  "name": "courthouse",
+  "version": "0.1.0",
+  "type": "module",
+  "description": "LLM-powered mock courtroom simulator",
+  "scripts": {
+    "start": "node src/mockcourt.js",
+    "test": "echo 'No tests specified'"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "openai": "^4.0.0",
+    "three": "^0.160.0"
+  }
+}
