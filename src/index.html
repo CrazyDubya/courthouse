@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LLM Courtroom Simulator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: #333;
+            overflow: hidden;
+        }
+        
+        #app {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+        }
+        
+        #canvas-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        
+        #ui-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 100;
+        }
+        
+        .ui-panel {
+            pointer-events: auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+        }
+        
+        #control-panel {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            width: 300px;
+            max-height: 80vh;
+            overflow-y: auto;
+            padding: 20px;
+        }
+        
+        #case-panel {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 350px;
+            max-height: 80vh;
+            overflow-y: auto;
+            padding: 20px;
+        }
+        
+        #chat-panel {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            width: 400px;
+            height: 300px;
+            padding: 20px;
+        }
+        
+        .panel-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #1e3c72;
+            border-bottom: 2px solid #2a5298;
+            padding-bottom: 8px;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        
+        .form-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+        
+        .btn {
+            background: linear-gradient(135deg, #2a5298 0%, #1e3c72 100%);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(42, 82, 152, 0.4);
+        }
+        
+        .btn-secondary {
+            background: linear-gradient(135deg, #6c757d 0%, #495057 100%);
+        }
+        
+        .btn-danger {
+            background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+        }
+        
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .status-indicator {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+        
+        .status-active {
+            background-color: #28a745;
+        }
+        
+        .status-inactive {
+            background-color: #dc3545;
+        }
+        
+        .status-pending {
+            background-color: #ffc107;
+        }
+        
+        #chat-messages {
+            height: 200px;
+            overflow-y: auto;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 10px;
+            margin-bottom: 15px;
+            background: white;
+        }
+        
+        .chat-message {
+            margin-bottom: 10px;
+            padding: 8px;
+            border-radius: 4px;
+            background: #f8f9fa;
+            border-left: 3px solid #2a5298;
+        }
+        
+        .chat-message .sender {
+            font-weight: bold;
+            color: #2a5298;
+            margin-bottom: 5px;
+        }
+        
+        .chat-message .content {
+            color: #555;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .loading {
+            opacity: 0.6;
+            pointer-events: none;
+        }
+        
+        .spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #2a5298;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            animation: spin 1s linear infinite;
+            display: inline-block;
+            margin-right: 10px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div id="canvas-container"></div>
+        
+        <div id="ui-overlay">
+            <!-- Control Panel -->
+            <div id="control-panel" class="ui-panel">
+                <div class="panel-title">Courtroom Controls</div>
+                
+                <div class="form-group">
+                    <label>Simulation Mode:</label>
+                    <select id="simulation-mode">
+                        <option value="full">Full Simulation</option>
+                        <option value="abbreviated">Abbreviated</option>
+                        <option value="guided">User Guided</option>
+                        <option value="custom">Custom</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label>Legal System:</label>
+                    <select id="legal-system">
+                        <option value="us-federal">US Federal</option>
+                        <option value="us-state">US State</option>
+                        <option value="uk">UK Common Law</option>
+                        <option value="civil-law">Civil Law</option>
+                        <option value="international">International</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label>Jury Size:</label>
+                    <select id="jury-size">
+                        <option value="6">6 Jurors</option>
+                        <option value="8">8 Jurors</option>
+                        <option value="12">12 Jurors</option>
+                        <option value="0">No Jury (Bench Trial)</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label>Witnesses:</label>
+                    <select id="witness-toggle">
+                        <option value="on">Witnesses Enabled</option>
+                        <option value="off">Witnesses Disabled</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <button id="start-simulation" class="btn">Start Simulation</button>
+                    <button id="pause-simulation" class="btn btn-secondary" disabled>Pause</button>
+                    <button id="reset-simulation" class="btn btn-danger">Reset</button>
+                </div>
+                
+                <div class="form-group">
+                    <label>Camera Controls:</label>
+                    <div class="btn-group">
+                        <button id="camera-judge" class="btn btn-secondary">Judge View</button>
+                        <button id="camera-jury" class="btn btn-secondary">Jury View</button>
+                        <button id="camera-counsel" class="btn btn-secondary">Counsel View</button>
+                        <button id="camera-witness" class="btn btn-secondary">Witness View</button>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>AI Engine:</label>
+                    <select id="ai-engine">
+                        <option value="openai">OpenAI</option>
+                        <option value="anthropic">Anthropic</option>
+                        <option value="ollama">Ollama (Local)</option>
+                        <option value="lmstudio">LM Studio</option>
+                        <option value="openrouter">OpenRouter</option>
+                        <option value="grok">Grok</option>
+                        <option value="groq">Groq</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <button id="configure-ai" class="btn btn-secondary">Configure AI</button>
+                </div>
+            </div>
+            
+            <!-- Case Panel -->
+            <div id="case-panel" class="ui-panel">
+                <div class="panel-title">Case Information</div>
+                
+                <div class="form-group">
+                    <label>Case Title:</label>
+                    <input type="text" id="case-title" placeholder="Enter case title...">
+                </div>
+                
+                <div class="form-group">
+                    <label>Case Type:</label>
+                    <select id="case-type">
+                        <option value="criminal">Criminal</option>
+                        <option value="civil">Civil</option>
+                        <option value="family">Family Law</option>
+                        <option value="corporate">Corporate</option>
+                        <option value="constitutional">Constitutional</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label>Case Summary:</label>
+                    <textarea id="case-summary" placeholder="Enter case summary..."></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label>Evidence Files:</label>
+                    <input type="file" id="evidence-files" multiple accept=".pdf,.txt,.jpg,.jpeg,.png,.mp4,.avi,.mov">
+                    <button id="upload-evidence" class="btn btn-secondary">Upload Evidence</button>
+                </div>
+                
+                <div class="form-group">
+                    <label>Witness List:</label>
+                    <textarea id="witness-list" placeholder="Enter witness names and roles..."></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <button id="generate-case" class="btn">Generate Case</button>
+                    <button id="load-case" class="btn btn-secondary">Load Case</button>
+                </div>
+                
+                <div class="form-group">
+                    <div class="panel-title">Case Status</div>
+                    <div id="case-status">
+                        <div><span class="status-indicator status-inactive"></span>Case Not Started</div>
+                        <div><span class="status-indicator status-inactive"></span>Evidence: 0 files</div>
+                        <div><span class="status-indicator status-inactive"></span>Witnesses: 0</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Chat Panel -->
+            <div id="chat-panel" class="ui-panel">
+                <div class="panel-title">Courtroom Chat</div>
+                
+                <div id="chat-messages"></div>
+                
+                <div class="form-group">
+                    <input type="text" id="chat-input" placeholder="Type your message...">
+                    <button id="send-chat" class="btn">Send</button>
+                </div>
+                
+                <div class="form-group">
+                    <button id="clear-chat" class="btn btn-secondary">Clear Chat</button>
+                    <button id="export-chat" class="btn btn-secondary">Export</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script type="module" src="index.js"></script>
+</body>
+</html>
