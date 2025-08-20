@@ -51,7 +51,7 @@ function App() {
         llmProvider: {
           provider: 'ollama',
           model: 'llama3:latest',
-          baseUrl: 'http://localhost:11434',
+          endpoint: 'http://localhost:11434',
           temperature: 0.7
         },
         personality: {
@@ -82,8 +82,8 @@ function App() {
         aiControlled: true,
         llmProvider: {
           provider: 'ollama',
-          model: 'llama3:latest',
-          baseUrl: 'http://localhost:11434',
+          model: 'mistral:7b',
+          endpoint: 'http://localhost:11435',
           temperature: 0.8
         },
         personality: {
@@ -114,8 +114,8 @@ function App() {
         aiControlled: true,
         llmProvider: {
           provider: 'ollama',
-          model: 'llama3:latest',
-          baseUrl: 'http://localhost:11434',
+          model: 'mistral:7b',
+          endpoint: 'http://localhost:11435',
           temperature: 0.8
         },
         personality: {
@@ -146,8 +146,8 @@ function App() {
         aiControlled: true,
         llmProvider: {
           provider: 'ollama',
-          model: 'qwen2.5:3b',
-          baseUrl: 'http://localhost:11434',
+          model: 'gemma2:9b',
+          endpoint: 'http://localhost:11436',
           temperature: 0.6
         },
         personality: {
@@ -238,8 +238,8 @@ function App() {
         aiControlled: true,
         llmProvider: {
           provider: 'ollama',
-          model: i < 3 ? 'llama3.2:3b' : 'smollm2:1.7b', // Use different models for variety
-          baseUrl: 'http://localhost:11434',
+          model: i < 3 ? 'llama3.2:3b' : 'smollm2:1.7b',
+          endpoint: 'http://localhost:11437',
           temperature: 0.5
         },
         personality: {

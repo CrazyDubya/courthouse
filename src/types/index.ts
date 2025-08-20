@@ -61,7 +61,7 @@ export interface Participant {
   name: string;
   role: ParticipantRole;
   aiControlled: boolean;
-  llmProvider?: LLMProvider;
+  llmProvider?: LLMConfig;
   personality: PersonalityTraits;
   background: Background;
   currentMood: number;

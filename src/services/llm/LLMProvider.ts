@@ -1,7 +1,9 @@
-import { LLMConfig, LLMProvider as LLMProviderType } from '../../types';
+import { LLMConfig, LLMProvider as LLMProviderType, ParticipantRole } from '../../types';
 import OpenAI from 'openai';
 import { Ollama } from 'ollama';
 import axios from 'axios';
+import { ollamaInstanceManager, OllamaInstance } from '../OllamaInstanceManager';
+import { performanceMonitor } from '../PerformanceMonitor';
 
 export interface LLMMessage {
   role: 'system' | 'user' | 'assistant';
@@ -19,9 +21,11 @@ export interface LLMResponse {
 
 export abstract class BaseLLMProvider {
   protected config: LLMConfig;
+  protected participantRole?: ParticipantRole;
 
-  constructor(config: LLMConfig) {
+  constructor(config: LLMConfig, participantRole?: ParticipantRole) {
     this.config = config;
+    this.participantRole = participantRole;
   }
 
   abstract generateResponse(messages: LLMMessage[]): Promise<LLMResponse>;
@@ -31,8 +35,8 @@ export abstract class BaseLLMProvider {
 export class OpenAIProvider extends BaseLLMProvider {
   private client: OpenAI;
 
-  constructor(config: LLMConfig) {
-    super(config);
+  constructor(config: LLMConfig, participantRole?: ParticipantRole) {
+    super(config, participantRole);
     this.client = new OpenAI({
       apiKey: config.apiKey || process.env.OPENAI_API_KEY,
       dangerouslyAllowBrowser: true
@@ -76,8 +80,8 @@ export class AnthropicProvider extends BaseLLMProvider {
   private apiKey: string;
   private baseURL = 'https://api.anthropic.com/v1';
 
-  constructor(config: LLMConfig) {
-    super(config);
+  constructor(config: LLMConfig, participantRole?: ParticipantRole) {
+    super(config, participantRole);
     this.apiKey = config.apiKey || process.env.ANTHROPIC_API_KEY || '';
   }
 
@@ -134,21 +138,43 @@ export class AnthropicProvider extends BaseLLMProvider {
 }
 
 export class OllamaProvider extends BaseLLMProvider {
+  private instance: OllamaInstance | null = null;
   private client: Ollama;
 
-  constructor(config: LLMConfig) {
-    super(config);
-    this.client = new Ollama({
-      host: config.endpoint || 'http://localhost:11434',
-    });
+  constructor(config: LLMConfig, participantRole?: ParticipantRole) {
+    super(config, participantRole);
+    
+    // If participant role is provided, get the appropriate instance
+    if (participantRole) {
+      this.instance = ollamaInstanceManager.getInstanceForRole(participantRole);
+      if (this.instance) {
+        this.client = this.instance.client;
+        console.log(`🎯 Assigned ${participantRole} to Ollama instance: ${this.instance.model} on port ${this.instance.port}`);
+      } else {
+        console.warn(`⚠️ No instance available for role ${participantRole}, using default`);
+        this.client = new Ollama({
+          host: config.endpoint || 'http://localhost:11434',
+        });
+      }
+    } else {
+      // Fallback to config endpoint or default
+      this.client = new Ollama({
+        host: config.endpoint || 'http://localhost:11434',
+      });
+    }
   }
 
   async generateResponse(messages: LLMMessage[]): Promise<LLMResponse> {
+    const startTime = Date.now();
+    const modelToUse = this.instance?.model || this.config.model || 'llama3:latest';
+    const instanceId = this.instance?.id || 'default';
+    const port = this.instance?.port || 11434;
+
     try {
       const prompt = messages.map(m => `${m.role}: ${m.content}`).join('\\n');
       
       const response = await this.client.generate({
-        model: this.config.model || 'llama2',
+        model: modelToUse,
         prompt: prompt,
         options: {
           temperature: this.config.temperature || 0.7,
@@ -156,11 +182,32 @@ export class OllamaProvider extends BaseLLMProvider {
         },
       });
 
+      // Record successful response
+      performanceMonitor.recordResponse(instanceId, modelToUse, port, startTime);
+
       return {
         content: response.response,
       };
     } catch (error) {
-      console.error('Ollama API error:', error);
+      console.error(`Ollama API error (${modelToUse}):`, error);
+      
+      // Record error
+      performanceMonitor.recordError(instanceId, modelToUse, port, startTime);
+      
+      // If this instance failed, try to get a fallback
+      if (this.participantRole && this.instance) {
+        console.log(`🔄 Attempting fallback for role ${this.participantRole}...`);
+        const fallbackInstance = ollamaInstanceManager.getInstanceForRole(this.participantRole);
+        if (fallbackInstance && fallbackInstance.id !== this.instance.id) {
+          this.instance = fallbackInstance;
+          this.client = fallbackInstance.client;
+          console.log(`🔄 Switched to fallback instance: ${fallbackInstance.model} on port ${fallbackInstance.port}`);
+          
+          // Retry with fallback (this will create a new performance record)
+          return await this.generateResponse(messages);
+        }
+      }
+      
       throw error;
     }
   }
@@ -173,14 +220,26 @@ export class OllamaProvider extends BaseLLMProvider {
       return false;
     }
   }
+
+  public getAssignedInstance(): OllamaInstance | null {
+    return this.instance;
+  }
+
+  public getCurrentModel(): string {
+    return this.instance?.model || this.config.model || 'llama3:latest';
+  }
+
+  public getCurrentEndpoint(): string {
+    return this.instance?.endpoint || this.config.endpoint || 'http://localhost:11434';
+  }
 }
 
 export class OpenRouterProvider extends BaseLLMProvider {
   private apiKey: string;
   private baseURL = 'https://openrouter.ai/api/v1';
 
-  constructor(config: LLMConfig) {
-    super(config);
+  constructor(config: LLMConfig, participantRole?: ParticipantRole) {
+    super(config, participantRole);
     this.apiKey = config.apiKey || process.env.OPENROUTER_API_KEY || '';
   }
 
@@ -236,8 +295,8 @@ export class GroqProvider extends BaseLLMProvider {
   private apiKey: string;
   private baseURL = 'https://api.groq.com/openai/v1';
 
-  constructor(config: LLMConfig) {
-    super(config);
+  constructor(config: LLMConfig, participantRole?: ParticipantRole) {
+    super(config, participantRole);
     this.apiKey = config.apiKey || process.env.GROQ_API_KEY || '';
   }
 
@@ -288,20 +347,32 @@ export class GroqProvider extends BaseLLMProvider {
 }
 
 export class LLMProviderFactory {
-  static create(config: LLMConfig): BaseLLMProvider {
+  static create(config: LLMConfig, participantRole?: ParticipantRole): BaseLLMProvider {
     switch (config.provider) {
       case 'openai':
-        return new OpenAIProvider(config);
+        return new OpenAIProvider(config, participantRole);
       case 'anthropic':
-        return new AnthropicProvider(config);
+        return new AnthropicProvider(config, participantRole);
       case 'ollama':
-        return new OllamaProvider(config);
+        return new OllamaProvider(config, participantRole);
       case 'openrouter':
-        return new OpenRouterProvider(config);
+        return new OpenRouterProvider(config, participantRole);
       case 'groq':
-        return new GroqProvider(config);
+        return new GroqProvider(config, participantRole);
       default:
         throw new Error(`Unsupported LLM provider: ${config.provider}`);
     }
+  }
+
+  static createForRole(role: ParticipantRole, config?: Partial<LLMConfig>): BaseLLMProvider {
+    const defaultConfig: LLMConfig = {
+      provider: 'ollama',
+      model: 'llama3:latest',
+      temperature: 0.7,
+      maxTokens: 1000,
+      ...config
+    };
+
+    return this.create(defaultConfig, role);
   }
 }

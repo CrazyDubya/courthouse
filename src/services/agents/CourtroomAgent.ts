@@ -23,7 +23,7 @@ export class CourtroomAgent {
   constructor(participant: Participant) {
     this.participant = participant;
     this.llmProvider = participant.aiControlled && participant.llmProvider 
-      ? LLMProviderFactory.create(participant.llmProvider)
+      ? LLMProviderFactory.create(participant.llmProvider, participant.role)
       : null;
     
     this.memory = {
