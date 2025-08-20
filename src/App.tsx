@@ -48,6 +48,12 @@ function App() {
         name: 'Hon. Sarah Mitchell',
         role: 'judge',
         aiControlled: true,
+        llmProvider: {
+          provider: 'ollama',
+          model: 'llama3:latest',
+          baseUrl: 'http://localhost:11434',
+          temperature: 0.7
+        },
         personality: {
           assertiveness: 8,
           empathy: 6,
@@ -74,6 +80,12 @@ function App() {
         name: 'David Chen',
         role: 'prosecutor',
         aiControlled: true,
+        llmProvider: {
+          provider: 'ollama',
+          model: 'mistral:7b',
+          baseUrl: 'http://localhost:11434',
+          temperature: 0.8
+        },
         personality: {
           assertiveness: 9,
           empathy: 4,
@@ -100,6 +112,12 @@ function App() {
         name: 'Maria Rodriguez',
         role: 'defense-attorney',
         aiControlled: true,
+        llmProvider: {
+          provider: 'ollama',
+          model: 'gemma2:9b',
+          baseUrl: 'http://localhost:11434',
+          temperature: 0.8
+        },
         personality: {
           assertiveness: 8,
           empathy: 7,
@@ -126,6 +144,12 @@ function App() {
         name: 'Michael Johnson',
         role: 'defendant',
         aiControlled: true,
+        llmProvider: {
+          provider: 'ollama',
+          model: 'qwen2.5:3b',
+          baseUrl: 'http://localhost:11434',
+          temperature: 0.6
+        },
         personality: {
           assertiveness: 4,
           empathy: 6,
@@ -212,6 +236,12 @@ function App() {
         name: names[i] || `Juror ${i + 1}`,
         role: 'jury-member',
         aiControlled: true,
+        llmProvider: {
+          provider: 'ollama',
+          model: i < 3 ? 'llama3.2:3b' : 'smollm2:1.7b', // Use different models for variety
+          baseUrl: 'http://localhost:11434',
+          temperature: 0.5
+        },
         personality: {
           assertiveness: Math.random() * 10,
           empathy: Math.random() * 10,
