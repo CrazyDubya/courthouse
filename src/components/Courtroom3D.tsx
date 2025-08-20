@@ -133,17 +133,7 @@ const CharacterModel: React.FC<{ participant: Participant; position: [number, nu
       <Box args={[0.3, 0.3, 0.3]} position={[0, 1.8, 0]}>
         <meshStandardMaterial color="#FDB5A7" />
       </Box>
-      <Center position={[0, 2.3, 0]}>
-        <Text3D
-          font="/fonts/helvetiker_regular.typeface.json"
-          size={0.1}
-          height={0.01}
-          curveSegments={12}
-        >
-          {participant.name}
-          <meshStandardMaterial color="white" />
-        </Text3D>
-      </Center>
+      {/* Text label removed to prevent font loading issues */}
     </group>
   );
 };
@@ -181,7 +171,7 @@ export const Courtroom3D: React.FC<Props> = ({ participants, activeSpeaker }) =>
         <pointLight position={[0, 5, 0]} intensity={0.5} />
         
         <Suspense fallback={null}>
-          <Environment preset="city" />
+          {/* Environment removed to prevent HDR loading issues */}
           
           <Plane args={[30, 30]} rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, 0]} receiveShadow>
             <meshStandardMaterial color="#8B7355" />
