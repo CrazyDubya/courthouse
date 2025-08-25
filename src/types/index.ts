@@ -16,17 +16,26 @@ export type ParticipantRole =
   | 'observer';
 
 export type ProceedingPhase = 
+  | 'case-preparation'
   | 'pre-trial'
   | 'jury-selection'
   | 'opening-statements'
   | 'plaintiff-case'
   | 'defense-case'
-  | 'witness-examination'
-  | 'cross-examination'
   | 'closing-arguments'
   | 'jury-deliberation'
   | 'verdict'
   | 'sentencing';
+
+export type Location = 
+  | 'courtroom' 
+  | 'prosecutor-office' 
+  | 'defense-office' 
+  | 'plaintiff-office' 
+  | 'judge-chambers' 
+  | 'witness-room' 
+  | 'jury-room'
+  | 'courthouse-lobby';
 
 export type EvidenceType = 'document' | 'image' | 'video' | 'audio' | 'physical' | 'testimony';
 
@@ -67,6 +76,9 @@ export interface Participant {
   currentMood: number;
   knowledge: string[];
   objectives: string[];
+  enhancedProfile?: any; // Enhanced judge profile when role is 'judge'
+  currentLocation: Location;
+  isPresent: boolean; // Present in courtroom
 }
 
 export interface PersonalityTraits {
@@ -102,6 +114,50 @@ export interface Case {
   currentPhase: ProceedingPhase;
   transcript: TranscriptEntry[];
   rulings: Ruling[];
+}
+
+export type WorkType = 
+  | 'research' 
+  | 'witness-prep' 
+  | 'motion-drafting' 
+  | 'evidence-review' 
+  | 'strategy-session'
+  | 'client-meeting'
+  | 'document-preparation';
+
+export interface WorkSession {
+  id: string;
+  attorney: Participant;
+  type: WorkType;
+  startTime: Date;
+  duration: number; // in milliseconds
+  progress: number; // 0-100
+  description: string;
+  output?: {
+    type: 'motion' | 'research-memo' | 'witness-notes' | 'strategy-plan';
+    content: string;
+    impact: string[];
+  };
+  isComplete: boolean;
+}
+
+export interface OfficeResource {
+  id: string;
+  type: 'paralegal' | 'law-library' | 'computer' | 'filing-system' | 'conference-room';
+  name: string;
+  available: boolean;
+  currentUser?: string;
+}
+
+export interface AttorneyOffice {
+  id: string;
+  type: 'prosecutor' | 'defense' | 'plaintiff';
+  location: string;
+  description: string;
+  occupants: Participant[];
+  resources: OfficeResource[];
+  activeWork: WorkSession[];
+  maxCapacity: number;
 }
 
 export interface TranscriptEntry {

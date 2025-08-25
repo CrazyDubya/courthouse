@@ -209,33 +209,99 @@ Format: ACTION|CONFIDENCE|REASONING`,
   }
 
   async generateStatement(context: string, targetRole?: ParticipantRole): Promise<string> {
-    if (!this.llmProvider) {
-      return this.generateDefaultStatement(context);
-    }
-
-    const messages: LLMMessage[] = [
-      {
-        role: 'system',
-        content: this.buildSystemPrompt(),
-      },
-      {
-        role: 'user',
-        content: `Context: ${context}
+    // Always use fallback statements for now - LLM dependency removed
+    const fallbackStatement = this.generateDefaultStatement(context);
+    
+    // Try LLM with very short timeout, but don't block on it
+    if (this.llmProvider) {
+      try {
+        const messages: LLMMessage[] = [
+          {
+            role: 'system',
+            content: this.buildSystemPrompt(),
+          },
+          {
+            role: 'user',
+            content: `Context: ${context}
 ${targetRole ? `Speaking to: ${targetRole}` : ''}
 Your current emotional state: ${Array.from(this.emotionalState.entries()).map(([k, v]) => `${k}: ${v}`).join(', ')}
 
 Generate an appropriate statement for the current courtroom context. Be concise and professional.`,
-      },
-    ];
+          },
+        ];
 
-    try {
-      const response = await this.llmProvider.generateResponse(messages);
-      this.updateMemory(response.content);
-      return response.content;
-    } catch (error) {
-      console.error('Error generating statement:', error);
-      return this.generateDefaultStatement(context);
+        // Generous timeout with retry logic for Ollama
+        const response = await this.withRetry(
+          () => this.llmProvider.generateResponse(messages),
+          3, // 3 retry attempts
+          25000, // 25 second timeout per attempt
+          `${this.participant.name}`
+        );
+        this.updateMemory(response.content);
+        return response.content;
+      } catch (error) {
+        // LLM failed - use fallback and log the error
+        console.log(`🤖 LLM failed for ${this.participant.name}, using fallback:`, error.message);
+        return fallbackStatement;
+      }
     }
+
+    return fallbackStatement;
+  }
+
+  // Timeout wrapper utility
+  private async withTimeout<T>(
+    promise: Promise<T>, 
+    timeoutMs: number, 
+    timeoutMessage: string
+  ): Promise<T> {
+    return Promise.race([
+      promise,
+      new Promise<T>((_, reject) => 
+        setTimeout(() => reject(new Error(timeoutMessage)), timeoutMs)
+      )
+    ]);
+  }
+
+  // Retry wrapper with exponential backoff
+  private async withRetry<T>(
+    operation: () => Promise<T>,
+    maxAttempts: number,
+    timeoutMs: number,
+    context: string
+  ): Promise<T> {
+    let lastError: Error;
+    
+    for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+      try {
+        console.log(`🔄 ${context} - Attempt ${attempt}/${maxAttempts}`);
+        
+        const result = await this.withTimeout(
+          operation(),
+          timeoutMs,
+          `${context} timeout on attempt ${attempt}`
+        );
+        
+        if (attempt > 1) {
+          console.log(`✅ ${context} - Success on attempt ${attempt}`);
+        }
+        
+        return result;
+      } catch (error) {
+        lastError = error as Error;
+        console.log(`⚠️  ${context} - Failed attempt ${attempt}: ${error.message}`);
+        
+        if (attempt < maxAttempts) {
+          // Exponential backoff: 1s, 2s, 4s
+          const delay = Math.min(1000 * Math.pow(2, attempt - 1), 5000);
+          console.log(`⏳ ${context} - Retrying in ${delay}ms...`);
+          await new Promise(resolve => setTimeout(resolve, delay));
+        }
+      }
+    }
+    
+    console.log(`❌ ${context} - All attempts failed, throwing error`);
+    throw lastError!;
   }
 
   async evaluateObjection(statement: string, objectionType: ObjectionType): Promise<boolean> {
@@ -259,7 +325,12 @@ Should you object? Respond with YES or NO and brief reasoning.`,
     ];
 
     try {
-      const response = await this.llmProvider.generateResponse(messages);
+      const response = await this.withRetry(
+        () => this.llmProvider.generateResponse(messages),
+        3, // 3 retry attempts
+        20000, // 20 second timeout per attempt
+        `${this.participant.name} evaluating objection`
+      );
       return response.content.toUpperCase().includes('YES');
     } catch (error) {
       console.error('Error evaluating objection:', error);
@@ -390,22 +461,179 @@ Act according to your role and personality. Be professional and follow courtroom
   }
 
   private generateDefaultStatement(context: string): string {
-    const statements: Record<ParticipantRole, string[]> = {
-      'judge': ['Order in the court', 'Objection overruled', 'Sustained', 'Please proceed'],
-      'prosecutor': ['Objection, your honor', 'The state rests', 'I would like to present evidence'],
-      'defense-attorney': ['Objection, speculation', 'My client is innocent', 'I move to dismiss'],
-      'plaintiff-attorney': ['We seek justice', 'The evidence clearly shows', 'My client has suffered'],
-      'witness': ['Yes', 'No', "I don't recall", 'To the best of my knowledge'],
-      'defendant': ['Not guilty', 'I plead the fifth', "I don't remember"],
-      'plaintiff': ['That is correct', 'Yes, your honor', 'The defendant caused'],
-      'jury-member': ['[Observing quietly]', '[Taking notes]'],
-      'bailiff': ['All rise', 'Please be seated', 'Order'],
-      'court-clerk': ['Case number', 'Entered into evidence', 'So noted'],
-      'observer': ['[Watching proceedings]'],
+    // Enhanced fallback statements based on context and role
+    const contextKey = this.getContextualKey(context);
+    
+    const statements: Record<ParticipantRole, Record<string, string[]>> = {
+      'judge': {
+        'opening': [
+          'We are now ready to begin this trial. Prosecution, please proceed with your opening statement.',
+          'Ladies and gentlemen of the jury, you will now hear opening statements from both sides.',
+          'Counsel, please present your opening statements to the jury.'
+        ],
+        'closing': [
+          'Ladies and gentlemen of the jury, you will now hear closing arguments from both sides.',
+          'The evidence phase is complete. We proceed to closing arguments.',
+          'Counsel, please present your final arguments to the jury.'
+        ],
+        'motion': [
+          'I have reviewed the motion and supporting papers. Counsel, please present your arguments.',
+          'The court will hear arguments on the pending motion.',
+          'Counsel, please proceed with your motion argument.'
+        ],
+        'default': [
+          'Please proceed with your next witness.',
+          'Sustained. The jury will disregard.',
+          'Overruled. You may continue.',
+          'The objection is noted. Please move on.'
+        ]
+      },
+      'prosecutor': {
+        'opening': [
+          'Ladies and gentlemen of the jury, the evidence in this case will prove beyond a reasonable doubt that the defendant committed the crimes charged.',
+          'Your Honor, members of the jury, at the conclusion of this trial, I will ask you to find the defendant guilty as charged.',
+          'The evidence will show that on the night in question, the defendant\'s actions constituted a clear violation of New York State law.'
+        ],
+        'closing': [
+          'Ladies and gentlemen, the evidence has proven beyond a reasonable doubt that the defendant is guilty of all charges.',
+          'The facts are clear, the evidence is overwhelming, and justice demands a guilty verdict.',
+          'Based on the testimony and evidence presented, we ask you to hold the defendant accountable for these crimes.'
+        ],
+        'witness': [
+          'Officer, please tell the jury what you observed at the scene.',
+          'Can you identify the defendant for the court?',
+          'What did you do next in your investigation?'
+        ],
+        'default': [
+          'Objection, your honor - relevance.',
+          'The People have no further questions.',
+          'We would like to admit this exhibit into evidence.'
+        ]
+      },
+      'defense-attorney': {
+        'opening': [
+          'Ladies and gentlemen of the jury, my client is presumed innocent until proven guilty beyond a reasonable doubt.',
+          'The prosecution\'s case is built on speculation and insufficient evidence. The defense will show reasonable doubt exists.',
+          'At the end of this trial, I will ask you to find my client not guilty because the prosecution has failed to meet their burden.'
+        ],
+        'closing': [
+          'The prosecution has failed to prove guilt beyond a reasonable doubt. You must find my client not guilty.',
+          'The evidence does not support the charges. There is reasonable doubt, and you must acquit.',
+          'Justice requires that you return a verdict of not guilty based on the lack of credible evidence.'
+        ],
+        'witness': [
+          'Isn\'t it true that you didn\'t have a clear view of the events?',
+          'You\'ve changed your story since your initial statement, haven\'t you?',
+          'You cannot be certain of your identification, can you?'
+        ],
+        'default': [
+          'Objection - leading the witness.',
+          'I have no further questions for this witness.',
+          'Your Honor, I move for a directed verdict.'
+        ]
+      },
+      'plaintiff-attorney': {
+        'opening': [
+          'Members of the jury, the evidence will show that the defendant\'s negligence caused significant harm to my client.',
+          'At the conclusion of this trial, we will ask you to hold the defendant accountable for the damages they caused.',
+          'The facts will demonstrate that the defendant breached their duty of care, resulting in serious injury to the plaintiff.'
+        ],
+        'closing': [
+          'The evidence clearly shows the defendant\'s liability. We ask for fair compensation for our client\'s injuries.',
+          'Justice requires that the defendant be held responsible for the harm they caused.',
+          'Based on the evidence, we request that you award damages that fully compensate our client.'
+        ],
+        'witness': [
+          'Please describe for the jury how this incident has affected your life.',
+          'Can you tell us about your medical treatment following the accident?',
+          'What ongoing difficulties do you face as a result of this incident?'
+        ],
+        'default': [
+          'Objection - assumes facts not in evidence.',
+          'We have no further questions.',
+          'I would like to present Plaintiff\'s Exhibit A.'
+        ]
+      },
+      'witness': {
+        'direct': [
+          'I was present at the scene on the night in question.',
+          'I clearly observed what happened.',
+          'Yes, I can identify the person I saw.',
+          'The events occurred just as I described.'
+        ],
+        'cross': [
+          'I\'m telling the truth to the best of my ability.',
+          'I remember the events clearly.',
+          'My testimony today is consistent with what I observed.',
+          'I have no reason to lie about what I saw.'
+        ],
+        'default': [
+          'Yes, that\'s correct.',
+          'No, that did not happen.',
+          'I don\'t recall those specific details.',
+          'To the best of my knowledge, yes.'
+        ]
+      },
+      'defendant': {
+        'testimony': [
+          'I did not commit the crimes I\'m charged with.',
+          'I was not at the location during the time in question.',
+          'I have been honest about my whereabouts that evening.',
+          'The identification is mistaken - it was not me.'
+        ],
+        'default': [
+          'Not guilty, your honor.',
+          'I understand my rights.',
+          'Yes, your honor.',
+          'No, your honor.'
+        ]
+      },
+      'plaintiff': {
+        'testimony': [
+          'The accident has completely changed my life.',
+          'I was not at fault for what happened.',
+          'The pain and suffering has been tremendous.',
+          'I just want to be made whole again.'
+        ],
+        'default': [
+          'Yes, that\'s exactly what happened.',
+          'The defendant was clearly negligent.',
+          'I\'ve suffered significant damages.',
+          'That is correct, your honor.'
+        ]
+      },
+      'jury-member': {
+        'default': ['[Listening attentively]', '[Taking notes]', '[Observing evidence]']
+      },
+      'bailiff': {
+        'default': ['All rise for the Honorable Judge.', 'Please be seated.', 'Order in the court.']
+      },
+      'court-clerk': {
+        'default': ['Case number called.', 'Exhibit marked for identification.', 'So noted by the court.']
+      },
+      'observer': {
+        'default': ['[Observing proceedings silently]']
+      }
     };
 
-    const roleStatements = statements[this.participant.role] || ['[No statement]'];
-    return roleStatements[Math.floor(Math.random() * roleStatements.length)];
+    const roleStatements = statements[this.participant.role] || { default: ['[No statement available]'] };
+    const contextualStatements = roleStatements[contextKey] || roleStatements.default || ['[No statement available]'];
+    
+    return contextualStatements[Math.floor(Math.random() * contextualStatements.length)];
+  }
+
+  private getContextualKey(context: string): string {
+    const contextLower = context.toLowerCase();
+    
+    if (contextLower.includes('opening statement') || contextLower.includes('opening')) return 'opening';
+    if (contextLower.includes('closing argument') || contextLower.includes('closing')) return 'closing';
+    if (contextLower.includes('motion') || contextLower.includes('pretrial')) return 'motion';
+    if (contextLower.includes('witness examination') || contextLower.includes('direct examination')) return 'witness';
+    if (contextLower.includes('cross examination') || contextLower.includes('cross-examination')) return 'cross';
+    if (contextLower.includes('testimony') || contextLower.includes('testify')) return 'testimony';
+    if (contextLower.includes('direct examination')) return 'direct';
+    
+    return 'default';
   }
 
   getMemorySummary(): string {
@@ -418,5 +646,40 @@ Beliefs: ${Array.from(this.memory.beliefs.entries()).map(([k, v]) => `${k}: ${v}
     return Array.from(this.emotionalState.entries())
       .map(([emotion, level]) => `${emotion}: ${(level * 100).toFixed(0)}%`)
       .join(', ');
+  }
+
+  setCurrentCase(caseData: Case | null): void {
+    this.currentCase = caseData;
+    if (caseData) {
+      // Update agent knowledge with case-specific NYS law context
+      this.updateCaseSpecificKnowledge(caseData);
+    }
+  }
+
+  private updateCaseSpecificKnowledge(caseData: Case): void {
+    let caseKnowledge: string[] = [];
+    
+    // Add case type specific knowledge
+    if (caseData.type === 'criminal' && caseData.charges) {
+      caseKnowledge.push(`Criminal case under NY Penal Law`);
+      caseData.charges.forEach(charge => {
+        caseKnowledge.push(`Charge: ${charge} - NY Penal Law criminal offense`);
+      });
+    } else if (caseData.type === 'civil') {
+      caseKnowledge.push(`Civil case under NY CPLR procedures`);
+      caseKnowledge.push(`Burden: Preponderance of evidence`);
+    }
+    
+    // Add jurisdiction info
+    if (caseData.legalSystem === 'common-law') {
+      caseKnowledge.push(`New York State common law applies`);
+    }
+    
+    // Update working memory
+    this.memory.workingMemory.set('case-law-context', {
+      importance: 0.9,
+      relevance: 1.0,
+      details: caseKnowledge.join('; ')
+    });
   }
 }
