@@ -27,7 +27,7 @@ class SimulationController:
     async def get_agent_action(self, agent: TinyPerson, prompt: str) -> str:
         agent.listen(prompt)
         if agent.is_user_controlled:
-            await self.send_event({"event": "request_user_input", "role": "prosecutor" if agent.persona["name"] == "Ms. Adler" else "defense"})
+            await self.send_event({"event": "request_user_input", "role": agent.persona.get("role", "unknown")})
             user_message = await self.user_input_queue.get()
             agent.memory.append(f"Said: {user_message}")
             return user_message
