@@ -19,6 +19,6 @@ except ImportError:
 
 print("!!!!")
 print("DISCLAIMER: TinyTroupe relies on Artificial Intelligence (AI) models to generate content.")
-print("The AI models are not perfect and may produce inappropriate or inacurate results.")
+print("The AI models are not perfect and may produce inappropriate or inaccurate results.")
 print("For any serious or consequential use, please review the generated content before using it.")
 print("!!!!")
