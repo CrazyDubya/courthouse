@@ -559,7 +559,7 @@ export class OptimizedMemoryManager {
     confidence: number;
   }): void {
     const historicalDecision: HistoricalDecision = {
-      id: `decision-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+      id: `decision-${Date.now()}-${Math.random().toString(36).substring(2, 11)}`,
       timestamp: new Date(),
       ...params,
       appealed: false
