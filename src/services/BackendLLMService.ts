@@ -290,21 +290,35 @@ export class BackendLLMService {
 
       // Yield chunks as they arrive
       let lastChunkIndex = 0;
-      while (true) {
+      const maxIterations = 600; // Maximum 60 seconds (600 * 100ms)
+      const maxIdleIterations = 30; // Maximum 3 seconds of no new chunks (30 * 100ms)
+      let iterations = 0;
+      let idleIterations = 0;
+
+      while (iterations < maxIterations) {
         if (chunks.length > lastChunkIndex) {
           for (let i = lastChunkIndex; i < chunks.length; i++) {
             yield chunks[i];
           }
           lastChunkIndex = chunks.length;
+          idleIterations = 0; // Reset idle counter when new chunks arrive
+        } else {
+          idleIterations++;
         }
 
         // Check if complete (this would need proper signaling from backend)
         await new Promise(resolve => setTimeout(resolve, 100));
 
-        // Break after timeout or completion signal
-        if (chunks.length === lastChunkIndex) {
+        // Break after idle timeout or completion signal
+        if (idleIterations >= maxIdleIterations) {
           break;
         }
+
+        iterations++;
+      }
+
+      if (iterations >= maxIterations) {
+        console.warn(`Stream response reached maximum iteration limit (${maxIterations})`);
       }
     } finally {
       this.wsClient.off('llm:streaming', streamHandler);
