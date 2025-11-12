@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { getBackendAPIClient } from '../services/BackendAPIClient';
 import { getWebSocketClient } from '../services/WebSocketClient';
 import { FiActivity, FiCpu, FiDatabase, FiZap, FiCheckCircle, FiAlertTriangle, FiX } from 'react-icons/fi';
