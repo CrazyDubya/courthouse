@@ -17,6 +17,7 @@ import { OllamaPoolService } from './services/OllamaPoolService.js';
 import caseRoutes from './routes/cases.js';
 import llmRoutes from './routes/llm.js';
 import evidenceRoutes from './routes/evidence.js';
+import valuationRoutes from './routes/valuation.js';
 
 import { errorHandler, notFoundHandler } from './middleware/errorHandler.js';
 import { retryService } from './utils/retryLogic.js';
@@ -57,6 +58,7 @@ const wsService = new WebSocketService(io, llmService, queueService);
 app.use('/api/cases', caseRoutes(caseService));
 app.use('/api/llm', llmRoutes(llmService, queueService));
 app.use('/api/evidence', evidenceRoutes());
+app.use('/api/valuation', valuationRoutes);
 
 app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() });

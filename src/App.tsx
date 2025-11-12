@@ -5,14 +5,15 @@ import { TranscriptViewer } from './components/TranscriptViewer';
 import { SidebarWrapper, MobileSidebarFAB } from './components/SidebarWrapper';
 import { CaseSelector } from './components/CaseSelector';
 import { LLMStatusIndicator } from './components/LLMStatusIndicator';
+import { EconomicValuationDashboard } from './components/EconomicValuation';
 import { useCourtroomStore } from './store/useCourtroomStore';
 import { Case, Participant, Evidence } from './types';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { EnhancedJudgeFactory } from './services/EnhancedJudgeFactory';
 import { CaseScenarioFactory } from './services/CaseScenarioFactory';
 
 function App() {
-  const { currentCase, setCurrentCase, activeSpeaker } = useCourtroomStore();
+  const { currentCase, setCurrentCase, activeSpeaker, showValuationPanel, setShowValuationPanel } = useCourtroomStore();
   const [showSetup, setShowSetup] = useState(true);
   const [isGenerating, setIsGenerating] = useState(false);
 
@@ -105,9 +106,35 @@ function App() {
           {/* Mobile FABs for sidebar access */}
           <MobileSidebarFAB side="left" />
           <MobileSidebarFAB side="right" />
-          
+
           {/* LLM Status Indicator - Fixed position overlay */}
           <LLMStatusIndicator />
+
+          {/* Economic Valuation Modal */}
+          <AnimatePresence>
+            {showValuationPanel && currentCase && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="fixed inset-0 bg-black/70 z-50 flex items-center justify-center p-4"
+                onClick={() => setShowValuationPanel(false)}
+              >
+                <motion.div
+                  initial={{ scale: 0.9, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  exit={{ scale: 0.9, opacity: 0 }}
+                  className="max-w-7xl w-full max-h-[90vh] overflow-auto"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <EconomicValuationDashboard
+                    caseId={currentCase.id}
+                    onClose={() => setShowValuationPanel(false)}
+                  />
+                </motion.div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </div>
     </div>
