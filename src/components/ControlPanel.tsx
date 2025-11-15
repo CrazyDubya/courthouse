@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import { useCourtroomStore } from '../store/useCourtroomStore';
 import { ParticipantRole, LLMProvider, ObjectionType } from '../types';
 import { motion, AnimatePresence } from 'framer-motion';
-import { 
+import {
   HiPlay, HiPause, HiStop, HiChevronDown, HiChevronRight,
   HiMicrophone, HiExclamation, HiDocumentDownload,
   HiCog, HiUsers, HiLightningBolt, HiViewBoards,
-  HiUser, HiOutlineSparkles
+  HiUser, HiOutlineSparkles, HiCurrencyDollar
 } from 'react-icons/hi';
 
 interface CollapsibleSectionProps {
@@ -79,6 +79,7 @@ export const ControlPanel: React.FC = () => {
     aiProgress,
     isLeftSidebarCollapsed,
     leftSidebarWidth,
+    showValuationPanel,
     setUserRole,
     updateSimulationSettings,
     startSimulation,
@@ -88,6 +89,7 @@ export const ControlPanel: React.FC = () => {
     processUserInput,
     triggerObjection,
     exportTranscript,
+    toggleValuationPanel,
   } = useCourtroomStore();
 
   const [userInput, setUserInput] = useState('');
@@ -498,6 +500,31 @@ export const ControlPanel: React.FC = () => {
           <HiDocumentDownload className="w-4 h-4" />
           <span>Export Transcript</span>
         </button>
+      </CollapsibleSection>
+
+      {/* Economic Valuation */}
+      <CollapsibleSection
+        title="Economic Valuation"
+        icon={<HiCurrencyDollar className="w-5 h-5" />}
+        isIconOnly={isIconOnly}
+        defaultOpen={false}
+      >
+        <div className="space-y-3">
+          <p className="text-sm text-gray-400">
+            Access comprehensive economic valuation including ARR, MRR, customer metrics, and damages calculations.
+          </p>
+          <button
+            onClick={toggleValuationPanel}
+            className={`w-full py-2 px-3 ${
+              showValuationPanel
+                ? 'bg-green-600 hover:bg-green-700'
+                : 'bg-blue-600 hover:bg-blue-700'
+            } rounded transition-colors text-sm flex items-center justify-center space-x-2`}
+          >
+            <HiCurrencyDollar className="w-4 h-4" />
+            <span>{showValuationPanel ? 'Hide Valuation' : 'Show Valuation'}</span>
+          </button>
+        </div>
       </CollapsibleSection>
     </motion.div>
   );

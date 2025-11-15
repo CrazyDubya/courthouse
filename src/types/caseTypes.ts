@@ -210,11 +210,11 @@ export interface CivilCase {
   baseType: 'civil';
   claims: CivilClaim[];
   burdenOfProof: 'preponderance-of-evidence' | 'clear-and-convincing';
-  
+
   // Parties information
   plaintiffType: 'individual' | 'corporation' | 'government' | 'non-profit';
   defendantType: 'individual' | 'corporation' | 'government' | 'non-profit';
-  
+
   // Case management
   discovery: {
     cutoffDate?: Date;
@@ -222,18 +222,21 @@ export interface CivilCase {
     interrogatoriesAllowed: number;
     documentRequests: number;
   };
-  
+
   // Settlement information
   settlementDiscussions: boolean;
   mediationRequired: boolean;
   arbitrationClause: boolean;
   settlementAmount?: number;
-  
+
   // Damages and relief
   totalDamagesClaimed: number;
   injunctiveReliefSought: boolean;
   classActionStatus: 'individual' | 'proposed-class' | 'certified-class';
-  
+
+  // Economic valuation (for business/SaaS cases)
+  economicValuation?: string; // ID reference to EconomicValuation
+
   // Trial considerations
   juryTrial: boolean;
   complexCase: boolean;
@@ -379,15 +382,246 @@ export interface Settlement {
   offeredBy: 'plaintiff' | 'defendant';
   offeredDate: Date;
   expirationDate?: Date;
-  
+
   // Terms
   monetaryAmount?: number;
   nonMonetaryTerms?: string[];
   confidentialityClause: boolean;
   admissionOfLiability: boolean;
-  
+
   // Approval process
   status: 'offered' | 'accepted' | 'rejected' | 'withdrawn' | 'expired';
   courtApprovalRequired: boolean;
   courtApproval?: 'pending' | 'approved' | 'rejected';
+}
+
+// Economic Valuation for Business/SaaS Cases
+export type ValuationMethod =
+  | 'dcf'              // Discounted Cash Flow
+  | 'market-multiple'  // Market-based multiples
+  | 'asset-based'      // Net asset value
+  | 'revenue-multiple' // Revenue-based valuation
+  | 'arr-multiple';    // ARR-based valuation
+
+export type RevenueType = 'subscription' | 'one-time' | 'usage-based' | 'license' | 'service' | 'other';
+export type CustomerSegment = 'enterprise' | 'smb' | 'individual' | 'government' | 'non-profit';
+export type ContractTerm = 'monthly' | 'quarterly' | 'annual' | 'multi-year' | 'perpetual';
+
+export interface RevenueDataPoint {
+  period: Date;
+  amount: number;
+  periodType: 'monthly' | 'quarterly' | 'annual';
+  breakdown?: {
+    newRevenue: number;
+    expansionRevenue: number;
+    contractionRevenue: number;
+    churnedRevenue: number;
+  };
+}
+
+export interface RevenueProjection {
+  period: Date;
+  amount: number;
+  confidence: number; // 0-1 confidence level
+  assumptions: string[];
+  growthRate?: number;
+}
+
+export interface CustomerCohort {
+  cohort: string; // e.g., '2024-Q1'
+  acquisitionDate: Date;
+  initialCount: number;
+  retentionRates: number[]; // Retention by period
+  lifetimeValue: number;
+  acquisitionCost: number;
+}
+
+export interface CustomerMetrics {
+  total: number;
+  active: number;
+  churned: number;
+  newCustomers: number;
+  avgContractValue: number;
+  avgContractLength: number; // months
+
+  // Segmentation
+  bySegment: Record<CustomerSegment, number>;
+  byContractTerm: Record<ContractTerm, number>;
+
+  // Retention metrics
+  retention: {
+    rate: number; // Current retention rate
+    netRetention: number; // Including expansion
+    cohorts: CustomerCohort[];
+  };
+
+  // Growth metrics
+  cac: number; // Customer Acquisition Cost
+  paybackPeriod: number; // months
+  ltv: number; // Lifetime Value
+  ltvCacRatio: number; // LTV:CAC ratio
+}
+
+export interface SaaSMetrics {
+  // Core metrics
+  arr: number; // Annual Recurring Revenue
+  mrr: number; // Monthly Recurring Revenue
+
+  // Growth metrics
+  mrrGrowthRate: number; // Month-over-month growth
+  arrGrowthRate: number; // Year-over-year growth
+
+  // Churn metrics
+  customerChurnRate: number; // % customers lost
+  revenueChurnRate: number; // % revenue lost
+  negativeChurnRate: number; // Expansion - Churn
+
+  // Efficiency metrics
+  quickRatio: number; // (New MRR + Expansion) / (Churned MRR + Contraction)
+  magicNumber: number; // Net new ARR / Sales & Marketing spend
+  ruleOf40: number; // Growth rate + Profit margin
+
+  // Unit economics
+  arpu: number; // Average Revenue Per User
+  arppu: number; // Average Revenue Per Paying User
+
+  // Calculated at
+  calculatedAt: Date;
+  periodStart: Date;
+  periodEnd: Date;
+}
+
+export interface DamageCalculation {
+  // Lost revenue
+  lostRevenue: {
+    historical: number; // Actual lost revenue
+    projected: number; // Future revenue loss
+    breakdown: {
+      subscriptionLoss: number;
+      expansionLoss: number;
+      oneTimeLoss: number;
+    };
+  };
+
+  // Customer impact
+  lostCustomers: {
+    count: number;
+    lifetimeValue: number;
+    segmentImpact: Record<CustomerSegment, number>;
+  };
+
+  // Business impact
+  businessImpact: {
+    marketShareLoss: number;
+    brandDamage: number;
+    competitiveDisadvantage: number;
+    operationalDisruption: number;
+  };
+
+  // Mitigation costs
+  mitigationCosts: {
+    remediation: number;
+    customerRecovery: number;
+    reputationRepair: number;
+    legalAndCompliance: number;
+    other: number;
+  };
+
+  // Total calculations
+  subtotal: number;
+  interestRate?: number;
+  interest?: number;
+  total: number;
+
+  // Justification
+  methodology: string;
+  assumptions: string[];
+  supportingDocuments: string[];
+}
+
+export interface ValuationAnalysis {
+  method: ValuationMethod;
+  baselineValue: number; // Pre-incident valuation
+  currentValue: number; // Post-incident valuation
+  valueLoss: number; // Difference
+
+  // Valuation inputs
+  inputs: {
+    discountRate?: number;
+    growthRate?: number;
+    multiple?: number;
+    terminalValue?: number;
+    comparableCompanies?: string[];
+  };
+
+  // Assumptions and sensitivity
+  assumptions: string[];
+  sensitivityAnalysis?: {
+    scenario: string;
+    value: number;
+    probability: number;
+  }[];
+
+  calculatedBy: string; // Expert/system that performed calculation
+  calculatedAt: Date;
+}
+
+export interface EconomicValuation {
+  id: string;
+  caseId: string;
+
+  // SaaS and subscription metrics
+  saasMetrics?: SaaSMetrics;
+
+  // Customer data
+  customerMetrics: CustomerMetrics;
+
+  // Revenue tracking
+  revenue: {
+    historical: RevenueDataPoint[];
+    projected: RevenueProjection[];
+    revenueTypes: Record<RevenueType, number>;
+  };
+
+  // Valuation analyses
+  valuations: ValuationAnalysis[];
+  preferredValuation?: ValuationMethod;
+
+  // Damage calculation
+  damages: DamageCalculation;
+
+  // Timeline of economic impact
+  impactTimeline: Array<{
+    date: Date;
+    event: string;
+    economicImpact: number;
+    description: string;
+  }>;
+
+  // Expert opinions
+  expertOpinions?: Array<{
+    expertId: string;
+    expertName: string;
+    valuation: number;
+    methodology: string;
+    reasoning: string;
+    submittedAt: Date;
+  }>;
+
+  // LLM analysis
+  llmAnalysis?: {
+    summary: string;
+    keyFindings: string[];
+    risks: string[];
+    opportunities: string[];
+    analyzedAt: Date;
+    model: string;
+  };
+
+  // Metadata
+  createdAt: Date;
+  updatedAt: Date;
+  createdBy: string;
+  status: 'draft' | 'under-review' | 'approved' | 'challenged';
+  version: number;
 }

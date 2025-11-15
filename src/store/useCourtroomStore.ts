@@ -1,15 +1,16 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import { 
-  Case, 
-  Participant, 
-  Evidence, 
-  SimulationSettings, 
+import {
+  Case,
+  Participant,
+  Evidence,
+  SimulationSettings,
   LLMConfig,
   ProceedingPhase,
   TranscriptEntry,
   ParticipantRole
 } from '../types';
+import type { EconomicValuation } from '../types/caseTypes';
 import { ProceedingsEngine, ProceedingEvent } from '../services/ProceedingsEngine';
 
 interface CourtroomState {
@@ -50,7 +51,11 @@ interface CourtroomState {
   isRightSidebarCollapsed: boolean;
   leftSidebarWidth: number;
   rightSidebarWidth: number;
-  
+
+  // Economic valuation state
+  economicValuation: EconomicValuation | null;
+  showValuationPanel: boolean;
+
   setCurrentCase: (caseData: Case) => void;
   setUserRole: (role: ParticipantRole | null) => void;
   updateParticipant: (participantId: string, updates: Partial<Participant>) => void;
@@ -58,6 +63,11 @@ interface CourtroomState {
   removeEvidence: (evidenceId: string) => void;
   updateSimulationSettings: (settings: Partial<SimulationSettings>) => void;
   setLLMConfig: (provider: string, config: LLMConfig) => void;
+
+  // Economic valuation methods
+  setEconomicValuation: (valuation: EconomicValuation | null) => void;
+  toggleValuationPanel: () => void;
+  setShowValuationPanel: (show: boolean) => void;
   
   startSimulation: () => Promise<void>;
   stopSimulation: () => void;
@@ -133,6 +143,10 @@ export const useCourtroomStore = create<CourtroomState>()(
       isRightSidebarCollapsed: false,
       leftSidebarWidth: 320, // w-80 equivalent
       rightSidebarWidth: 384, // w-96 equivalent
+
+      // Economic valuation initial state
+      economicValuation: null,
+      showValuationPanel: false,
 
       setCurrentCase: (caseData) => {
         console.log('📋 Setting current case:', caseData.title);
@@ -536,6 +550,19 @@ export const useCourtroomStore = create<CourtroomState>()(
 
       setRightSidebarCollapsed: (collapsed: boolean) => {
         set({ isRightSidebarCollapsed: collapsed });
+      },
+
+      // Economic valuation methods
+      setEconomicValuation: (valuation: EconomicValuation | null) => {
+        set({ economicValuation: valuation });
+      },
+
+      toggleValuationPanel: () => {
+        set((state) => ({ showValuationPanel: !state.showValuationPanel }));
+      },
+
+      setShowValuationPanel: (show: boolean) => {
+        set({ showValuationPanel: show });
       },
     }),
     {
