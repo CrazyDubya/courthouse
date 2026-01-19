@@ -19,7 +19,7 @@
 | **Largest File** | 1,976 lines | 🔴 | Needs refactoring |
 | **TODO Items** | 1 | 🟢 | Minimal |
 | **FIXME Items** | 0 | 🟢 | Clean |
-| **Test Coverage** | ~9.2% | 🔴 | Critical gap |
+| **Test Coverage** | ~10.1% | 🔴 | Critical gap |
 
 ---
 
@@ -150,7 +150,7 @@ utils                     ███                 3 refs
 ║                                                          ║
 ║ Testing Coverage           42/100     D+                ║
 ║   ↳ Test files             9 files    🔴 Critical      ║
-║   ↳ Test to code ratio     0.092      🔴 Very low      ║
+║   ↳ Test to code ratio     0.101      🔴 Very low      ║
 ║   ↳ Coverage tooling       🟢 Vitest configured        ║
 ║                                                          ║
 ║ OVERALL SCORE              72/100     B-                ║
@@ -197,10 +197,10 @@ Difference             ███████████████████
 Test Coverage Analysis:
 Test Lines:       2,716 lines  █████
 Production Code: 26,890 lines  ████████████████████████████████████████
-Coverage Ratio:       9.2%     🔴 CRITICAL
+Coverage Ratio:      10.1%     🔴 CRITICAL
 
 Target Coverage:     70%+      (Industry standard)
-Gap:                 60.8%     (16,307 lines need tests)
+Gap:                 59.9%     (16,107 lines need tests)
 ```
 
 **Current Test Files (9 total):**
@@ -258,9 +258,9 @@ Gap:                 60.8%     (16,307 lines need tests)
 │ Backend Tests        ░             0 files       │
 └──────────────────────────────────────────────────┘
 
-Test to Code Ratio: 0.092 (2,716 test lines / 26,890 core lines)
+Test to Code Ratio: 0.101 (2,716 test lines / 26,890 core lines)
 Target Ratio: 0.70+ for good coverage
-Gap: -61% 🔴 CRITICAL improvement needed
+Gap: -59.9% 🔴 CRITICAL improvement needed
 ```
 
 ---
@@ -336,7 +336,7 @@ Package Manager: npm (lock files present)
 ║                                                   ║
 ║  Code Size:         ████████░░  29,606 lines     ║
 ║  Modularity:        █████████░  81 modules       ║
-║  Test Coverage:     ████░░░░░░  42% estimated    ║
+║  Test Coverage:     ██░░░░░░░░  10% measured     ║
 ║  Type Safety:       ██████████  98% TypeScript   ║
 ║  Documentation:     ███████░░░  11 doc files     ║
 ║  Code Duplication:  █████████░  Minimal          ║
@@ -437,7 +437,7 @@ Q1 Goals:
 The **Courthouse Simulator** codebase demonstrates **solid engineering fundamentals** with excellent type safety, modern architecture, and clean dependencies. The code quality scores **72/100 (B-)**, which is good for an early-stage project but has clear improvement paths.
 
 ### Critical Path Forward
-The primary technical debt lies in **test coverage** (9.2% vs 70% target) and **file size management** (two files over 1,300 lines). Addressing these two issues would immediately improve maintainability and reliability.
+The primary technical debt lies in **test coverage** (10.1% vs 70% target) and **file size management** (two files over 1,300 lines). Addressing these two issues would immediately improve maintainability and reliability.
 
 ### Bottom Line
 ```
@@ -451,7 +451,7 @@ TIMELINE:  3-4 months to achieve A-grade status (85+/100)
 
 | Metric | Current | Target | Gap |
 |--------|---------|--------|-----|
-| Test Coverage | 9.2% | 70% | -60.8% 🔴 |
+| Test Coverage | 10.1% | 70% | -59.9% 🔴 |
 | Largest File | 1,976 LOC | <600 LOC | +1,376 🔴 |
 | Test Files | 9 | 50+ | +41 🔴 |
 | Type Safety | 98% | 95% | +3% 🟢 |
