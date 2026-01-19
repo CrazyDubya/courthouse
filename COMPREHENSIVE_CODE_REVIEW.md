@@ -190,7 +190,7 @@ Difference             ███████████████████
 - `services/factories/CivilCaseFactory.ts`
 - `services/factories/BaseScenarioFactory.ts`
 
-#### 3. Critical Test Coverage Gap (9.2%)
+#### 3. Critical Test Coverage Gap (10.1%)
 **Impact**: 🔴 CRITICAL
 
 ```
@@ -360,7 +360,7 @@ Package Manager: npm (lock files present)
 
 ### Weaknesses
 1. ❌ **Monolithic Core**: `ProceedingsEngine.ts` at 1,976 lines needs immediate splitting
-2. ❌ **Critical Test Gap**: 9.2% coverage vs 70% industry standard
+2. ❌ **Critical Test Gap**: 10.1% coverage vs 70% industry standard
 3. ❌ **Large Factory**: `CaseScenarioFactory.ts` at 1,331 lines too complex
 4. ❌ **No Backend Tests**: Zero test coverage for backend services
 5. ❌ **No Integration Tests**: Missing E2E and integration test suites
