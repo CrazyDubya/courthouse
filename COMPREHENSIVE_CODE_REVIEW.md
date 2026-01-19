@@ -384,7 +384,7 @@ Testing Debt:         ███████████████████�
 Documentation Debt:   ████████              7,000 lines  (API documentation)
 Performance Debt:     ████                  3,000 lines  (Optimization potential)
 ────────────────────────────────────────────────────────
-TOTAL DEBT:           ████████████████████ 38,300 lines (129% of codebase)
+TOTAL DEBT:           ████████████████████ 38,300 lines (129.4% of codebase)
 
 Estimated Remediation Time: 3-4 developer-months
 Priority Order: Testing → Architecture → Documentation → Performance
@@ -451,7 +451,7 @@ TIMELINE:  3-4 months to achieve A-grade status (85+/100)
 
 | Metric | Current | Target | Gap |
 |--------|---------|--------|-----|
-| Test Coverage | 10.1% | 70% | -59.9% 🔴 |
+| Test Coverage | 10.1% | 70% | 59.9% gap 🔴 |
 | Largest File | 1,976 LOC | <600 LOC | +1,376 🔴 |
 | Test Files | 9 | 50+ | +41 🔴 |
 | Type Safety | 98% | 95% | +3% 🟢 |
