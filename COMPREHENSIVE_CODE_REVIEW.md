@@ -200,7 +200,7 @@ Production Code: 26,890 lines  ████████████████�
 Coverage Ratio:      10.1%     🔴 CRITICAL
 
 Target Coverage:     70%+      (Industry standard)
-Gap:                 59.9%     (16,107 lines need tests)
+Gap:                 59.9 percentage points (need ~16,107 additional test lines)
 ```
 
 **Current Test Files (9 total):**
@@ -258,9 +258,9 @@ Gap:                 59.9%     (16,107 lines need tests)
 │ Backend Tests        ░             0 files       │
 └──────────────────────────────────────────────────┘
 
-Test to Code Ratio: 0.101 (2,716 test lines / 26,890 core lines)
+Test to Code Ratio: 0.101 (2,716 test lines / 26,890 production lines)
 Target Ratio: 0.70+ for good coverage
-Gap: -59.9% 🔴 CRITICAL improvement needed
+Gap: 59.9 percentage points 🔴 CRITICAL improvement needed
 ```
 
 ---
@@ -384,7 +384,7 @@ Testing Debt:         ███████████████████�
 Documentation Debt:   ████████              7,000 lines  (API documentation)
 Performance Debt:     ████                  3,000 lines  (Optimization potential)
 ────────────────────────────────────────────────────────
-TOTAL DEBT:           ████████████████████ 38,300 lines (129.4% of codebase)
+TOTAL DEBT:           ████████████████████ 38,300 lines (estimated effort equivalent)
 
 Estimated Remediation Time: 3-4 developer-months
 Priority Order: Testing → Architecture → Documentation → Performance
