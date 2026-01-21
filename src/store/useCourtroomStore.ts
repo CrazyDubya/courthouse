@@ -150,6 +150,7 @@ export const useCourtroomStore = create<CourtroomState>()(
 
       setCurrentCase: (caseData) => {
         if (!caseData) {
+          console.log('📋 Clearing current case (null case data provided)');
           set({ currentCase: null, proceedingsEngine: null });
           return;
         }

@@ -278,7 +278,7 @@ class PerformanceMonitor {
 // Export singleton instance
 export const performanceMonitor = new PerformanceMonitor();
 
-// Make it available globally for debugging
-if (typeof window !== 'undefined') {
+// Make it available globally for debugging (development only)
+if (typeof window !== 'undefined' && process.env.NODE_ENV === 'development') {
   (window as any).perfMonitor = performanceMonitor;
 }
