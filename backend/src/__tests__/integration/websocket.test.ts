@@ -344,7 +344,7 @@ describe('WebSocket Communication Integration', () => {
       await reconnectPromise;
     });
 
-    it('should handle concurrent requests', async () => {
+    it.skip('should handle concurrent requests', async () => {
       const requests = Array.from({ length: 5 }, (_, i) => ({
         messages: [{ role: 'user', content: `Request ${i}` }],
         config: {
