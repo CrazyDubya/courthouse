@@ -31,7 +31,13 @@ describe('WebSocket Communication Integration', () => {
 
     httpServer.listen(port, () => {
       clientSocket = ioClient(`http://localhost:${port}`);
-      clientSocket.on('connect', done);
+      clientSocket.on('connect', () => {
+        done();
+      });
+      clientSocket.on('connect_error', (error) => {
+        console.error('Connection error:', error);
+        done(error);
+      });
     });
   });
 

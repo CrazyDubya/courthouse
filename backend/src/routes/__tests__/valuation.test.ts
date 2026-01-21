@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach, vi } from 'vitest';
+import { describe, it, expect, beforeEach, vi, type MockedFunction } from 'vitest';
 import express from 'express';
 import request from 'supertest';
 import valuationRouter from '../valuation.js';
@@ -22,6 +22,20 @@ vi.mock('../../services/ValuationService', () => ({
   }
 }));
 
+const mockGetAllValuations = valuationService.getAllValuations as MockedFunction<typeof valuationService.getAllValuations>;
+const mockGetValuation = valuationService.getValuation as MockedFunction<typeof valuationService.getValuation>;
+const mockGetValuationsByCaseId = valuationService.getValuationsByCaseId as MockedFunction<typeof valuationService.getValuationsByCaseId>;
+const mockCreateValuation = valuationService.createValuation as MockedFunction<typeof valuationService.createValuation>;
+const mockUpdateValuation = valuationService.updateValuation as MockedFunction<typeof valuationService.updateValuation>;
+const mockDeleteValuation = valuationService.deleteValuation as MockedFunction<typeof valuationService.deleteValuation>;
+const mockCalculateSaaSMetrics = valuationService.calculateSaaSMetrics as MockedFunction<typeof valuationService.calculateSaaSMetrics>;
+const mockCalculateARR = valuationService.calculateARR as MockedFunction<typeof valuationService.calculateARR>;
+const mockCalculateMRR = valuationService.calculateMRR as MockedFunction<typeof valuationService.calculateMRR>;
+const mockCalculateCLV = valuationService.calculateCLV as MockedFunction<typeof valuationService.calculateCLV>;
+const mockProjectRevenue = valuationService.projectRevenue as MockedFunction<typeof valuationService.projectRevenue>;
+const mockCalculateValuation = valuationService.calculateValuation as MockedFunction<typeof valuationService.calculateValuation>;
+const mockCalculateDamages = valuationService.calculateDamages as MockedFunction<typeof valuationService.calculateDamages>;
+
 describe('Valuation Routes', () => {
   let app: express.Application;
 
@@ -37,8 +51,8 @@ describe('Valuation Routes', () => {
       value: 350000,
       confidence: 0.85
     },
-    createdAt: new Date(),
-    updatedAt: new Date()
+    createdAt: new Date('2024-01-01'),
+    updatedAt: new Date('2024-01-01')
   };
 
   beforeEach(() => {
@@ -51,17 +65,17 @@ describe('Valuation Routes', () => {
   describe('GET /api/valuation', () => {
     it('should return all valuations', async () => {
       const valuations = [mockValuation];
-      (valuationService.getAllValuations as any).mockReturnValue(valuations);
+      mockGetAllValuations.mockReturnValue(valuations);
 
       const response = await request(app).get('/api/valuation');
 
       expect(response.status).toBe(200);
-      expect(response.body).toEqual(valuations);
+      expect(response.body).toEqual(JSON.parse(JSON.stringify(valuations)));
       expect(valuationService.getAllValuations).toHaveBeenCalled();
     });
 
     it('should handle service errors', async () => {
-      (valuationService.getAllValuations as any).mockImplementation(() => {
+      mockGetAllValuations.mockImplementation(() => {
         throw new Error('Database error');
       });
 
@@ -75,17 +89,17 @@ describe('Valuation Routes', () => {
 
   describe('GET /api/valuation/:id', () => {
     it('should return valuation by id', async () => {
-      (valuationService.getValuation as any).mockReturnValue(mockValuation);
+      mockGetValuation.mockReturnValue(mockValuation);
 
       const response = await request(app).get('/api/valuation/val-123');
 
       expect(response.status).toBe(200);
-      expect(response.body).toEqual(mockValuation);
+      expect(response.body).toEqual(JSON.parse(JSON.stringify(mockValuation)));
       expect(valuationService.getValuation).toHaveBeenCalledWith('val-123');
     });
 
     it('should return 404 if valuation not found', async () => {
-      (valuationService.getValuation as any).mockReturnValue(null);
+      mockGetValuation.mockReturnValue(null);
 
       const response = await request(app).get('/api/valuation/nonexistent');
 
@@ -94,7 +108,7 @@ describe('Valuation Routes', () => {
     });
 
     it('should handle service errors', async () => {
-      (valuationService.getValuation as any).mockImplementation(() => {
+      mockGetValuation.mockImplementation(() => {
         throw new Error('Database error');
       });
 
@@ -108,17 +122,17 @@ describe('Valuation Routes', () => {
   describe('GET /api/valuation/case/:caseId', () => {
     it('should return valuations for a case', async () => {
       const valuations = [mockValuation];
-      (valuationService.getValuationsByCaseId as any).mockReturnValue(valuations);
+      mockGetValuationsByCaseId.mockReturnValue(valuations);
 
       const response = await request(app).get('/api/valuation/case/case-123');
 
       expect(response.status).toBe(200);
-      expect(response.body).toEqual(valuations);
+      expect(response.body).toEqual(JSON.parse(JSON.stringify(valuations)));
       expect(valuationService.getValuationsByCaseId).toHaveBeenCalledWith('case-123');
     });
 
     it('should handle service errors', async () => {
-      (valuationService.getValuationsByCaseId as any).mockImplementation(() => {
+      mockGetValuationsByCaseId.mockImplementation(() => {
         throw new Error('Database error');
       });
 
@@ -137,19 +151,19 @@ describe('Valuation Routes', () => {
     };
 
     it('should create a new valuation', async () => {
-      (valuationService.createValuation as any).mockReturnValue(mockValuation);
+      mockCreateValuation.mockReturnValue(mockValuation);
 
       const response = await request(app)
         .post('/api/valuation')
         .send(validValuationData);
 
       expect(response.status).toBe(201);
-      expect(response.body).toEqual(mockValuation);
+      expect(response.body).toEqual(JSON.parse(JSON.stringify(mockValuation)));
       expect(valuationService.createValuation).toHaveBeenCalledWith(validValuationData);
     });
 
     it('should handle service errors', async () => {
-      (valuationService.createValuation as any).mockImplementation(() => {
+      mockCreateValuation.mockImplementation(() => {
         throw new Error('Database error');
       });
 
@@ -169,19 +183,19 @@ describe('Valuation Routes', () => {
 
     it('should update a valuation', async () => {
       const updatedValuation = { ...mockValuation, ...updateData };
-      (valuationService.updateValuation as any).mockReturnValue(updatedValuation);
+      mockUpdateValuation.mockReturnValue(updatedValuation);
 
       const response = await request(app)
         .put('/api/valuation/val-123')
         .send(updateData);
 
       expect(response.status).toBe(200);
-      expect(response.body).toEqual(updatedValuation);
+      expect(response.body).toEqual(JSON.parse(JSON.stringify(updatedValuation)));
       expect(valuationService.updateValuation).toHaveBeenCalledWith('val-123', updateData);
     });
 
     it('should return 404 if valuation not found', async () => {
-      (valuationService.updateValuation as any).mockReturnValue(null);
+      mockUpdateValuation.mockReturnValue(null);
 
       const response = await request(app)
         .put('/api/valuation/nonexistent')
@@ -192,7 +206,7 @@ describe('Valuation Routes', () => {
     });
 
     it('should handle service errors', async () => {
-      (valuationService.updateValuation as any).mockImplementation(() => {
+      mockUpdateValuation.mockImplementation(() => {
         throw new Error('Database error');
       });
 
@@ -207,7 +221,7 @@ describe('Valuation Routes', () => {
 
   describe('DELETE /api/valuation/:id', () => {
     it('should delete a valuation', async () => {
-      (valuationService.deleteValuation as any).mockReturnValue(true);
+      mockDeleteValuation.mockReturnValue(true);
 
       const response = await request(app).delete('/api/valuation/val-123');
 
@@ -216,7 +230,7 @@ describe('Valuation Routes', () => {
     });
 
     it('should return 404 if valuation not found', async () => {
-      (valuationService.deleteValuation as any).mockReturnValue(false);
+      mockDeleteValuation.mockReturnValue(false);
 
       const response = await request(app).delete('/api/valuation/nonexistent');
 
@@ -225,7 +239,7 @@ describe('Valuation Routes', () => {
     });
 
     it('should handle service errors', async () => {
-      (valuationService.deleteValuation as any).mockImplementation(() => {
+      mockDeleteValuation.mockImplementation(() => {
         throw new Error('Database error');
       });
 
@@ -252,7 +266,7 @@ describe('Valuation Routes', () => {
         cac: 50
       };
 
-      (valuationService.calculateSaaSMetrics as any).mockReturnValue(metrics);
+      mockCalculateSaaSMetrics.mockReturnValue(metrics);
 
       const response = await request(app)
         .post('/api/valuation/calculate/saas-metrics')
@@ -278,7 +292,7 @@ describe('Valuation Routes', () => {
     });
 
     it('should handle service errors', async () => {
-      (valuationService.calculateSaaSMetrics as any).mockImplementation(() => {
+      mockCalculateSaaSMetrics.mockImplementation(() => {
         throw new Error('Calculation error');
       });
 
@@ -297,7 +311,7 @@ describe('Valuation Routes', () => {
   describe('POST /api/valuation/calculate/arr', () => {
     it('should calculate ARR', async () => {
       const revenueData = { monthly: [10000, 12000, 15000] };
-      (valuationService.calculateARR as any).mockReturnValue(144000);
+      mockCalculateARR.mockReturnValue(144000);
 
       const response = await request(app)
         .post('/api/valuation/calculate/arr')
@@ -321,7 +335,7 @@ describe('Valuation Routes', () => {
   describe('POST /api/valuation/calculate/mrr', () => {
     it('should calculate MRR', async () => {
       const revenueData = { monthly: [10000, 12000, 15000] };
-      (valuationService.calculateMRR as any).mockReturnValue(12000);
+      mockCalculateMRR.mockReturnValue(12000);
 
       const response = await request(app)
         .post('/api/valuation/calculate/mrr')
@@ -349,7 +363,7 @@ describe('Valuation Routes', () => {
         avgContractLength: 12,
         retentionRate: 0.9
       };
-      (valuationService.calculateCLV as any).mockReturnValue(50000);
+      mockCalculateCLV.mockReturnValue(50000);
 
       const response = await request(app)
         .post('/api/valuation/calculate/clv')
@@ -383,7 +397,7 @@ describe('Valuation Routes', () => {
         confidence: 0.8
       };
       const projections = [16500, 18150, 19965];
-      (valuationService.projectRevenue as any).mockReturnValue(projections);
+      mockProjectRevenue.mockReturnValue(projections);
 
       const response = await request(app)
         .post('/api/valuation/calculate/projection')
@@ -418,7 +432,7 @@ describe('Valuation Routes', () => {
         inputs: { cashFlows: [100000], discountRate: 0.1 }
       };
       const result = { value: 350000, confidence: 0.85 };
-      (valuationService.calculateValuation as any).mockReturnValue(result);
+      mockCalculateValuation.mockReturnValue(result);
 
       const response = await request(app)
         .post('/api/valuation/calculate/valuation')
@@ -433,7 +447,7 @@ describe('Valuation Routes', () => {
     });
 
     it('should test all valid methods', async () => {
-      (valuationService.calculateValuation as any).mockReturnValue({ value: 100000 });
+      mockCalculateValuation.mockReturnValue({ value: 100000 });
 
       for (const method of validMethods) {
         const response = await request(app)
@@ -480,7 +494,7 @@ describe('Valuation Routes', () => {
           mitigation: 5000
         }
       };
-      (valuationService.calculateDamages as any).mockReturnValue(damages);
+      mockCalculateDamages.mockReturnValue(damages);
 
       const response = await request(app)
         .post('/api/valuation/calculate/damages')
@@ -502,7 +516,7 @@ describe('Valuation Routes', () => {
         lostRevenue: 100000,
         lostCustomers: 50
       };
-      (valuationService.calculateDamages as any).mockReturnValue({ total: 100000 });
+      mockCalculateDamages.mockReturnValue({ total: 100000 });
 
       const response = await request(app)
         .post('/api/valuation/calculate/damages')
@@ -530,8 +544,19 @@ describe('Valuation Routes', () => {
 
   describe('POST /api/valuation/:id/analyze', () => {
     it('should analyze valuation (placeholder)', async () => {
-      (valuationService.getValuation as any).mockReturnValue(mockValuation);
-      (valuationService.updateValuation as any).mockReturnValue(mockValuation);
+      const valuationWithAnalysis = {
+        ...mockValuation,
+        llmAnalysis: {
+          summary: 'LLM analysis not yet implemented',
+          keyFindings: ['Placeholder finding'],
+          risks: ['Placeholder risk'],
+          opportunities: ['Placeholder opportunity'],
+          analyzedAt: new Date('2024-01-01'),
+          model: 'placeholder',
+        }
+      };
+      mockGetValuation.mockReturnValue(mockValuation);
+      mockUpdateValuation.mockReturnValue(valuationWithAnalysis);
 
       const response = await request(app)
         .post('/api/valuation/val-123/analyze');
@@ -542,7 +567,7 @@ describe('Valuation Routes', () => {
     });
 
     it('should return 404 if valuation not found', async () => {
-      (valuationService.getValuation as any).mockReturnValue(null);
+      mockGetValuation.mockReturnValue(null);
 
       const response = await request(app)
         .post('/api/valuation/nonexistent/analyze');
@@ -552,7 +577,7 @@ describe('Valuation Routes', () => {
     });
 
     it('should handle service errors', async () => {
-      (valuationService.getValuation as any).mockImplementation(() => {
+      mockGetValuation.mockImplementation(() => {
         throw new Error('Database error');
       });
 

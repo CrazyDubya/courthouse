@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach, vi } from 'vitest';
+import { describe, it, expect, beforeEach, vi, type MockedFunction } from 'vitest';
 import express from 'express';
 import request from 'supertest';
 import createCaseRoutes from '../cases.js';
@@ -7,7 +7,7 @@ import { Case } from '../../types/index.js';
 
 describe('Case Routes', () => {
   let app: express.Application;
-  let mockCaseService: Partial<CaseService>;
+  let mockCaseService: CaseService;
 
   const mockCase: Case = {
     id: 'case-123',
@@ -23,7 +23,7 @@ describe('Case Routes', () => {
         aiControlled: false
       }
     ],
-    phase: 'opening',
+    currentPhase: 'pre-trial',
     transcript: [],
     settings: {
       realtimeSpeed: 1.0,
@@ -49,29 +49,29 @@ describe('Case Routes', () => {
       getTranscript: vi.fn(),
       addTranscriptEntry: vi.fn(),
       updatePhase: vi.fn()
-    };
+    } as CaseService;
 
     app = express();
     app.use(express.json());
-    app.use('/api/cases', createCaseRoutes(mockCaseService as CaseService));
+    app.use('/api/cases', createCaseRoutes(mockCaseService));
   });
 
   describe('GET /api/cases', () => {
     it('should return all cases', async () => {
       const cases = [mockCase];
-      (mockCaseService.getAllCases as any).mockResolvedValue(cases);
+      (mockCaseService.getAllCases as MockedFunction<typeof mockCaseService.getAllCases>).mockResolvedValue(cases);
 
       const response = await request(app)
         .get('/api/cases')
         .query({ userId: 'user-123', limit: '50', offset: '0' });
 
       expect(response.status).toBe(200);
-      expect(response.body).toEqual(cases);
+      expect(response.body).toEqual(JSON.parse(JSON.stringify(cases)));
       expect(mockCaseService.getAllCases).toHaveBeenCalledWith('user-123', 50, 0);
     });
 
     it('should handle service errors', async () => {
-      (mockCaseService.getAllCases as any).mockRejectedValue(new Error('Database error'));
+      (mockCaseService.getAllCases as MockedFunction<typeof mockCaseService.getAllCases>).mockRejectedValue(new Error('Database error'));
 
       const response = await request(app)
         .get('/api/cases');
@@ -82,7 +82,7 @@ describe('Case Routes', () => {
     });
 
     it('should use default limit and offset', async () => {
-      (mockCaseService.getAllCases as any).mockResolvedValue([]);
+      (mockCaseService.getAllCases as MockedFunction<typeof mockCaseService.getAllCases>).mockResolvedValue([]);
 
       await request(app).get('/api/cases');
 
@@ -92,18 +92,18 @@ describe('Case Routes', () => {
 
   describe('GET /api/cases/:id', () => {
     it('should return a case by id', async () => {
-      (mockCaseService.getCaseById as any).mockResolvedValue(mockCase);
+      (mockCaseService.getCaseById as MockedFunction<typeof mockCaseService.getCaseById>).mockResolvedValue(mockCase);
 
       const response = await request(app)
         .get('/api/cases/case-123');
 
       expect(response.status).toBe(200);
-      expect(response.body).toEqual(mockCase);
+      expect(response.body).toEqual(JSON.parse(JSON.stringify(mockCase)));
       expect(mockCaseService.getCaseById).toHaveBeenCalledWith('case-123');
     });
 
     it('should return 404 if case not found', async () => {
-      (mockCaseService.getCaseById as any).mockResolvedValue(null);
+      (mockCaseService.getCaseById as MockedFunction<typeof mockCaseService.getCaseById>).mockResolvedValue(null);
 
       const response = await request(app)
         .get('/api/cases/nonexistent');
@@ -113,7 +113,7 @@ describe('Case Routes', () => {
     });
 
     it('should handle service errors', async () => {
-      (mockCaseService.getCaseById as any).mockRejectedValue(new Error('Database error'));
+      (mockCaseService.getCaseById as MockedFunction<typeof mockCaseService.getCaseById>).mockRejectedValue(new Error('Database error'));
 
       const response = await request(app)
         .get('/api/cases/case-123');
@@ -139,14 +139,14 @@ describe('Case Routes', () => {
 
     it('should create a new case with valid data', async () => {
       const createdCase = { ...mockCase, ...validCaseData };
-      (mockCaseService.createCase as any).mockResolvedValue(createdCase);
+      (mockCaseService.createCase as MockedFunction<typeof mockCaseService.createCase>).mockResolvedValue(createdCase);
 
       const response = await request(app)
         .post('/api/cases')
         .send(validCaseData);
 
       expect(response.status).toBe(201);
-      expect(response.body).toEqual(createdCase);
+      expect(response.body).toEqual(JSON.parse(JSON.stringify(createdCase)));
       expect(mockCaseService.createCase).toHaveBeenCalledWith(validCaseData);
     });
 
@@ -196,7 +196,7 @@ describe('Case Routes', () => {
     });
 
     it('should handle service errors', async () => {
-      (mockCaseService.createCase as any).mockRejectedValue(new Error('Database error'));
+      (mockCaseService.createCase as MockedFunction<typeof mockCaseService.createCase>).mockRejectedValue(new Error('Database error'));
 
       const response = await request(app)
         .post('/api/cases')
@@ -217,7 +217,7 @@ describe('Case Routes', () => {
           complexityLevel: 'simple'
         }
       };
-      (mockCaseService.createCase as any).mockResolvedValue(mockCase);
+      (mockCaseService.createCase as MockedFunction<typeof mockCaseService.createCase>).mockResolvedValue(mockCase);
 
       const response = await request(app)
         .post('/api/cases')
@@ -250,19 +250,19 @@ describe('Case Routes', () => {
 
     it('should update a case with valid data', async () => {
       const updatedCase = { ...mockCase, ...updateData };
-      (mockCaseService.updateCase as any).mockResolvedValue(updatedCase);
+      (mockCaseService.updateCase as MockedFunction<typeof mockCaseService.updateCase>).mockResolvedValue(updatedCase);
 
       const response = await request(app)
         .put('/api/cases/case-123')
         .send(updateData);
 
       expect(response.status).toBe(200);
-      expect(response.body).toEqual(updatedCase);
+      expect(response.body).toEqual(JSON.parse(JSON.stringify(updatedCase)));
       expect(mockCaseService.updateCase).toHaveBeenCalledWith('case-123', updateData);
     });
 
     it('should return 404 if case not found', async () => {
-      (mockCaseService.updateCase as any).mockResolvedValue(null);
+      (mockCaseService.updateCase as MockedFunction<typeof mockCaseService.updateCase>).mockResolvedValue(null);
 
       const response = await request(app)
         .put('/api/cases/nonexistent')
@@ -284,7 +284,7 @@ describe('Case Routes', () => {
     });
 
     it('should handle service errors', async () => {
-      (mockCaseService.updateCase as any).mockRejectedValue(new Error('Database error'));
+      (mockCaseService.updateCase as MockedFunction<typeof mockCaseService.updateCase>).mockRejectedValue(new Error('Database error'));
 
       const response = await request(app)
         .put('/api/cases/case-123')
@@ -297,7 +297,7 @@ describe('Case Routes', () => {
 
   describe('DELETE /api/cases/:id', () => {
     it('should delete a case', async () => {
-      (mockCaseService.deleteCase as any).mockResolvedValue(true);
+      (mockCaseService.deleteCase as MockedFunction<typeof mockCaseService.deleteCase>).mockResolvedValue(true);
 
       const response = await request(app)
         .delete('/api/cases/case-123');
@@ -307,7 +307,7 @@ describe('Case Routes', () => {
     });
 
     it('should return 404 if case not found', async () => {
-      (mockCaseService.deleteCase as any).mockResolvedValue(false);
+      (mockCaseService.deleteCase as MockedFunction<typeof mockCaseService.deleteCase>).mockResolvedValue(false);
 
       const response = await request(app)
         .delete('/api/cases/nonexistent');
@@ -317,7 +317,7 @@ describe('Case Routes', () => {
     });
 
     it('should handle service errors', async () => {
-      (mockCaseService.deleteCase as any).mockRejectedValue(new Error('Database error'));
+      (mockCaseService.deleteCase as MockedFunction<typeof mockCaseService.deleteCase>).mockRejectedValue(new Error('Database error'));
 
       const response = await request(app)
         .delete('/api/cases/case-123');
@@ -336,19 +336,19 @@ describe('Case Routes', () => {
 
     it('should add a participant to a case', async () => {
       const updatedCase = { ...mockCase };
-      (mockCaseService.addParticipant as any).mockResolvedValue(updatedCase);
+      (mockCaseService.addParticipant as MockedFunction<typeof mockCaseService.addParticipant>).mockResolvedValue(updatedCase);
 
       const response = await request(app)
         .post('/api/cases/case-123/participants')
         .send(newParticipant);
 
       expect(response.status).toBe(200);
-      expect(response.body).toEqual(updatedCase);
+      expect(response.body).toEqual(JSON.parse(JSON.stringify(updatedCase)));
       expect(mockCaseService.addParticipant).toHaveBeenCalledWith('case-123', newParticipant);
     });
 
     it('should return 404 if case not found', async () => {
-      (mockCaseService.addParticipant as any).mockResolvedValue(null);
+      (mockCaseService.addParticipant as MockedFunction<typeof mockCaseService.addParticipant>).mockResolvedValue(null);
 
       const response = await request(app)
         .post('/api/cases/nonexistent/participants')
@@ -359,7 +359,7 @@ describe('Case Routes', () => {
     });
 
     it('should handle service errors', async () => {
-      (mockCaseService.addParticipant as any).mockRejectedValue(new Error('Database error'));
+      (mockCaseService.addParticipant as MockedFunction<typeof mockCaseService.addParticipant>).mockRejectedValue(new Error('Database error'));
 
       const response = await request(app)
         .post('/api/cases/case-123/participants')
@@ -378,14 +378,14 @@ describe('Case Routes', () => {
 
     it('should update a participant', async () => {
       const updatedCase = { ...mockCase };
-      (mockCaseService.updateParticipant as any).mockResolvedValue(updatedCase);
+      (mockCaseService.updateParticipant as MockedFunction<typeof mockCaseService.updateParticipant>).mockResolvedValue(updatedCase);
 
       const response = await request(app)
         .put('/api/cases/case-123/participants/participant-1')
         .send(updateData);
 
       expect(response.status).toBe(200);
-      expect(response.body).toEqual(updatedCase);
+      expect(response.body).toEqual(JSON.parse(JSON.stringify(updatedCase)));
       expect(mockCaseService.updateParticipant).toHaveBeenCalledWith(
         'case-123',
         'participant-1',
@@ -394,7 +394,7 @@ describe('Case Routes', () => {
     });
 
     it('should return 404 if case or participant not found', async () => {
-      (mockCaseService.updateParticipant as any).mockResolvedValue(null);
+      (mockCaseService.updateParticipant as MockedFunction<typeof mockCaseService.updateParticipant>).mockResolvedValue(null);
 
       const response = await request(app)
         .put('/api/cases/case-123/participants/nonexistent')
@@ -405,7 +405,7 @@ describe('Case Routes', () => {
     });
 
     it('should handle service errors', async () => {
-      (mockCaseService.updateParticipant as any).mockRejectedValue(new Error('Database error'));
+      (mockCaseService.updateParticipant as MockedFunction<typeof mockCaseService.updateParticipant>).mockRejectedValue(new Error('Database error'));
 
       const response = await request(app)
         .put('/api/cases/case-123/participants/participant-1')
@@ -419,18 +419,18 @@ describe('Case Routes', () => {
   describe('DELETE /api/cases/:id/participants/:participantId', () => {
     it('should remove a participant', async () => {
       const updatedCase = { ...mockCase };
-      (mockCaseService.removeParticipant as any).mockResolvedValue(updatedCase);
+      (mockCaseService.removeParticipant as MockedFunction<typeof mockCaseService.removeParticipant>).mockResolvedValue(updatedCase);
 
       const response = await request(app)
         .delete('/api/cases/case-123/participants/participant-1');
 
       expect(response.status).toBe(200);
-      expect(response.body).toEqual(updatedCase);
+      expect(response.body).toEqual(JSON.parse(JSON.stringify(updatedCase)));
       expect(mockCaseService.removeParticipant).toHaveBeenCalledWith('case-123', 'participant-1');
     });
 
     it('should return 404 if case or participant not found', async () => {
-      (mockCaseService.removeParticipant as any).mockResolvedValue(null);
+      (mockCaseService.removeParticipant as MockedFunction<typeof mockCaseService.removeParticipant>).mockResolvedValue(null);
 
       const response = await request(app)
         .delete('/api/cases/case-123/participants/nonexistent');
@@ -440,7 +440,7 @@ describe('Case Routes', () => {
     });
 
     it('should handle service errors', async () => {
-      (mockCaseService.removeParticipant as any).mockRejectedValue(new Error('Database error'));
+      (mockCaseService.removeParticipant as MockedFunction<typeof mockCaseService.removeParticipant>).mockRejectedValue(new Error('Database error'));
 
       const response = await request(app)
         .delete('/api/cases/case-123/participants/participant-1');
@@ -456,7 +456,7 @@ describe('Case Routes', () => {
     ];
 
     it('should return case transcript', async () => {
-      (mockCaseService.getTranscript as any).mockResolvedValue(mockTranscript);
+      (mockCaseService.getTranscript as MockedFunction<typeof mockCaseService.getTranscript>).mockResolvedValue(mockTranscript);
 
       const response = await request(app)
         .get('/api/cases/case-123/transcript');
@@ -467,7 +467,7 @@ describe('Case Routes', () => {
     });
 
     it('should return 404 if case not found', async () => {
-      (mockCaseService.getTranscript as any).mockResolvedValue(null);
+      (mockCaseService.getTranscript as MockedFunction<typeof mockCaseService.getTranscript>).mockResolvedValue(null);
 
       const response = await request(app)
         .get('/api/cases/nonexistent/transcript');
@@ -477,7 +477,7 @@ describe('Case Routes', () => {
     });
 
     it('should handle service errors', async () => {
-      (mockCaseService.getTranscript as any).mockRejectedValue(new Error('Database error'));
+      (mockCaseService.getTranscript as MockedFunction<typeof mockCaseService.getTranscript>).mockRejectedValue(new Error('Database error'));
 
       const response = await request(app)
         .get('/api/cases/case-123/transcript');
@@ -496,19 +496,19 @@ describe('Case Routes', () => {
 
     it('should add transcript entry', async () => {
       const updatedCase = { ...mockCase };
-      (mockCaseService.addTranscriptEntry as any).mockResolvedValue(updatedCase);
+      (mockCaseService.addTranscriptEntry as MockedFunction<typeof mockCaseService.addTranscriptEntry>).mockResolvedValue(updatedCase);
 
       const response = await request(app)
         .post('/api/cases/case-123/transcript')
         .send(transcriptEntry);
 
       expect(response.status).toBe(200);
-      expect(response.body).toEqual(updatedCase);
+      expect(response.body).toEqual(JSON.parse(JSON.stringify(updatedCase)));
       expect(mockCaseService.addTranscriptEntry).toHaveBeenCalledWith('case-123', transcriptEntry);
     });
 
     it('should return 404 if case not found', async () => {
-      (mockCaseService.addTranscriptEntry as any).mockResolvedValue(null);
+      (mockCaseService.addTranscriptEntry as MockedFunction<typeof mockCaseService.addTranscriptEntry>).mockResolvedValue(null);
 
       const response = await request(app)
         .post('/api/cases/nonexistent/transcript')
@@ -519,7 +519,7 @@ describe('Case Routes', () => {
     });
 
     it('should handle service errors', async () => {
-      (mockCaseService.addTranscriptEntry as any).mockRejectedValue(new Error('Database error'));
+      (mockCaseService.addTranscriptEntry as MockedFunction<typeof mockCaseService.addTranscriptEntry>).mockRejectedValue(new Error('Database error'));
 
       const response = await request(app)
         .post('/api/cases/case-123/transcript')
@@ -532,15 +532,15 @@ describe('Case Routes', () => {
 
   describe('PUT /api/cases/:id/phase', () => {
     it('should update case phase', async () => {
-      const updatedCase = { ...mockCase, phase: 'closing' };
-      (mockCaseService.updatePhase as any).mockResolvedValue(updatedCase);
+      const updatedCase = { ...mockCase, currentPhase: 'closing' };
+      (mockCaseService.updatePhase as MockedFunction<typeof mockCaseService.updatePhase>).mockResolvedValue(updatedCase);
 
       const response = await request(app)
         .put('/api/cases/case-123/phase')
-        .send({ phase: 'closing' });
+        .send({ currentPhase: 'closing' });
 
       expect(response.status).toBe(200);
-      expect(response.body).toEqual(updatedCase);
+      expect(response.body).toEqual(JSON.parse(JSON.stringify(updatedCase)));
       expect(mockCaseService.updatePhase).toHaveBeenCalledWith('case-123', 'closing');
     });
 
@@ -554,22 +554,22 @@ describe('Case Routes', () => {
     });
 
     it('should return 404 if case not found', async () => {
-      (mockCaseService.updatePhase as any).mockResolvedValue(null);
+      (mockCaseService.updatePhase as MockedFunction<typeof mockCaseService.updatePhase>).mockResolvedValue(null);
 
       const response = await request(app)
         .put('/api/cases/nonexistent/phase')
-        .send({ phase: 'closing' });
+        .send({ currentPhase: 'closing' });
 
       expect(response.status).toBe(404);
       expect(response.body.error).toBe('Case not found');
     });
 
     it('should handle service errors', async () => {
-      (mockCaseService.updatePhase as any).mockRejectedValue(new Error('Database error'));
+      (mockCaseService.updatePhase as MockedFunction<typeof mockCaseService.updatePhase>).mockRejectedValue(new Error('Database error'));
 
       const response = await request(app)
         .put('/api/cases/case-123/phase')
-        .send({ phase: 'closing' });
+        .send({ currentPhase: 'closing' });
 
       expect(response.status).toBe(500);
       expect(response.body.error).toBe('Database error');

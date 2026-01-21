@@ -49,7 +49,7 @@ describe('Case Workflow Integration', () => {
       expect(createdCase).toBeDefined();
       expect(createdCase.id).toBeDefined();
       expect(createdCase.title).toBe(caseData.title);
-      expect(createdCase.phase).toBe('opening');
+      expect(createdCase.currentPhase).toBe('pre-trial');
       expect(createdCase.participants.length).toBe(3);
 
       const retrievedCase = await caseService.getCaseById(createdCase.id);
@@ -82,7 +82,7 @@ describe('Case Workflow Integration', () => {
 
       const caseInTrial = await caseService.updatePhase(createdCase.id, 'trial');
       expect(caseInTrial).toBeDefined();
-      expect(caseInTrial!.phase).toBe('trial');
+      expect(caseInTrial!.currentPhase).toBe('trial');
 
       const updatedCase = await caseService.updateCase(createdCase.id, {
         summary: 'Updated: A complex dispute over a software development contract'
@@ -227,14 +227,14 @@ describe('Case Workflow Integration', () => {
       };
 
       const createdCase = await caseService.createCase(caseData);
-      expect(createdCase.phase).toBe('opening');
+      expect(createdCase.currentPhase).toBe('pre-trial');
 
       const phases = ['trial', 'closing', 'deliberation', 'verdict'];
 
       for (const phase of phases) {
         const updated = await caseService.updatePhase(createdCase.id, phase);
         expect(updated).toBeDefined();
-        expect(updated!.phase).toBe(phase);
+        expect(updated!.currentPhase).toBe(phase);
       }
 
       await caseService.deleteCase(createdCase.id);
@@ -367,9 +367,9 @@ describe('Case Workflow Integration', () => {
 
       let currentPhase = 'opening';
       for (const event of trialEvents) {
-        if (event.phase !== currentPhase) {
-          await caseService.updatePhase(trial.id, event.phase);
-          currentPhase = event.phase;
+        if (event.currentPhase !== currentPhase) {
+          await caseService.updatePhase(trial.id, event.currentPhase);
+          currentPhase = event.currentPhase;
         }
         
         await caseService.addTranscriptEntry(trial.id, {
@@ -381,7 +381,7 @@ describe('Case Workflow Integration', () => {
 
       const finalCase = await caseService.getCaseById(trial.id);
       expect(finalCase).toBeDefined();
-      expect(finalCase!.phase).toBe('verdict');
+      expect(finalCase!.currentPhase).toBe('verdict');
       expect(finalCase!.transcript.length).toBeGreaterThanOrEqual(trialEvents.length);
 
       await caseService.deleteCase(trial.id);

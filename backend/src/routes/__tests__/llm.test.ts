@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach, vi } from 'vitest';
+import { describe, it, expect, beforeEach, vi, type MockedFunction } from 'vitest';
 import express from 'express';
 import request from 'supertest';
 import createLLMRoutes from '../llm.js';
@@ -7,14 +7,14 @@ import { QueueService } from '../../services/QueueService.js';
 
 describe('LLM Routes', () => {
   let app: express.Application;
-  let mockLLMService: Partial<LLMService>;
-  let mockQueueService: Partial<QueueService>;
+  let mockLLMService: LLMService;
+  let mockQueueService: QueueService;
 
   beforeEach(() => {
     mockLLMService = {
       getProviderStatus: vi.fn(),
       createProvider: vi.fn()
-    };
+    } as unknown as LLMService;
 
     mockQueueService = {
       addLLMRequest: vi.fn(),
@@ -27,11 +27,11 @@ describe('LLM Routes', () => {
       getPendingJobIds: vi.fn(),
       clearCompletedJobs: vi.fn(),
       clearFailedJobs: vi.fn()
-    };
+    } as unknown as QueueService;
 
     app = express();
     app.use(express.json());
-    app.use('/api/llm', createLLMRoutes(mockLLMService as LLMService, mockQueueService as QueueService));
+    app.use('/api/llm', createLLMRoutes(mockLLMService, mockQueueService));
   });
 
   describe('POST /api/llm/request', () => {
@@ -50,8 +50,8 @@ describe('LLM Routes', () => {
     };
 
     it('should queue a valid LLM request', async () => {
-      (mockQueueService.addLLMRequest as any).mockResolvedValue(undefined);
-      (mockQueueService.getQueuePosition as any).mockResolvedValue(3);
+      (mockQueueService.addLLMRequest as MockedFunction<typeof mockQueueService.addLLMRequest>).mockResolvedValue(undefined);
+      (mockQueueService.getQueuePosition as MockedFunction<typeof mockQueueService.getQueuePosition>).mockResolvedValue(3);
 
       const response = await request(app)
         .post('/api/llm/request')
@@ -156,8 +156,8 @@ describe('LLM Routes', () => {
     });
 
     it('should accept valid providers', async () => {
-      (mockQueueService.addLLMRequest as any).mockResolvedValue(undefined);
-      (mockQueueService.getQueuePosition as any).mockResolvedValue(1);
+      (mockQueueService.addLLMRequest as MockedFunction<typeof mockQueueService.addLLMRequest>).mockResolvedValue(undefined);
+      (mockQueueService.getQueuePosition as MockedFunction<typeof mockQueueService.getQueuePosition>).mockResolvedValue(1);
 
       const providers = ['openai', 'anthropic', 'ollama', 'openrouter', 'groq'];
 
@@ -176,7 +176,7 @@ describe('LLM Routes', () => {
     });
 
     it('should handle queue service errors', async () => {
-      (mockQueueService.addLLMRequest as any).mockRejectedValue(new Error('Queue error'));
+      (mockQueueService.addLLMRequest as MockedFunction<typeof mockQueueService.addLLMRequest>).mockRejectedValue(new Error('Queue error'));
 
       const response = await request(app)
         .post('/api/llm/request')
@@ -187,8 +187,8 @@ describe('LLM Routes', () => {
     });
 
     it('should default priority to 0 if not provided', async () => {
-      (mockQueueService.addLLMRequest as any).mockResolvedValue(undefined);
-      (mockQueueService.getQueuePosition as any).mockResolvedValue(1);
+      (mockQueueService.addLLMRequest as MockedFunction<typeof mockQueueService.addLLMRequest>).mockResolvedValue(undefined);
+      (mockQueueService.getQueuePosition as MockedFunction<typeof mockQueueService.getQueuePosition>).mockResolvedValue(1);
 
       const requestNoPriority = { ...validRequest };
       delete requestNoPriority.priority;
@@ -209,8 +209,8 @@ describe('LLM Routes', () => {
         result: null,
         error: null
       };
-      (mockQueueService.getJobStatus as any).mockResolvedValue(jobStatus);
-      (mockQueueService.getQueuePosition as any).mockResolvedValue(2);
+      (mockQueueService.getJobStatus as MockedFunction<typeof mockQueueService.getJobStatus>).mockResolvedValue(jobStatus);
+      (mockQueueService.getQueuePosition as MockedFunction<typeof mockQueueService.getQueuePosition>).mockResolvedValue(2);
 
       const response = await request(app)
         .get('/api/llm/request/req-123/status');
@@ -227,7 +227,7 @@ describe('LLM Routes', () => {
         result: { text: 'Generated response' },
         error: null
       };
-      (mockQueueService.getJobStatus as any).mockResolvedValue(jobStatus);
+      (mockQueueService.getJobStatus as MockedFunction<typeof mockQueueService.getJobStatus>).mockResolvedValue(jobStatus);
 
       const response = await request(app)
         .get('/api/llm/request/req-123/status');
@@ -245,7 +245,7 @@ describe('LLM Routes', () => {
         result: null,
         error: 'API rate limit exceeded'
       };
-      (mockQueueService.getJobStatus as any).mockResolvedValue(jobStatus);
+      (mockQueueService.getJobStatus as MockedFunction<typeof mockQueueService.getJobStatus>).mockResolvedValue(jobStatus);
 
       const response = await request(app)
         .get('/api/llm/request/req-123/status');
@@ -256,7 +256,7 @@ describe('LLM Routes', () => {
     });
 
     it('should return 404 if request not found', async () => {
-      (mockQueueService.getJobStatus as any).mockResolvedValue(null);
+      (mockQueueService.getJobStatus as MockedFunction<typeof mockQueueService.getJobStatus>).mockResolvedValue(null);
 
       const response = await request(app)
         .get('/api/llm/request/nonexistent/status');
@@ -266,7 +266,7 @@ describe('LLM Routes', () => {
     });
 
     it('should handle service errors', async () => {
-      (mockQueueService.getJobStatus as any).mockRejectedValue(new Error('Queue error'));
+      (mockQueueService.getJobStatus as MockedFunction<typeof mockQueueService.getJobStatus>).mockRejectedValue(new Error('Queue error'));
 
       const response = await request(app)
         .get('/api/llm/request/req-123/status');
@@ -278,7 +278,7 @@ describe('LLM Routes', () => {
 
   describe('POST /api/llm/request/:requestId/cancel', () => {
     it('should cancel a request', async () => {
-      (mockQueueService.cancelJob as any).mockResolvedValue(true);
+      (mockQueueService.cancelJob as MockedFunction<typeof mockQueueService.cancelJob>).mockResolvedValue(true);
 
       const response = await request(app)
         .post('/api/llm/request/req-123/cancel');
@@ -289,7 +289,7 @@ describe('LLM Routes', () => {
     });
 
     it('should return 404 if request not found', async () => {
-      (mockQueueService.cancelJob as any).mockResolvedValue(false);
+      (mockQueueService.cancelJob as MockedFunction<typeof mockQueueService.cancelJob>).mockResolvedValue(false);
 
       const response = await request(app)
         .post('/api/llm/request/nonexistent/cancel');
@@ -299,7 +299,7 @@ describe('LLM Routes', () => {
     });
 
     it('should handle service errors', async () => {
-      (mockQueueService.cancelJob as any).mockRejectedValue(new Error('Queue error'));
+      (mockQueueService.cancelJob as MockedFunction<typeof mockQueueService.cancelJob>).mockRejectedValue(new Error('Queue error'));
 
       const response = await request(app)
         .post('/api/llm/request/req-123/cancel');
@@ -311,7 +311,7 @@ describe('LLM Routes', () => {
 
   describe('POST /api/llm/request/:requestId/retry', () => {
     it('should retry a failed request', async () => {
-      (mockQueueService.retryFailedJob as any).mockResolvedValue(true);
+      (mockQueueService.retryFailedJob as MockedFunction<typeof mockQueueService.retryFailedJob>).mockResolvedValue(true);
 
       const response = await request(app)
         .post('/api/llm/request/req-123/retry');
@@ -322,7 +322,7 @@ describe('LLM Routes', () => {
     });
 
     it('should return 404 if request not found', async () => {
-      (mockQueueService.retryFailedJob as any).mockResolvedValue(false);
+      (mockQueueService.retryFailedJob as MockedFunction<typeof mockQueueService.retryFailedJob>).mockResolvedValue(false);
 
       const response = await request(app)
         .post('/api/llm/request/nonexistent/retry');
@@ -332,7 +332,7 @@ describe('LLM Routes', () => {
     });
 
     it('should handle service errors', async () => {
-      (mockQueueService.retryFailedJob as any).mockRejectedValue(new Error('Queue error'));
+      (mockQueueService.retryFailedJob as MockedFunction<typeof mockQueueService.retryFailedJob>).mockRejectedValue(new Error('Queue error'));
 
       const response = await request(app)
         .post('/api/llm/request/req-123/retry');
@@ -348,7 +348,7 @@ describe('LLM Routes', () => {
         openai: { available: true, models: ['gpt-4', 'gpt-3.5-turbo'] },
         anthropic: { available: false, models: [] }
       };
-      (mockLLMService.getProviderStatus as any).mockResolvedValue(providerStatus);
+      (mockLLMService.getProviderStatus as MockedFunction<typeof mockLLMService.getProviderStatus>).mockResolvedValue(providerStatus);
 
       const response = await request(app)
         .get('/api/llm/providers');
@@ -358,7 +358,7 @@ describe('LLM Routes', () => {
     });
 
     it('should handle service errors', async () => {
-      (mockLLMService.getProviderStatus as any).mockRejectedValue(new Error('Service error'));
+      (mockLLMService.getProviderStatus as MockedFunction<typeof mockLLMService.getProviderStatus>).mockRejectedValue(new Error('Service error'));
 
       const response = await request(app)
         .get('/api/llm/providers');
@@ -371,7 +371,7 @@ describe('LLM Routes', () => {
   describe('POST /api/llm/providers/:provider/test', () => {
     it('should test provider configuration', async () => {
       const mockProvider = { validateConfig: vi.fn().mockResolvedValue(true) };
-      (mockLLMService.createProvider as any).mockReturnValue(mockProvider);
+      (mockLLMService.createProvider as MockedFunction<typeof mockLLMService.createProvider>).mockReturnValue(mockProvider);
 
       const config = { apiKey: 'test-key', model: 'gpt-4' };
 
@@ -390,7 +390,7 @@ describe('LLM Routes', () => {
 
     it('should return invalid if provider config fails', async () => {
       const mockProvider = { validateConfig: vi.fn().mockResolvedValue(false) };
-      (mockLLMService.createProvider as any).mockReturnValue(mockProvider);
+      (mockLLMService.createProvider as MockedFunction<typeof mockLLMService.createProvider>).mockReturnValue(mockProvider);
 
       const config = { apiKey: 'invalid-key', model: 'gpt-4' };
 
@@ -412,7 +412,7 @@ describe('LLM Routes', () => {
     });
 
     it('should handle service errors', async () => {
-      (mockLLMService.createProvider as any).mockImplementation(() => {
+      (mockLLMService.createProvider as MockedFunction<typeof mockLLMService.createProvider>).mockImplementation(() => {
         throw new Error('Invalid provider');
       });
 
@@ -434,7 +434,7 @@ describe('LLM Routes', () => {
         failed: 3,
         delayed: 0
       };
-      (mockQueueService.getQueueStats as any).mockResolvedValue(stats);
+      (mockQueueService.getQueueStats as MockedFunction<typeof mockQueueService.getQueueStats>).mockResolvedValue(stats);
 
       const response = await request(app)
         .get('/api/llm/queue/stats');
@@ -444,7 +444,7 @@ describe('LLM Routes', () => {
     });
 
     it('should handle service errors', async () => {
-      (mockQueueService.getQueueStats as any).mockRejectedValue(new Error('Queue error'));
+      (mockQueueService.getQueueStats as MockedFunction<typeof mockQueueService.getQueueStats>).mockRejectedValue(new Error('Queue error'));
 
       const response = await request(app)
         .get('/api/llm/queue/stats');
@@ -457,7 +457,7 @@ describe('LLM Routes', () => {
   describe('GET /api/llm/queue/jobs/active', () => {
     it('should return active job IDs', async () => {
       const activeJobs = ['job-1', 'job-2', 'job-3'];
-      (mockQueueService.getActiveJobIds as any).mockReturnValue(activeJobs);
+      (mockQueueService.getActiveJobIds as MockedFunction<typeof mockQueueService.getActiveJobIds>).mockReturnValue(activeJobs);
 
       const response = await request(app)
         .get('/api/llm/queue/jobs/active');
@@ -468,7 +468,7 @@ describe('LLM Routes', () => {
     });
 
     it('should handle service errors', async () => {
-      (mockQueueService.getActiveJobIds as any).mockImplementation(() => {
+      (mockQueueService.getActiveJobIds as MockedFunction<typeof mockQueueService.getActiveJobIds>).mockImplementation(() => {
         throw new Error('Queue error');
       });
 
@@ -483,7 +483,7 @@ describe('LLM Routes', () => {
   describe('GET /api/llm/queue/jobs/pending', () => {
     it('should return pending job IDs', async () => {
       const pendingJobs = ['job-4', 'job-5'];
-      (mockQueueService.getPendingJobIds as any).mockReturnValue(pendingJobs);
+      (mockQueueService.getPendingJobIds as MockedFunction<typeof mockQueueService.getPendingJobIds>).mockReturnValue(pendingJobs);
 
       const response = await request(app)
         .get('/api/llm/queue/jobs/pending');
@@ -494,7 +494,7 @@ describe('LLM Routes', () => {
     });
 
     it('should handle service errors', async () => {
-      (mockQueueService.getPendingJobIds as any).mockImplementation(() => {
+      (mockQueueService.getPendingJobIds as MockedFunction<typeof mockQueueService.getPendingJobIds>).mockImplementation(() => {
         throw new Error('Queue error');
       });
 
@@ -508,7 +508,7 @@ describe('LLM Routes', () => {
 
   describe('POST /api/llm/queue/cleanup', () => {
     it('should cleanup completed jobs', async () => {
-      (mockQueueService.clearCompletedJobs as any).mockResolvedValue(10);
+      (mockQueueService.clearCompletedJobs as MockedFunction<typeof mockQueueService.clearCompletedJobs>).mockResolvedValue(10);
 
       const response = await request(app)
         .post('/api/llm/queue/cleanup')
@@ -521,7 +521,7 @@ describe('LLM Routes', () => {
     });
 
     it('should cleanup failed jobs', async () => {
-      (mockQueueService.clearFailedJobs as any).mockResolvedValue(5);
+      (mockQueueService.clearFailedJobs as MockedFunction<typeof mockQueueService.clearFailedJobs>).mockResolvedValue(5);
 
       const response = await request(app)
         .post('/api/llm/queue/cleanup')
@@ -533,8 +533,8 @@ describe('LLM Routes', () => {
     });
 
     it('should cleanup all jobs', async () => {
-      (mockQueueService.clearCompletedJobs as any).mockResolvedValue(10);
-      (mockQueueService.clearFailedJobs as any).mockResolvedValue(5);
+      (mockQueueService.clearCompletedJobs as MockedFunction<typeof mockQueueService.clearCompletedJobs>).mockResolvedValue(10);
+      (mockQueueService.clearFailedJobs as MockedFunction<typeof mockQueueService.clearFailedJobs>).mockResolvedValue(5);
 
       const response = await request(app)
         .post('/api/llm/queue/cleanup')
@@ -547,7 +547,7 @@ describe('LLM Routes', () => {
     });
 
     it('should handle service errors', async () => {
-      (mockQueueService.clearCompletedJobs as any).mockRejectedValue(new Error('Queue error'));
+      (mockQueueService.clearCompletedJobs as MockedFunction<typeof mockQueueService.clearCompletedJobs>).mockRejectedValue(new Error('Queue error'));
 
       const response = await request(app)
         .post('/api/llm/queue/cleanup')
