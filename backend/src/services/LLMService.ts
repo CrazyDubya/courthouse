@@ -272,9 +272,34 @@ export class GroqProvider extends BaseLLMProvider {
   }
 }
 
+/**
+ * Service for managing Large Language Model (LLM) providers and requests.
+ * Supports multiple providers: OpenAI, Anthropic, Ollama, OpenRouter, and Groq.
+ * Implements provider caching and configuration validation.
+ * 
+ * @class LLMService
+ * @example
+ * const llmService = new LLMService();
+ * const provider = llmService.createProvider({ provider: 'openai', model: 'gpt-4' });
+ * const response = await provider.generateResponse([{ role: 'user', content: 'Hello' }]);
+ */
 export class LLMService {
   private providers: Map<string, BaseLLMProvider> = new Map();
 
+  /**
+   * Creates or retrieves a cached LLM provider instance.
+   * Providers are cached by provider type, model, and endpoint.
+   * 
+   * @param config - LLM provider configuration
+   * @returns BaseLLMProvider instance for the specified configuration
+   * @throws Error if provider type is not supported
+   * @example
+   * const provider = llmService.createProvider({
+   *   provider: 'openai',
+   *   model: 'gpt-4',
+   *   apiKey: 'your-api-key'
+   * });
+   */
   createProvider(config: LLMConfig): BaseLLMProvider {
     const key = `${config.provider}_${config.model}_${config.endpoint || 'default'}`;
     
@@ -308,6 +333,15 @@ export class LLMService {
     return provider;
   }
 
+  /**
+   * Checks availability and validates configuration for all supported LLM providers.
+   * Tests each provider by attempting to connect and validate credentials.
+   * 
+   * @returns Promise resolving to status object with provider availability, models, and last check time
+   * @example
+   * const status = await llmService.getProviderStatus();
+   * console.log(status.openai.available); // true/false
+   */
   async getProviderStatus(): Promise<Record<string, any>> {
     const status: Record<string, any> = {};
 
@@ -352,10 +386,19 @@ export class LLMService {
     return status;
   }
 
+  /**
+   * Clears the provider cache.
+   * Forces new provider instances to be created on next request.
+   */
   clearCache(): void {
     this.providers.clear();
   }
 
+  /**
+   * Gets list of currently cached provider keys.
+   * 
+   * @returns Array of provider cache keys in format: provider_model_endpoint
+   */
   getCachedProviders(): string[] {
     return Array.from(this.providers.keys());
   }
