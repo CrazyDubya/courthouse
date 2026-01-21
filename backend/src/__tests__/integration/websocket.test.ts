@@ -316,6 +316,11 @@ describe('WebSocket Communication Integration', () => {
     });
 
     it('should reconnect after disconnection', (done) => {
+      if (!clientSocket) {
+        done(new Error('Client socket not initialized'));
+        return;
+      }
+
       let reconnected = false;
 
       clientSocket.on('connect', () => {
@@ -335,6 +340,11 @@ describe('WebSocket Communication Integration', () => {
     });
 
     it('should handle concurrent requests', (done) => {
+      if (!clientSocket) {
+        done(new Error('Client socket not initialized'));
+        return;
+      }
+
       const requests = Array.from({ length: 5 }, (_, i) => ({
         messages: [{ role: 'user', content: `Request ${i}` }],
         config: {

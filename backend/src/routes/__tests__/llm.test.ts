@@ -204,7 +204,7 @@ describe('LLM Routes', () => {
   describe('GET /api/llm/request/:requestId/status', () => {
     it('should return status of pending request', async () => {
       const jobStatus = {
-        status: 'pending',
+        status: 'pending' as const,
         timestamp: new Date(),
         result: null,
         error: null
@@ -222,7 +222,7 @@ describe('LLM Routes', () => {
 
     it('should return status of completed request', async () => {
       const jobStatus = {
-        status: 'completed',
+        status: 'completed' as const,
         timestamp: new Date(),
         result: { text: 'Generated response' },
         error: null
@@ -240,7 +240,7 @@ describe('LLM Routes', () => {
 
     it('should return status of failed request', async () => {
       const jobStatus = {
-        status: 'failed',
+        status: 'failed' as const,
         timestamp: new Date(),
         result: null,
         error: 'API rate limit exceeded'
