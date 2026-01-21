@@ -462,7 +462,7 @@ describe('Case Routes', () => {
         .get('/api/cases/case-123/transcript');
 
       expect(response.status).toBe(200);
-      expect(response.body).toEqual(mockTranscript);
+      expect(response.body).toEqual(JSON.parse(JSON.stringify(mockTranscript)));
       expect(mockCaseService.getTranscript).toHaveBeenCalledWith('case-123');
     });
 
@@ -504,7 +504,14 @@ describe('Case Routes', () => {
 
       expect(response.status).toBe(200);
       expect(response.body).toEqual(JSON.parse(JSON.stringify(updatedCase)));
-      expect(mockCaseService.addTranscriptEntry).toHaveBeenCalledWith('case-123', transcriptEntry);
+      expect(mockCaseService.addTranscriptEntry).toHaveBeenCalledWith(
+        'case-123', 
+        expect.objectContaining({
+          speaker: transcriptEntry.speaker,
+          text: transcriptEntry.text,
+          timestamp: expect.any(String)
+        })
+      );
     });
 
     it('should return 404 if case not found', async () => {
@@ -537,7 +544,7 @@ describe('Case Routes', () => {
 
       const response = await request(app)
         .put('/api/cases/case-123/phase')
-        .send({ currentPhase: 'closing' });
+        .send({ phase: 'closing' });
 
       expect(response.status).toBe(200);
       expect(response.body).toEqual(JSON.parse(JSON.stringify(updatedCase)));
@@ -558,7 +565,7 @@ describe('Case Routes', () => {
 
       const response = await request(app)
         .put('/api/cases/nonexistent/phase')
-        .send({ currentPhase: 'closing' });
+        .send({ phase: 'closing' });
 
       expect(response.status).toBe(404);
       expect(response.body.error).toBe('Case not found');
@@ -569,7 +576,7 @@ describe('Case Routes', () => {
 
       const response = await request(app)
         .put('/api/cases/case-123/phase')
-        .send({ currentPhase: 'closing' });
+        .send({ phase: 'closing' });
 
       expect(response.status).toBe(500);
       expect(response.body.error).toBe('Database error');

@@ -367,9 +367,9 @@ describe('Case Workflow Integration', () => {
 
       let currentPhase = 'opening';
       for (const event of trialEvents) {
-        if (event.currentPhase !== currentPhase) {
-          await caseService.updatePhase(trial.id, event.currentPhase);
-          currentPhase = event.currentPhase;
+        if (event.phase !== currentPhase) {
+          await caseService.updatePhase(trial.id, event.phase);
+          currentPhase = event.phase;
         }
         
         await caseService.addTranscriptEntry(trial.id, {

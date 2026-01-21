@@ -1,0 +1,337 @@
+
+> courthouse-simulator@1.0.0 test
+> vitest
+
+
+[1m[46m RUN [49m[22m [36mv3.2.4 [39m[90m/home/runner/work/courthouse/courthouse[39m
+
+[90mstderr[2m | backend/src/routes/__tests__/valuation.test.ts[2m > [22m[2mValuation Routes[2m > [22m[2mGET /api/valuation[2m > [22m[2mshould handle service errors
+[22m[39mError fetching valuations: Error: Database error
+    at Object.<anonymous> [90m(/home/runner/work/courthouse/courthouse/[39mbackend/src/routes/__tests__/valuation.test.ts:79:15[90m)[39m
+    at Object.mockCall [90m(file:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/spy[24m/dist/index.js:96:15[90m)[39m
+    at Object.spy [as getAllValuations] [90m(file:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4mtinyspy[24m/dist/index.js:47:103[90m)[39m
+    at [90m/home/runner/work/courthouse/courthouse/[39mbackend/src/routes/valuation.ts:12:41
+    at Layer.handle [as handle_request] [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/layer.js:95:5[90m)[39m
+    at next [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/route.js:149:13[90m)[39m
+    at Route.dispatch [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/route.js:119:3[90m)[39m
+    at Layer.handle [as handle_request] [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/layer.js:95:5[90m)[39m
+    at [90m/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/index.js:284:15
+    at Function.process_params [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/index.js:346:12[90m)[39m
+
+[90mstderr[2m | backend/src/routes/__tests__/valuation.test.ts[2m > [22m[2mValuation Routes[2m > [22m[2mGET /api/valuation/:id[2m > [22m[2mshould handle service errors
+[22m[39mError fetching valuation: Error: Database error
+    at Object.<anonymous> [90m(/home/runner/work/courthouse/courthouse/[39mbackend/src/routes/__tests__/valuation.test.ts:112:15[90m)[39m
+    at Object.mockCall [90m(file:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/spy[24m/dist/index.js:96:15[90m)[39m
+    at Object.spy [as getValuation] [90m(file:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4mtinyspy[24m/dist/index.js:47:103[90m)[39m
+    at [90m/home/runner/work/courthouse/courthouse/[39mbackend/src/routes/valuation.ts:27:40
+    at Layer.handle [as handle_request] [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/layer.js:95:5[90m)[39m
+    at next [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/route.js:149:13[90m)[39m
+    at Route.dispatch [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/route.js:119:3[90m)[39m
+    at Layer.handle [as handle_request] [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/layer.js:95:5[90m)[39m
+    at [90m/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/index.js:284:15
+    at param [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/index.js:365:14[90m)[39m
+
+[90mstderr[2m | backend/src/routes/__tests__/valuation.test.ts[2m > [22m[2mValuation Routes[2m > [22m[2mGET /api/valuation/case/:caseId[2m > [22m[2mshould handle service errors
+[22m[39mError fetching case valuations: Error: Database error
+    at Object.<anonymous> [90m(/home/runner/work/courthouse/courthouse/[39mbackend/src/routes/__tests__/valuation.test.ts:136:15[90m)[39m
+    at Object.mockCall [90m(file:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/spy[24m/dist/index.js:96:15[90m)[39m
+    at Object.spy [as getValuationsByCaseId] [90m(file:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4mtinyspy[24m/dist/index.js:47:103[90m)[39m
+    at [90m/home/runner/work/courthouse/courthouse/[39mbackend/src/routes/valuation.ts:47:41
+    at Layer.handle [as handle_request] [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/layer.js:95:5[90m)[39m
+    at next [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/route.js:149:13[90m)[39m
+    at Route.dispatch [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/route.js:119:3[90m)[39m
+    at Layer.handle [as handle_request] [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/layer.js:95:5[90m)[39m
+    at [90m/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/index.js:284:15
+    at param [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/index.js:365:14[90m)[39m
+
+[90mstderr[2m | backend/src/routes/__tests__/valuation.test.ts[2m > [22m[2mValuation Routes[2m > [22m[2mPOST /api/valuation[2m > [22m[2mshould handle service errors
+[22m[39mError creating valuation: Error: Database error
+    at Object.<anonymous> [90m(/home/runner/work/courthouse/courthouse/[39mbackend/src/routes/__tests__/valuation.test.ts:167:15[90m)[39m
+    at Object.mockCall [90m(file:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/spy[24m/dist/index.js:96:15[90m)[39m
+    at Object.spy [as createValuation] [90m(file:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4mtinyspy[24m/dist/index.js:47:103[90m)[39m
+    at [90m/home/runner/work/courthouse/courthouse/[39mbackend/src/routes/valuation.ts:61:40
+    at Layer.handle [as handle_request] [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/layer.js:95:5[90m)[39m
+    at next [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/route.js:149:13[90m)[39m
+    at Route.dispatch [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/route.js:119:3[90m)[39m
+    at Layer.handle [as handle_request] [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/layer.js:95:5[90m)[39m
+    at [90m/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/index.js:284:15
+    at Function.process_params [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/index.js:346:12[90m)[39m
+
+[90mstderr[2m | backend/src/routes/__tests__/valuation.test.ts[2m > [22m[2mValuation Routes[2m > [22m[2mPUT /api/valuation/:id[2m > [22m[2mshould handle service errors
+[22m[39mError updating valuation: Error: Database error
+    at Object.<anonymous> [90m(/home/runner/work/courthouse/courthouse/[39mbackend/src/routes/__tests__/valuation.test.ts:210:15[90m)[39m
+    at Object.mockCall [90m(file:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/spy[24m/dist/index.js:96:15[90m)[39m
+    at Object.spy [as updateValuation] [90m(file:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4mtinyspy[24m/dist/index.js:47:103[90m)[39m
+    at [90m/home/runner/work/courthouse/courthouse/[39mbackend/src/routes/valuation.ts:76:40
+    at Layer.handle [as handle_request] [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/layer.js:95:5[90m)[39m
+    at next [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/route.js:149:13[90m)[39m
+    at Route.dispatch [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/route.js:119:3[90m)[39m
+    at Layer.handle [as handle_request] [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/layer.js:95:5[90m)[39m
+    at [90m/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/index.js:284:15
+    at param [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/index.js:365:14[90m)[39m
+
+[90mstderr[2m | backend/src/routes/__tests__/valuation.test.ts[2m > [22m[2mValuation Routes[2m > [22m[2mDELETE /api/valuation/:id[2m > [22m[2mshould handle service errors
+[22m[39mError deleting valuation: Error: Database error
+    at Object.<anonymous> [90m(/home/runner/work/courthouse/courthouse/[39mbackend/src/routes/__tests__/valuation.test.ts:243:15[90m)[39m
+    at Object.mockCall [90m(file:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/spy[24m/dist/index.js:96:15[90m)[39m
+    at Object.spy [as deleteValuation] [90m(file:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4mtinyspy[24m/dist/index.js:47:103[90m)[39m
+    at [90m/home/runner/work/courthouse/courthouse/[39mbackend/src/routes/valuation.ts:96:38
+    at Layer.handle [as handle_request] [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/layer.js:95:5[90m)[39m
+    at next [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/route.js:149:13[90m)[39m
+    at Route.dispatch [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/route.js:119:3[90m)[39m
+    at Layer.handle [as handle_request] [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/layer.js:95:5[90m)[39m
+    at [90m/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/index.js:284:15
+    at param [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/index.js:365:14[90m)[39m
+
+[90mstderr[2m | backend/src/routes/__tests__/valuation.test.ts[2m > [22m[2mValuation Routes[2m > [22m[2mPOST /api/valuation/calculate/saas-metrics[2m > [22m[2mshould handle service errors
+[22m[39mError calculating SaaS metrics: Error: Calculation error
+    at Object.<anonymous> [90m(/home/runner/work/courthouse/courthouse/[39mbackend/src/routes/__tests__/valuation.test.ts:296:15[90m)[39m
+    at Object.mockCall [90m(file:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/spy[24m/dist/index.js:96:15[90m)[39m
+    at Object.spy [as calculateSaaSMetrics] [90m(file:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4mtinyspy[24m/dist/index.js:47:103[90m)[39m
+    at [90m/home/runner/work/courthouse/courthouse/[39mbackend/src/routes/valuation.ts:121:42
+    at Layer.handle [as handle_request] [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/layer.js:95:5[90m)[39m
+    at next [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/route.js:149:13[90m)[39m
+    at Route.dispatch [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/route.js:119:3[90m)[39m
+    at Layer.handle [as handle_request] [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/layer.js:95:5[90m)[39m
+    at [90m/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/index.js:284:15
+    at Function.process_params [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/index.js:346:12[90m)[39m
+
+[90mstderr[2m | backend/src/routes/__tests__/valuation.test.ts[2m > [22m[2mValuation Routes[2m > [22m[2mPOST /api/valuation/:id/analyze[2m > [22m[2mshould handle service errors
+[22m[39mError analyzing valuation: Error: Database error
+    at Object.<anonymous> [90m(/home/runner/work/courthouse/courthouse/[39mbackend/src/routes/__tests__/valuation.test.ts:581:15[90m)[39m
+    at Object.mockCall [90m(file:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/spy[24m/dist/index.js:96:15[90m)[39m
+    at Object.spy [as getValuation] [90m(file:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4mtinyspy[24m/dist/index.js:47:103[90m)[39m
+    at [90m/home/runner/work/courthouse/courthouse/[39mbackend/src/routes/valuation.ts:294:40
+    at Layer.handle [as handle_request] [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/layer.js:95:5[90m)[39m
+    at next [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/route.js:149:13[90m)[39m
+    at Route.dispatch [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/route.js:119:3[90m)[39m
+    at Layer.handle [as handle_request] [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/layer.js:95:5[90m)[39m
+    at [90m/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/index.js:284:15
+    at param [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/index.js:365:14[90m)[39m
+
+ [32m✓[39m backend/src/routes/__tests__/valuation.test.ts [2m([22m[2m36 tests[22m[2m)[22m[32m 213[2mms[22m[39m
+[90mstderr[2m | backend/src/routes/__tests__/llm.test.ts[2m > [22m[2mLLM Routes[2m > [22m[2mPOST /api/llm/providers/:provider/test[2m > [22m[2mshould test provider configuration
+[22m[39mError testing provider: TypeError: Cannot read properties of undefined (reading 'validateConfig')
+    at [90m/home/runner/work/courthouse/courthouse/[39mbackend/src/routes/llm.ts:154:46
+    at Layer.handle [as handle_request] [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/layer.js:95:5[90m)[39m
+    at next [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/route.js:149:13[90m)[39m
+    at Route.dispatch [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/route.js:119:3[90m)[39m
+    at Layer.handle [as handle_request] [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/layer.js:95:5[90m)[39m
+    at [90m/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/index.js:284:15
+    at param [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/index.js:365:14[90m)[39m
+    at param [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/index.js:376:14[90m)[39m
+    at Function.process_params [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/index.js:421:3[90m)[39m
+    at next [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/index.js:280:10[90m)[39m
+
+[90mstderr[2m | backend/src/routes/__tests__/llm.test.ts[2m > [22m[2mLLM Routes[2m > [22m[2mPOST /api/llm/providers/:provider/test[2m > [22m[2mshould return invalid if provider config fails
+[22m[39mError testing provider: TypeError: Cannot read properties of undefined (reading 'validateConfig')
+    at [90m/home/runner/work/courthouse/courthouse/[39mbackend/src/routes/llm.ts:154:46
+    at Layer.handle [as handle_request] [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/layer.js:95:5[90m)[39m
+    at next [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/route.js:149:13[90m)[39m
+    at Route.dispatch [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/route.js:119:3[90m)[39m
+    at Layer.handle [as handle_request] [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/layer.js:95:5[90m)[39m
+    at [90m/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/index.js:284:15
+    at param [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/index.js:365:14[90m)[39m
+    at param [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/index.js:376:14[90m)[39m
+    at Function.process_params [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/index.js:421:3[90m)[39m
+    at next [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/index.js:280:10[90m)[39m
+
+[90mstderr[2m | backend/src/routes/__tests__/llm.test.ts[2m > [22m[2mLLM Routes[2m > [22m[2mPOST /api/llm/providers/:provider/test[2m > [22m[2mshould handle service errors
+[22m[39mError testing provider: TypeError: Cannot read properties of undefined (reading 'validateConfig')
+    at [90m/home/runner/work/courthouse/courthouse/[39mbackend/src/routes/llm.ts:154:46
+    at Layer.handle [as handle_request] [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/layer.js:95:5[90m)[39m
+    at next [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/route.js:149:13[90m)[39m
+    at Route.dispatch [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/route.js:119:3[90m)[39m
+    at Layer.handle [as handle_request] [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/layer.js:95:5[90m)[39m
+    at [90m/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/index.js:284:15
+    at param [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/index.js:365:14[90m)[39m
+    at param [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/index.js:376:14[90m)[39m
+    at Function.process_params [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/index.js:421:3[90m)[39m
+    at next [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/index.js:280:10[90m)[39m
+
+[90mstderr[2m | backend/src/routes/__tests__/llm.test.ts[2m > [22m[2mLLM Routes[2m > [22m[2mGET /api/llm/queue/jobs/active[2m > [22m[2mshould return active job IDs
+[22m[39mError fetching active jobs: TypeError: Cannot read properties of undefined (reading 'length')
+    at [90m/home/runner/work/courthouse/courthouse/[39mbackend/src/routes/llm.ts:185:48
+    at Layer.handle [as handle_request] [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/layer.js:95:5[90m)[39m
+    at next [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/route.js:149:13[90m)[39m
+    at Route.dispatch [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/route.js:119:3[90m)[39m
+    at Layer.handle [as handle_request] [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/layer.js:95:5[90m)[39m
+    at [90m/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/index.js:284:15
+    at Function.process_params [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/index.js:346:12[90m)[39m
+    at next [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/index.js:280:10[90m)[39m
+    at Function.handle [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/index.js:175:3[90m)[39m
+    at router [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/index.js:47:12[90m)[39m
+
+[90mstderr[2m | backend/src/routes/__tests__/llm.test.ts[2m > [22m[2mLLM Routes[2m > [22m[2mGET /api/llm/queue/jobs/active[2m > [22m[2mshould handle service errors
+[22m[39mError fetching active jobs: TypeError: Cannot read properties of undefined (reading 'length')
+    at [90m/home/runner/work/courthouse/courthouse/[39mbackend/src/routes/llm.ts:185:48
+    at Layer.handle [as handle_request] [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/layer.js:95:5[90m)[39m
+    at next [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/route.js:149:13[90m)[39m
+    at Route.dispatch [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/route.js:119:3[90m)[39m
+    at Layer.handle [as handle_request] [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/layer.js:95:5[90m)[39m
+    at [90m/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/index.js:284:15
+    at Function.process_params [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/index.js:346:12[90m)[39m
+    at next [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/index.js:280:10[90m)[39m
+    at Function.handle [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/index.js:175:3[90m)[39m
+    at router [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/index.js:47:12[90m)[39m
+
+[90mstderr[2m | backend/src/routes/__tests__/llm.test.ts[2m > [22m[2mLLM Routes[2m > [22m[2mGET /api/llm/queue/jobs/pending[2m > [22m[2mshould return pending job IDs
+[22m[39mError fetching pending jobs: TypeError: Cannot read properties of undefined (reading 'length')
+    at [90m/home/runner/work/courthouse/courthouse/[39mbackend/src/routes/llm.ts:197:50
+    at Layer.handle [as handle_request] [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/layer.js:95:5[90m)[39m
+    at next [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/route.js:149:13[90m)[39m
+    at Route.dispatch [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/route.js:119:3[90m)[39m
+    at Layer.handle [as handle_request] [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/layer.js:95:5[90m)[39m
+    at [90m/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/index.js:284:15
+    at Function.process_params [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/index.js:346:12[90m)[39m
+    at next [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/index.js:280:10[90m)[39m
+    at Function.handle [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/index.js:175:3[90m)[39m
+    at router [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/index.js:47:12[90m)[39m
+
+[90mstderr[2m | backend/src/routes/__tests__/llm.test.ts[2m > [22m[2mLLM Routes[2m > [22m[2mGET /api/llm/queue/jobs/pending[2m > [22m[2mshould handle service errors
+[22m[39mError fetching pending jobs: TypeError: Cannot read properties of undefined (reading 'length')
+    at [90m/home/runner/work/courthouse/courthouse/[39mbackend/src/routes/llm.ts:197:50
+    at Layer.handle [as handle_request] [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/layer.js:95:5[90m)[39m
+    at next [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/route.js:149:13[90m)[39m
+    at Route.dispatch [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/route.js:119:3[90m)[39m
+    at Layer.handle [as handle_request] [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/layer.js:95:5[90m)[39m
+    at [90m/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/index.js:284:15
+    at Function.process_params [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/index.js:346:12[90m)[39m
+    at next [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/index.js:280:10[90m)[39m
+    at Function.handle [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/index.js:175:3[90m)[39m
+    at router [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/index.js:47:12[90m)[39m
+
+ [31m❯[39m backend/src/routes/__tests__/cases.test.ts [2m([22m[2m40 tests[22m[2m | [22m[31m24 failed[39m[2m)[22m[33m 322[2mms[22m[39m
+   [32m✓[39m Case Routes[2m > [22mGET /api/cases[2m > [22mshould return all cases[32m 90[2mms[22m[39m
+[31m   [31m×[31m Case Routes[2m > [22mGET /api/cases[2m > [22mshould handle service errors[39m[32m 22[2mms[22m[39m
+[31m     → expected 200 to be 500 // Object.is equality[39m
+[31m   [31m×[31m Case Routes[2m > [22mGET /api/cases[2m > [22mshould use default limit and offset[39m[32m 7[2mms[22m[39m
+[31m     → expected "spy" to be called with arguments: [ undefined, 50, +0 ][90m
+
+Number of calls: [1m0[22m
+[31m[39m
+[31m   [31m×[31m Case Routes[2m > [22mGET /api/cases/:id[2m > [22mshould return a case by id[39m[32m 6[2mms[22m[39m
+[31m     → expected 404 to be 200 // Object.is equality[39m
+   [32m✓[39m Case Routes[2m > [22mGET /api/cases/:id[2m > [22mshould return 404 if case not found[32m 4[2mms[22m[39m
+[31m   [31m×[31m Case Routes[2m > [22mGET /api/cases/:id[2m > [22mshould handle service errors[39m[32m 5[2mms[22m[39m
+[31m     → expected 404 to be 500 // Object.is equality[39m
+[31m   [31m×[31m Case Routes[2m > [22mPOST /api/cases[2m > [22mshould create a new case with valid data[39m[32m 16[2mms[22m[39m
+[31m     → expected '' to deeply equal { id: 'case-123', …(9) }[39m
+   [32m✓[39m Case Routes[2m > [22mPOST /api/cases[2m > [22mshould reject case with missing title[32m 6[2mms[22m[39m
+   [32m✓[39m Case Routes[2m > [22mPOST /api/cases[2m > [22mshould reject case with invalid type[32m 7[2mms[22m[39m
+   [32m✓[39m Case Routes[2m > [22mPOST /api/cases[2m > [22mshould reject case with empty participants array[32m 5[2mms[22m[39m
+   [32m✓[39m Case Routes[2m > [22mPOST /api/cases[2m > [22mshould reject case with title too long[32m 7[2mms[22m[39m
+[31m   [31m×[31m Case Routes[2m > [22mPOST /api/cases[2m > [22mshould handle service errors[39m[32m 5[2mms[22m[39m
+[31m     → expected 201 to be 500 // Object.is equality[39m
+[31m   [31m×[31m Case Routes[2m > [22mPOST /api/cases[2m > [22mshould accept optional settings[39m[32m 5[2mms[22m[39m
+[31m     → expected "spy" to be called with arguments: [ { title: 'New Test Case', …(4) } ][90m
+
+Number of calls: [1m0[22m
+[31m[39m
+   [32m✓[39m Case Routes[2m > [22mPOST /api/cases[2m > [22mshould reject invalid settings values[32m 5[2mms[22m[39m
+[31m   [31m×[31m Case Routes[2m > [22mPUT /api/cases/:id[2m > [22mshould update a case with valid data[39m[32m 5[2mms[22m[39m
+[31m     → expected 404 to be 200 // Object.is equality[39m
+   [32m✓[39m Case Routes[2m > [22mPUT /api/cases/:id[2m > [22mshould return 404 if case not found[32m 3[2mms[22m[39m
+   [32m✓[39m Case Routes[2m > [22mPUT /api/cases/:id[2m > [22mshould reject invalid update data[32m 3[2mms[22m[39m
+[31m   [31m×[31m Case Routes[2m > [22mPUT /api/cases/:id[2m > [22mshould handle service errors[39m[32m 4[2mms[22m[39m
+[31m     → expected 404 to be 500 // Object.is equality[39m
+[31m   [31m×[31m Case Routes[2m > [22mDELETE /api/cases/:id[2m > [22mshould delete a case[39m[32m 4[2mms[22m[39m
+[31m     → expected 404 to be 204 // Object.is equality[39m
+   [32m✓[39m Case Routes[2m > [22mDELETE /api/cases/:id[2m > [22mshould return 404 if case not found[32m 3[2mms[22m[39m
+[31m   [31m×[31m Case Routes[2m > [22mDELETE /api/cases/:id[2m > [22mshould handle service errors[39m[32m 8[2mms[22m[39m
+[31m     → expected 404 to be 500 // Object.is equality[39m
+[31m   [31m×[31m Case Routes[2m > [22mPOST /api/cases/:id/participants[2m > [22mshould add a participant to a case[39m[32m 4[2mms[22m[39m
+[31m     → expected 404 to be 200 // Object.is equality[39m
+   [32m✓[39m Case Routes[2m > [22mPOST /api/cases/:id/participants[2m > [22mshould return 404 if case not found[32m 3[2mms[22m[39m
+[31m   [31m×[31m Case Routes[2m > [22mPOST /api/cases/:id/participants[2m > [22mshould handle service errors[39m[32m 3[2mms[22m[39m
+[31m     → expected 404 to be 500 // Object.is equality[39m
+[31m   [31m×[31m Case Routes[2m > [22mPUT /api/cases/:id/participants/:participantId[2m > [22mshould update a participant[39m[32m 3[2mms[22m[39m
+[31m     → expected 404 to be 200 // Object.is equality[39m
+   [32m✓[39m Case Routes[2m > [22mPUT /api/cases/:id/participants/:participantId[2m > [22mshould return 404 if case or participant not found[32m 3[2mms[22m[39m
+[31m   [31m×[31m Case Routes[2m > [22mPUT /api/cases/:id/participants/:participantId[2m > [22mshould handle service errors[39m[32m 4[2mms[22m[39m
+[31m     → expected 404 to be 500 // Object.is equality[39m
+[31m   [31m×[31m Case Routes[2m > [22mDELETE /api/cases/:id/participants/:participantId[2m > [22mshould remove a participant[39m[32m 4[2mms[22m[39m
+[31m     → expected 404 to be 200 // Object.is equality[39m
+   [32m✓[39m Case Routes[2m > [22mDELETE /api/cases/:id/participants/:participantId[2m > [22mshould return 404 if case or participant not found[32m 3[2mms[22m[39m
+[31m   [31m×[31m Case Routes[2m > [22mDELETE /api/cases/:id/participants/:participantId[2m > [22mshould handle service errors[39m[32m 3[2mms[22m[39m
+[31m     → expected 404 to be 500 // Object.is equality[39m
+[31m   [31m×[31m Case Routes[2m > [22mGET /api/cases/:id/transcript[2m > [22mshould return case transcript[39m[32m 3[2mms[22m[39m
+[31m     → expected 404 to be 200 // Object.is equality[39m
+   [32m✓[39m Case Routes[2m > [22mGET /api/cases/:id/transcript[2m > [22mshould return 404 if case not found[32m 3[2mms[22m[39m
+[31m   [31m×[31m Case Routes[2m > [22mGET /api/cases/:id/transcript[2m > [22mshould handle service errors[39m[32m 4[2mms[22m[39m
+[31m     → expected 404 to be 500 // Object.is equality[39m
+[31m   [31m×[31m Case Routes[2m > [22mPOST /api/cases/:id/transcript[2m > [22mshould add transcript entry[39m[32m 4[2mms[22m[39m
+[31m     → expected 404 to be 200 // Object.is equality[39m
+   [32m✓[39m Case Routes[2m > [22mPOST /api/cases/:id/transcript[2m > [22mshould return 404 if case not found[32m 3[2mms[22m[39m
+[31m   [31m×[31m Case Routes[2m > [22mPOST /api/cases/:id/transcript[2m > [22mshould handle service errors[39m[32m 3[2mms[22m[39m
+[31m     → expected 404 to be 500 // Object.is equality[39m
+[31m   [31m×[31m Case Routes[2m > [22mPUT /api/cases/:id/phase[2m > [22mshould update case phase[39m[32m 4[2mms[22m[39m
+[31m     → expected 400 to be 200 // Object.is equality[39m
+   [32m✓[39m Case Routes[2m > [22mPUT /api/cases/:id/phase[2m > [22mshould return 400 if phase is missing[32m 4[2mms[22m[39m
+[31m   [31m×[31m Case Routes[2m > [22mPUT /api/cases/:id/phase[2m > [22mshould return 404 if case not found[39m[32m 34[2mms[22m[39m
+[31m     → expected 400 to be 404 // Object.is equality[39m
+[31m   [31m×[31m Case Routes[2m > [22mPUT /api/cases/:id/phase[2m > [22mshould handle service errors[39m[32m 7[2mms[22m[39m
+[31m     → expected 400 to be 500 // Object.is equality[39m
+ [31m❯[39m backend/src/routes/__tests__/llm.test.ts [2m([22m[2m38 tests[22m[2m | [22m[31m24 failed[39m[2m)[22m[33m 348[2mms[22m[39m
+   [32m✓[39m LLM Routes[2m > [22mPOST /api/llm/request[2m > [22mshould queue a valid LLM request[32m 108[2mms[22m[39m
+   [32m✓[39m LLM Routes[2m > [22mPOST /api/llm/request[2m > [22mshould reject request with missing messages[32m 8[2mms[22m[39m
+   [32m✓[39m LLM Routes[2m > [22mPOST /api/llm/request[2m > [22mshould reject request with empty messages array[32m 5[2mms[22m[39m
+   [32m✓[39m LLM Routes[2m > [22mPOST /api/llm/request[2m > [22mshould reject request with invalid message role[32m 5[2mms[22m[39m
+   [32m✓[39m LLM Routes[2m > [22mPOST /api/llm/request[2m > [22mshould reject request with missing config[32m 5[2mms[22m[39m
+   [32m✓[39m LLM Routes[2m > [22mPOST /api/llm/request[2m > [22mshould reject request with invalid provider[32m 5[2mms[22m[39m
+   [32m✓[39m LLM Routes[2m > [22mPOST /api/llm/request[2m > [22mshould reject request with invalid temperature[32m 5[2mms[22m[39m
+   [32m✓[39m LLM Routes[2m > [22mPOST /api/llm/request[2m > [22mshould reject request with invalid maxTokens[32m 5[2mms[22m[39m
+   [32m✓[39m LLM Routes[2m > [22mPOST /api/llm/request[2m > [22mshould accept valid providers[32m 25[2mms[22m[39m
+[31m   [31m×[31m LLM Routes[2m > [22mPOST /api/llm/request[2m > [22mshould handle queue service errors[39m[32m 17[2mms[22m[39m
+[31m     → expected 202 to be 500 // Object.is equality[39m
+   [32m✓[39m LLM Routes[2m > [22mPOST /api/llm/request[2m > [22mshould default priority to 0 if not provided[32m 4[2mms[22m[39m
+[31m   [31m×[31m LLM Routes[2m > [22mGET /api/llm/request/:requestId/status[2m > [22mshould return status of pending request[39m[32m 5[2mms[22m[39m
+[31m     → expected 404 to be 200 // Object.is equality[39m
+[31m   [31m×[31m LLM Routes[2m > [22mGET /api/llm/request/:requestId/status[2m > [22mshould return status of completed request[39m[32m 4[2mms[22m[39m
+[31m     → expected 404 to be 200 // Object.is equality[39m
+[31m   [31m×[31m LLM Routes[2m > [22mGET /api/llm/request/:requestId/status[2m > [22mshould return status of failed request[39m[32m 7[2mms[22m[39m
+[31m     → expected 404 to be 200 // Object.is equality[39m
+   [32m✓[39m LLM Routes[2m > [22mGET /api/llm/request/:requestId/status[2m > [22mshould return 404 if request not found[32m 4[2mms[22m[39m
+[31m   [31m×[31m LLM Routes[2m > [22mGET /api/llm/request/:requestId/status[2m > [22mshould handle service errors[39m[32m 5[2mms[22m[39m
+[31m     → expected 404 to be 500 // Object.is equality[39m
+[31m   [31m×[31m LLM Routes[2m > [22mPOST /api/llm/request/:requestId/cancel[2m > [22mshould cancel a request[39m[32m 4[2mms[22m[39m
+[31m     → expected 404 to be 200 // Object.is equality[39m
+   [32m✓[39m LLM Routes[2m > [22mPOST /api/llm/request/:requestId/cancel[2m > [22mshould return 404 if request not found[32m 3[2mms[22m[39m
+[31m   [31m×[31m LLM Routes[2m > [22mPOST /api/llm/request/:requestId/cancel[2m > [22mshould handle service errors[39m[32m 3[2mms[22m[39m
+[31m     → expected 404 to be 500 // Object.is equality[39m
+[31m   [31m×[31m LLM Routes[2m > [22mPOST /api/llm/request/:requestId/retry[2m > [22mshould retry a failed request[39m[32m 4[2mms[22m[39m
+[31m     → expected 404 to be 200 // Object.is equality[39m
+   [32m✓[39m LLM Routes[2m > [22mPOST /api/llm/request/:requestId/retry[2m > [22mshould return 404 if request not found[32m 3[2mms[22m[39m
+[31m   [31m×[31m LLM Routes[2m > [22mPOST /api/llm/request/:requestId/retry[2m > [22mshould handle service errors[39m[32m 3[2mms[22m[39m
+[31m     → expected 404 to be 500 // Object.is equality[39m
+[31m   [31m×[31m LLM Routes[2m > [22mGET /api/llm/providers[2m > [22mshould return provider status[39m[32m 6[2mms[22m[39m
+[31m     → expected '' to deeply equal { …(2) }[39m
+[31m   [31m×[31m LLM Routes[2m > [22mGET /api/llm/providers[2m > [22mshould handle service errors[39m[32m 3[2mms[22m[39m
+[31m     → expected 200 to be 500 // Object.is equality[39m
+[31m   [31m×[31m LLM Routes[2m > [22mPOST /api/llm/providers/:provider/test[2m > [22mshould test provider configuration[39m[32m 13[2mms[22m[39m
+[31m     → expected 500 to be 200 // Object.is equality[39m
+[31m   [31m×[31m LLM Routes[2m > [22mPOST /api/llm/providers/:provider/test[2m > [22mshould return invalid if provider config fails[39m[32m 10[2mms[22m[39m
+[31m     → expected 500 to be 200 // Object.is equality[39m
+   [32m✓[39m LLM Routes[2m > [22mPOST /api/llm/providers/:provider/test[2m > [22mshould return 400 if config is missing[32m 7[2mms[22m[39m
+[31m   [31m×[31m LLM Routes[2m > [22mPOST /api/llm/providers/:provider/test[2m > [22mshould handle service errors[39m[32m 8[2mms[22m[39m
+[31m     → expected 'Cannot read properties of undefined (…' to be 'Invalid provider' // Object.is equality[39m
+[31m   [31m×[31m LLM Routes[2m > [22mGET /api/llm/queue/stats[2m > [22mshould return queue statistics[39m[32m 4[2mms[22m[39m
+[31m     → expected '' to deeply equal { pending: 5, active: 2, …(3) }[39m
+[31m   [31m×[31m LLM Routes[2m > [22mGET /api/llm/queue/stats[2m > [22mshould handle service errors[39m[32m 3[2mms[22m[39m
+[31m     → expected 200 to be 500 // Object.is equality[39m
+[31m   [31m×[31m LLM Routes[2m > [22mGET /api/llm/queue/jobs/active[2m > [22mshould return active job IDs[39m[32m 5[2mms[22m[39m
+[31m     → expected 500 to be 200 // Object.is equality[39m
+[31m   [31m×[31m LLM Routes[2m > [22mGET /api/llm/queue/jobs/active[2m > [22mshould handle service errors[39m[32m 4[2mms[22m[39m
+[31m     → expected 'Cannot read properties of undefined (…' to be 'Queue error' // Object.is equality[39m
+[31m   [31m×[31m LLM Routes[2m > [22mGET /api/llm/queue/jobs/pending[2m > [22mshould return pending job IDs[39m[32m 4[2mms[22m[39m
+[31m     → expected 500 to be 200 // Object.is equality[39m
+[31m   [31m×[31m LLM Routes[2m > [22mGET /api/llm/queue/jobs/pending[2m > [22mshould handle service errors[39m[32m 22[2mms[22m[39m
+[31m     → expected 'Cannot read properties of undefined (…' to be 'Queue error' // Object.is equality[39m
+[31m   [31m×[31m LLM Routes[2m > [22mPOST /api/llm/queue/cleanup[2m > [22mshould cleanup completed jobs[39m[32m 6[2mms[22m[39m
+[31m     → expected null to be 10 // Object.is equality[39m
+[31m   [31m×[31m LLM Routes[2m > [22mPOST /api/llm/queue/cleanup[2m > [22mshould cleanup failed jobs[39m[32m 3[2mms[22m[39m
+[31m     → expected null to be 5 // Object.is equality[39m
+[31m   [31m×[31m LLM Routes[2m > [22mPOST /api/llm/queue/cleanup[2m > [22mshould cleanup all jobs[39m[32m 5[2mms[22m[39m
+[31m     → expected null to be 15 // Object.is equality[39m
+[31m   [31m×[31m LLM Routes[2m > [22mPOST /api/llm/queue/cleanup[2m > [22mshould handle service errors[39m[32m 4[2mms[22m[39m
+[31m     → expected 200 to be 500 // Object.is equality[39m
