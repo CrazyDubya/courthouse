@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach, vi } from 'vitest';
+import { describe, it, expect, beforeEach } from 'vitest';
 import { SentencingEngine } from '../SentencingEngine';
 import { Case, Participant, SimulationSettings } from '../../../types';
 import { CourtroomAgent } from '../../agents/CourtroomAgent';
@@ -6,7 +6,7 @@ import { ProceedingEvent } from '../../ProceedingsEngine';
 import { CourtCalendar } from '../../CourtCalendar';
 import { OfficeManager } from '../../OfficeManager';
 import { Motion } from '../../../types/motions';
-import { EnhancedJudgeProfile } from '../../../types/judge';
+import type { EnhancedJudgeProfile } from '../../../types/judge';
 
 describe('SentencingEngine', () => {
   let sentencingEngine: SentencingEngine;
