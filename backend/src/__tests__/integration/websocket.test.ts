@@ -356,8 +356,14 @@ describe('WebSocket Communication Integration', () => {
 
       let responsesReceived = 0;
 
-      const allResponsesPromise = new Promise<void>((resolve) => {
-        const timeout = setTimeout(() => resolve(), 10000);
+      const allResponsesPromise = new Promise<void>((resolve, reject) => {
+        const timeout = setTimeout(() => {
+          if (responsesReceived < requests.length) {
+            reject(new Error(`Only received ${responsesReceived}/${requests.length} responses`));
+          } else {
+            resolve();
+          }
+        }, 10000);
         
         clientSocket.on('llm_response', () => {
           responsesReceived++;
