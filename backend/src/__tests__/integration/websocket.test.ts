@@ -139,7 +139,15 @@ describe('WebSocket Communication Integration', () => {
   });
 
   describe('LLM Request Handling', () => {
-    it.skip('should handle LLM request via WebSocket', async () => {
+    // NOTE: The following tests are skipped because they require actual LLM services
+    // (Ollama or OpenAI) to be running. These tests validate the WebSocket integration
+    // with LLM services but cannot run in CI/CD without external dependencies.
+    // To run these tests locally:
+    // 1. Start Ollama: ollama serve
+    // 2. Pull a model: ollama pull llama2
+    // 3. Remove .skip from the tests below
+    
+    it.skip('should handle LLM request via WebSocket (requires Ollama)', async () => {
       const requestData = {
         messages: [
           { role: 'user', content: 'Test message' }
@@ -166,7 +174,7 @@ describe('WebSocket Communication Integration', () => {
       await responsePromise;
     }, 10000);
 
-    it.skip('should handle streaming LLM request', async () => {
+    it.skip('should handle streaming LLM request (requires Ollama)', async () => {
       const requestData = {
         messages: [
           { role: 'user', content: 'Test streaming' }
@@ -200,7 +208,7 @@ describe('WebSocket Communication Integration', () => {
       await completePromise;
     }, 10000);
 
-    it.skip('should handle LLM request errors', async () => {
+    it.skip('should handle LLM request errors (requires Ollama)', async () => {
       const requestData = {
         messages: [
           { role: 'user', content: 'Test error' }
@@ -344,7 +352,7 @@ describe('WebSocket Communication Integration', () => {
       await reconnectPromise;
     });
 
-    it.skip('should handle concurrent requests', async () => {
+    it.skip('should handle concurrent requests (requires Ollama)', async () => {
       const requests = Array.from({ length: 5 }, (_, i) => ({
         messages: [{ role: 'user', content: `Request ${i}` }],
         config: {
