@@ -28,8 +28,12 @@ export class TrialExecutor extends ProceedingsBase {
   }
 
   async examineWitness(witness: Participant, examiner: Participant): Promise<void> {
-    // Check if witness has detailed witness knowledge (from WitnessFactory)
-    const detailedWitness = (witness as any).knowledge?.directObservations;
+    // Type guard for detailed witness
+    const hasDetailedWitness = (p: Participant): p is Participant & { knowledge?: { directObservations?: string[] } } => {
+      return 'knowledge' in p && typeof (p as any).knowledge === 'object';
+    };
+    
+    const detailedWitness = hasDetailedWitness(witness) ? witness.knowledge?.directObservations : undefined;
     
     const agent = this.agents.get(examiner.id);
     const witnessAgent = this.agents.get(witness.id);
@@ -78,8 +82,12 @@ export class TrialExecutor extends ProceedingsBase {
   }
 
   async crossExamineWitness(witness: Participant, examiner: Participant): Promise<void> {
-    // Check if witness has detailed witness knowledge (from WitnessFactory)
-    const detailedWitness = (witness as any).knowledge?.directObservations;
+    // Type guard for detailed witness
+    const hasDetailedWitness = (p: Participant): p is Participant & { knowledge?: { directObservations?: string[] } } => {
+      return 'knowledge' in p && typeof (p as any).knowledge === 'object';
+    };
+    
+    const detailedWitness = hasDetailedWitness(witness) ? witness.knowledge?.directObservations : undefined;
     
     const agent = this.agents.get(examiner.id);
     const witnessAgent = this.agents.get(witness.id);

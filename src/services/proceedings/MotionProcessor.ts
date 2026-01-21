@@ -273,7 +273,12 @@ export class MotionProcessor extends ProceedingsBase {
   }
 
   async generateJudgeRuling(motion: Motion, judge: Participant): Promise<MotionRuling> {
-    const enhancedJudge = (judge as any).enhancedProfile as EnhancedJudgeProfile | undefined;
+    // Type guard for enhanced judge profile
+    const hasEnhancedProfile = (p: Participant): p is Participant & { enhancedProfile?: EnhancedJudgeProfile } => {
+      return 'enhancedProfile' in p && typeof (p as any).enhancedProfile === 'object';
+    };
+    
+    const enhancedJudge = hasEnhancedProfile(judge) ? judge.enhancedProfile : undefined;
     
     let decision: MotionStatus;
     let reasoning: string;

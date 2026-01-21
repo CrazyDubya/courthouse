@@ -3,6 +3,7 @@ import { ProceedingsBase } from './ProceedingsBase';
 import { MotionProcessor } from './MotionProcessor';
 import { TrialExecutor } from './TrialExecutor';
 import { SentencingEngine } from './SentencingEngine';
+import { MAX_PEREMPTORY_CHALLENGES, JURY_POOL_BUFFER } from './constants';
 
 /**
  * Manages all trial phases from case preparation to verdict.
@@ -167,11 +168,10 @@ export class TrialPhaseManager extends ProceedingsBase {
       const juryPool = this.currentCase.participants.filter(p => p.role === 'jury-member');
       const selectedJurors: Participant[] = [];
       let challengesUsed = { prosecution: 0, defense: 0 };
-      const maxPeremptoryCharlenges = 3;
       
       this.aiCallbacks?.setAIProcessing(true, 'Conducting voir dire examination');
       
-      for (let i = 0; i < Math.min(juryPool.length, this.settings.jurySize + 6) && selectedJurors.length < this.settings.jurySize; i++) {
+      for (let i = 0; i < Math.min(juryPool.length, this.settings.jurySize + JURY_POOL_BUFFER) && selectedJurors.length < this.settings.jurySize; i++) {
         const juror = juryPool[i];
         
         this.aiCallbacks?.setAIProcessing(true, `Examining juror ${i + 1}: ${juror.name}`);
@@ -221,7 +221,7 @@ export class TrialPhaseManager extends ProceedingsBase {
         // Challenge phase
         let challenged = false;
         
-        if (prosecutor && challengesUsed.prosecution < maxPeremptoryCharlenges && Math.random() < 0.2) {
+        if (prosecutor && challengesUsed.prosecution < MAX_PEREMPTORY_CHALLENGES && Math.random() < 0.2) {
           await this.generateAndRecordStatement(
             prosecutor,
             'Your Honor, the People exercise a peremptory challenge to this juror.'
@@ -230,7 +230,7 @@ export class TrialPhaseManager extends ProceedingsBase {
           challenged = true;
         }
         
-        if (!challenged && defense && challengesUsed.defense < maxPeremptoryCharlenges && Math.random() < 0.2) {
+        if (!challenged && defense && challengesUsed.defense < MAX_PEREMPTORY_CHALLENGES && Math.random() < 0.2) {
           await this.generateAndRecordStatement(
             defense,
             'Your Honor, the defense exercises a peremptory challenge to this juror.'

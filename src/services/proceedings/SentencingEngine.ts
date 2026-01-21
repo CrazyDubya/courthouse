@@ -161,12 +161,17 @@ export class SentencingEngine extends ProceedingsBase {
   }
 
   async generateCriminalSentence(judge: Participant): Promise<string> {
+    // Type guard for enhanced judge profile
+    const hasEnhancedProfile = (p: Participant): p is Participant & { enhancedProfile?: EnhancedJudgeProfile } => {
+      return 'enhancedProfile' in p && typeof (p as any).enhancedProfile === 'object';
+    };
+    
     // Analyze the charges to determine appropriate sentence
     const charges = this.currentCase.charges || ['theft over $1000'];
     const firstCharge = charges[0];
     
     // Determine sentence based on charge severity and judge personality
-    const enhancedJudge = (judge as any).enhancedProfile;
+    const enhancedJudge = hasEnhancedProfile(judge) ? judge.enhancedProfile : undefined;
     let baseSentence = this.getBaseSentenceForCharge(firstCharge);
     
     if (enhancedJudge) {
