@@ -1,0 +1,1576 @@
+
+> courthouse-simulator@1.0.0 test
+> vitest
+
+
+[1m[46m RUN [49m[22m [36mv3.2.4 [39m[90m/home/runner/work/courthouse/courthouse[39m
+
+[90mstderr[2m | backend/src/routes/__tests__/cases.test.ts[2m > [22m[2mCase Routes[2m > [22m[2mGET /api/cases[2m > [22m[2mshould handle service errors
+[22m[39mError fetching cases: Error: Database error
+    at [90m/home/runner/work/courthouse/courthouse/[39mbackend/src/routes/__tests__/cases.test.ts:74:109
+    at [90mfile:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:155:11
+    at [90mfile:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:752:26
+    at [90mfile:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:1897:20
+    at new Promise (<anonymous>)
+    at runWithTimeout [90m(file:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:1863:10[90m)[39m
+    at runTest [90m(file:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:1574:12[90m)[39m
+[90m    at processTicksAndRejections (node:internal/process/task_queues:95:5)[39m
+    at runSuite [90m(file:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:1729:8[90m)[39m
+    at runSuite [90m(file:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:1729:8[90m)[39m
+
+[90mstderr[2m | backend/src/routes/__tests__/llm.test.ts[2m > [22m[2mLLM Routes[2m > [22m[2mPOST /api/llm/request[2m > [22m[2mshould handle queue service errors
+[22m[39mError processing LLM request: Error: Queue error
+    at [90m/home/runner/work/courthouse/courthouse/[39mbackend/src/routes/__tests__/llm.test.ts:179:115
+    at [90mfile:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:155:11
+    at [90mfile:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:752:26
+    at [90mfile:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:1897:20
+    at new Promise (<anonymous>)
+    at runWithTimeout [90m(file:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:1863:10[90m)[39m
+    at runTest [90m(file:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:1574:12[90m)[39m
+[90m    at processTicksAndRejections (node:internal/process/task_queues:95:5)[39m
+    at runSuite [90m(file:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:1729:8[90m)[39m
+    at runSuite [90m(file:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:1729:8[90m)[39m
+
+[90mstderr[2m | backend/src/routes/__tests__/cases.test.ts[2m > [22m[2mCase Routes[2m > [22m[2mGET /api/cases/:id[2m > [22m[2mshould handle service errors
+[22m[39mError fetching case: Error: Database error
+    at [90m/home/runner/work/courthouse/courthouse/[39mbackend/src/routes/__tests__/cases.test.ts:116:109
+    at [90mfile:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:155:11
+    at [90mfile:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:752:26
+    at [90mfile:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:1897:20
+    at new Promise (<anonymous>)
+    at runWithTimeout [90m(file:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:1863:10[90m)[39m
+    at runTest [90m(file:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:1574:12[90m)[39m
+[90m    at processTicksAndRejections (node:internal/process/task_queues:95:5)[39m
+    at runSuite [90m(file:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:1729:8[90m)[39m
+    at runSuite [90m(file:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:1729:8[90m)[39m
+
+[90mstderr[2m | backend/src/routes/__tests__/llm.test.ts[2m > [22m[2mLLM Routes[2m > [22m[2mGET /api/llm/request/:requestId/status[2m > [22m[2mshould handle service errors
+[22m[39mError fetching request status: Error: Queue error
+    at [90m/home/runner/work/courthouse/courthouse/[39mbackend/src/routes/__tests__/llm.test.ts:269:113
+    at [90mfile:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:155:11
+    at [90mfile:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:752:26
+    at [90mfile:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:1897:20
+    at new Promise (<anonymous>)
+    at runWithTimeout [90m(file:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:1863:10[90m)[39m
+    at runTest [90m(file:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:1574:12[90m)[39m
+[90m    at processTicksAndRejections (node:internal/process/task_queues:95:5)[39m
+    at runSuite [90m(file:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:1729:8[90m)[39m
+    at runSuite [90m(file:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:1729:8[90m)[39m
+
+[90mstderr[2m | backend/src/routes/__tests__/llm.test.ts[2m > [22m[2mLLM Routes[2m > [22m[2mPOST /api/llm/request/:requestId/cancel[2m > [22m[2mshould handle service errors
+[22m[39mError cancelling request: Error: Queue error
+    at [90m/home/runner/work/courthouse/courthouse/[39mbackend/src/routes/__tests__/llm.test.ts:302:107
+    at [90mfile:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:155:11
+    at [90mfile:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:752:26
+    at [90mfile:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:1897:20
+    at new Promise (<anonymous>)
+    at runWithTimeout [90m(file:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:1863:10[90m)[39m
+    at runTest [90m(file:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:1574:12[90m)[39m
+[90m    at processTicksAndRejections (node:internal/process/task_queues:95:5)[39m
+    at runSuite [90m(file:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:1729:8[90m)[39m
+    at runSuite [90m(file:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:1729:8[90m)[39m
+
+[90mstderr[2m | backend/src/routes/__tests__/cases.test.ts[2m > [22m[2mCase Routes[2m > [22m[2mPOST /api/cases[2m > [22m[2mshould handle service errors
+[22m[39mError creating case: Error: Database error
+    at [90m/home/runner/work/courthouse/courthouse/[39mbackend/src/routes/__tests__/cases.test.ts:199:107
+    at [90mfile:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:155:11
+    at [90mfile:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:752:26
+    at [90mfile:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:1897:20
+    at new Promise (<anonymous>)
+    at runWithTimeout [90m(file:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:1863:10[90m)[39m
+    at runTest [90m(file:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:1574:12[90m)[39m
+[90m    at processTicksAndRejections (node:internal/process/task_queues:95:5)[39m
+    at runSuite [90m(file:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:1729:8[90m)[39m
+    at runSuite [90m(file:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:1729:8[90m)[39m
+
+[90mstderr[2m | backend/src/routes/__tests__/llm.test.ts[2m > [22m[2mLLM Routes[2m > [22m[2mPOST /api/llm/request/:requestId/retry[2m > [22m[2mshould handle service errors
+[22m[39mError retrying request: Error: Queue error
+    at [90m/home/runner/work/courthouse/courthouse/[39mbackend/src/routes/__tests__/llm.test.ts:335:117
+    at [90mfile:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:155:11
+    at [90mfile:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:752:26
+    at [90mfile:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:1897:20
+    at new Promise (<anonymous>)
+    at runWithTimeout [90m(file:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:1863:10[90m)[39m
+    at runTest [90m(file:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:1574:12[90m)[39m
+[90m    at processTicksAndRejections (node:internal/process/task_queues:95:5)[39m
+    at runSuite [90m(file:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:1729:8[90m)[39m
+    at runSuite [90m(file:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:1729:8[90m)[39m
+
+[90mstderr[2m | backend/src/routes/__tests__/llm.test.ts[2m > [22m[2mLLM Routes[2m > [22m[2mGET /api/llm/providers[2m > [22m[2mshould handle service errors
+[22m[39mError fetching provider status: Error: Service error
+    at [90m/home/runner/work/courthouse/courthouse/[39mbackend/src/routes/__tests__/llm.test.ts:361:119
+    at [90mfile:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:155:11
+    at [90mfile:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:752:26
+    at [90mfile:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:1897:20
+    at new Promise (<anonymous>)
+    at runWithTimeout [90m(file:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:1863:10[90m)[39m
+    at runTest [90m(file:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:1574:12[90m)[39m
+[90m    at processTicksAndRejections (node:internal/process/task_queues:95:5)[39m
+    at runSuite [90m(file:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:1729:8[90m)[39m
+    at runSuite [90m(file:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:1729:8[90m)[39m
+
+[90mstderr[2m | backend/src/routes/__tests__/llm.test.ts[2m > [22m[2mLLM Routes[2m > [22m[2mPOST /api/llm/providers/:provider/test[2m > [22m[2mshould handle service errors
+[22m[39mError testing provider: Error: Invalid provider
+    at Object.<anonymous> [90m(/home/runner/work/courthouse/courthouse/[39mbackend/src/routes/__tests__/llm.test.ts:416:15[90m)[39m
+    at Object.mockCall [90m(file:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/spy[24m/dist/index.js:96:15[90m)[39m
+    at Object.spy [as createProvider] [90m(file:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4mtinyspy[24m/dist/index.js:47:103[90m)[39m
+    at [90m/home/runner/work/courthouse/courthouse/[39mbackend/src/routes/llm.ts:153:43
+    at Layer.handle [as handle_request] [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/layer.js:95:5[90m)[39m
+    at next [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/route.js:149:13[90m)[39m
+    at Route.dispatch [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/route.js:119:3[90m)[39m
+    at Layer.handle [as handle_request] [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/layer.js:95:5[90m)[39m
+    at [90m/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/index.js:284:15
+    at param [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/index.js:365:14[90m)[39m
+
+[90mstderr[2m | backend/src/routes/__tests__/cases.test.ts[2m > [22m[2mCase Routes[2m > [22m[2mPUT /api/cases/:id[2m > [22m[2mshould handle service errors
+[22m[39mError updating case: Error: Database error
+    at [90m/home/runner/work/courthouse/courthouse/[39mbackend/src/routes/__tests__/cases.test.ts:287:107
+    at [90mfile:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:155:11
+    at [90mfile:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:752:26
+    at [90mfile:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:1897:20
+    at new Promise (<anonymous>)
+    at runWithTimeout [90m(file:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:1863:10[90m)[39m
+    at runTest [90m(file:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:1574:12[90m)[39m
+[90m    at processTicksAndRejections (node:internal/process/task_queues:95:5)[39m
+    at runSuite [90m(file:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:1729:8[90m)[39m
+    at runSuite [90m(file:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:1729:8[90m)[39m
+
+[90mstdout[2m | src/services/__tests__/ProceedingsEngine.test.ts[2m > [22m[2mProceedingsEngine[2m > [22m[2mPhase Management[2m > [22m[2mshould process phase when called
+[22m[39m🎬 Starting phase: pre-trial
+
+[90mstderr[2m | backend/src/routes/__tests__/llm.test.ts[2m > [22m[2mLLM Routes[2m > [22m[2mGET /api/llm/queue/stats[2m > [22m[2mshould handle service errors
+[22m[39mError fetching queue stats: Error: Queue error
+    at [90m/home/runner/work/courthouse/courthouse/[39mbackend/src/routes/__tests__/llm.test.ts:447:115
+    at [90mfile:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:155:11
+    at [90mfile:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:752:26
+    at [90mfile:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:1897:20
+    at new Promise (<anonymous>)
+    at runWithTimeout [90m(file:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:1863:10[90m)[39m
+    at runTest [90m(file:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:1574:12[90m)[39m
+[90m    at processTicksAndRejections (node:internal/process/task_queues:95:5)[39m
+    at runSuite [90m(file:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:1729:8[90m)[39m
+    at runSuite [90m(file:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:1729:8[90m)[39m
+
+[90mstderr[2m | backend/src/routes/__tests__/cases.test.ts[2m > [22m[2mCase Routes[2m > [22m[2mDELETE /api/cases/:id[2m > [22m[2mshould handle service errors
+[22m[39mError deleting case: Error: Database error
+    at [90m/home/runner/work/courthouse/courthouse/[39mbackend/src/routes/__tests__/cases.test.ts:320:107
+    at [90mfile:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:155:11
+    at [90mfile:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:752:26
+    at [90mfile:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:1897:20
+    at new Promise (<anonymous>)
+    at runWithTimeout [90m(file:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:1863:10[90m)[39m
+    at runTest [90m(file:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:1574:12[90m)[39m
+[90m    at processTicksAndRejections (node:internal/process/task_queues:95:5)[39m
+    at runSuite [90m(file:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:1729:8[90m)[39m
+    at runSuite [90m(file:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:1729:8[90m)[39m
+
+[90mstderr[2m | backend/src/routes/__tests__/llm.test.ts[2m > [22m[2mLLM Routes[2m > [22m[2mGET /api/llm/queue/jobs/active[2m > [22m[2mshould handle service errors
+[22m[39mError fetching active jobs: Error: Queue error
+    at Object.<anonymous> [90m(/home/runner/work/courthouse/courthouse/[39mbackend/src/routes/__tests__/llm.test.ts:472:15[90m)[39m
+    at Object.mockCall [90m(file:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/spy[24m/dist/index.js:96:15[90m)[39m
+    at Object.spy [as getActiveJobIds] [90m(file:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4mtinyspy[24m/dist/index.js:47:103[90m)[39m
+    at [90m/home/runner/work/courthouse/courthouse/[39mbackend/src/routes/llm.ts:184:39
+    at Layer.handle [as handle_request] [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/layer.js:95:5[90m)[39m
+    at next [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/route.js:149:13[90m)[39m
+    at Route.dispatch [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/route.js:119:3[90m)[39m
+    at Layer.handle [as handle_request] [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/layer.js:95:5[90m)[39m
+    at [90m/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/index.js:284:15
+    at Function.process_params [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/index.js:346:12[90m)[39m
+
+[90mstderr[2m | backend/src/routes/__tests__/llm.test.ts[2m > [22m[2mLLM Routes[2m > [22m[2mGET /api/llm/queue/jobs/pending[2m > [22m[2mshould handle service errors
+[22m[39mError fetching pending jobs: Error: Queue error
+    at Object.<anonymous> [90m(/home/runner/work/courthouse/courthouse/[39mbackend/src/routes/__tests__/llm.test.ts:498:15[90m)[39m
+    at Object.mockCall [90m(file:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/spy[24m/dist/index.js:96:15[90m)[39m
+    at Object.spy [as getPendingJobIds] [90m(file:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4mtinyspy[24m/dist/index.js:47:103[90m)[39m
+    at [90m/home/runner/work/courthouse/courthouse/[39mbackend/src/routes/llm.ts:196:40
+    at Layer.handle [as handle_request] [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/layer.js:95:5[90m)[39m
+    at next [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/route.js:149:13[90m)[39m
+    at Route.dispatch [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/route.js:119:3[90m)[39m
+    at Layer.handle [as handle_request] [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/layer.js:95:5[90m)[39m
+    at [90m/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/index.js:284:15
+    at Function.process_params [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/index.js:346:12[90m)[39m
+
+[90mstderr[2m | backend/src/routes/__tests__/cases.test.ts[2m > [22m[2mCase Routes[2m > [22m[2mPOST /api/cases/:id/participants[2m > [22m[2mshould handle service errors
+[22m[39mError adding participant: Error: Database error
+    at [90m/home/runner/work/courthouse/courthouse/[39mbackend/src/routes/__tests__/cases.test.ts:362:115
+    at [90mfile:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:155:11
+    at [90mfile:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:752:26
+    at [90mfile:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:1897:20
+    at new Promise (<anonymous>)
+    at runWithTimeout [90m(file:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:1863:10[90m)[39m
+    at runTest [90m(file:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:1574:12[90m)[39m
+[90m    at processTicksAndRejections (node:internal/process/task_queues:95:5)[39m
+    at runSuite [90m(file:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:1729:8[90m)[39m
+    at runSuite [90m(file:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:1729:8[90m)[39m
+
+[90mstderr[2m | backend/src/routes/__tests__/llm.test.ts[2m > [22m[2mLLM Routes[2m > [22m[2mPOST /api/llm/queue/cleanup[2m > [22m[2mshould handle service errors
+[22m[39mError cleaning up queue: Error: Queue error
+    at [90m/home/runner/work/courthouse/courthouse/[39mbackend/src/routes/__tests__/llm.test.ts:550:125
+    at [90mfile:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:155:11
+    at [90mfile:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:752:26
+    at [90mfile:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:1897:20
+    at new Promise (<anonymous>)
+    at runWithTimeout [90m(file:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:1863:10[90m)[39m
+    at runTest [90m(file:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:1574:12[90m)[39m
+[90m    at processTicksAndRejections (node:internal/process/task_queues:95:5)[39m
+    at runSuite [90m(file:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:1729:8[90m)[39m
+    at runSuite [90m(file:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:1729:8[90m)[39m
+
+ [32m✓[39m backend/src/routes/__tests__/llm.test.ts [2m([22m[2m38 tests[22m[2m)[22m[32m 208[2mms[22m[39m
+[90mstderr[2m | backend/src/routes/__tests__/cases.test.ts[2m > [22m[2mCase Routes[2m > [22m[2mPUT /api/cases/:id/participants/:participantId[2m > [22m[2mshould handle service errors
+[22m[39mError updating participant: Error: Database error
+    at [90m/home/runner/work/courthouse/courthouse/[39mbackend/src/routes/__tests__/cases.test.ts:408:121
+    at [90mfile:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:155:11
+    at [90mfile:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:752:26
+    at [90mfile:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:1897:20
+    at new Promise (<anonymous>)
+    at runWithTimeout [90m(file:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:1863:10[90m)[39m
+    at runTest [90m(file:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:1574:12[90m)[39m
+[90m    at processTicksAndRejections (node:internal/process/task_queues:95:5)[39m
+    at runSuite [90m(file:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:1729:8[90m)[39m
+    at runSuite [90m(file:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:1729:8[90m)[39m
+
+[90mstderr[2m | backend/src/routes/__tests__/cases.test.ts[2m > [22m[2mCase Routes[2m > [22m[2mDELETE /api/cases/:id/participants/:participantId[2m > [22m[2mshould handle service errors
+[22m[39mError removing participant: Error: Database error
+    at [90m/home/runner/work/courthouse/courthouse/[39mbackend/src/routes/__tests__/cases.test.ts:443:121
+    at [90mfile:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:155:11
+    at [90mfile:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:752:26
+    at [90mfile:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:1897:20
+    at new Promise (<anonymous>)
+    at runWithTimeout [90m(file:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:1863:10[90m)[39m
+    at runTest [90m(file:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:1574:12[90m)[39m
+[90m    at processTicksAndRejections (node:internal/process/task_queues:95:5)[39m
+    at runSuite [90m(file:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:1729:8[90m)[39m
+    at runSuite [90m(file:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:1729:8[90m)[39m
+
+[90mstderr[2m | backend/src/routes/__tests__/cases.test.ts[2m > [22m[2mCase Routes[2m > [22m[2mGET /api/cases/:id/transcript[2m > [22m[2mshould handle service errors
+[22m[39mError fetching transcript: Error: Database error
+    at [90m/home/runner/work/courthouse/courthouse/[39mbackend/src/routes/__tests__/cases.test.ts:480:113
+    at [90mfile:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:155:11
+    at [90mfile:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:752:26
+    at [90mfile:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:1897:20
+    at new Promise (<anonymous>)
+    at runWithTimeout [90m(file:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:1863:10[90m)[39m
+    at runTest [90m(file:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:1574:12[90m)[39m
+[90m    at processTicksAndRejections (node:internal/process/task_queues:95:5)[39m
+    at runSuite [90m(file:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:1729:8[90m)[39m
+    at runSuite [90m(file:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:1729:8[90m)[39m
+
+[90mstderr[2m | backend/src/routes/__tests__/cases.test.ts[2m > [22m[2mCase Routes[2m > [22m[2mPOST /api/cases/:id/transcript[2m > [22m[2mshould handle service errors
+[22m[39mError adding transcript entry: Error: Database error
+    at [90m/home/runner/work/courthouse/courthouse/[39mbackend/src/routes/__tests__/cases.test.ts:529:123
+    at [90mfile:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:155:11
+    at [90mfile:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:752:26
+    at [90mfile:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:1897:20
+    at new Promise (<anonymous>)
+    at runWithTimeout [90m(file:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:1863:10[90m)[39m
+    at runTest [90m(file:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:1574:12[90m)[39m
+[90m    at processTicksAndRejections (node:internal/process/task_queues:95:5)[39m
+    at runSuite [90m(file:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:1729:8[90m)[39m
+    at runSuite [90m(file:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:1729:8[90m)[39m
+
+[90mstderr[2m | backend/src/routes/__tests__/cases.test.ts[2m > [22m[2mCase Routes[2m > [22m[2mPUT /api/cases/:id/phase[2m > [22m[2mshould handle service errors
+[22m[39mError updating phase: Error: Database error
+    at [90m/home/runner/work/courthouse/courthouse/[39mbackend/src/routes/__tests__/cases.test.ts:575:109
+    at [90mfile:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:155:11
+    at [90mfile:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:752:26
+    at [90mfile:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:1897:20
+    at new Promise (<anonymous>)
+    at runWithTimeout [90m(file:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:1863:10[90m)[39m
+    at runTest [90m(file:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:1574:12[90m)[39m
+[90m    at processTicksAndRejections (node:internal/process/task_queues:95:5)[39m
+    at runSuite [90m(file:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:1729:8[90m)[39m
+    at runSuite [90m(file:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/runner[24m/dist/chunk-hooks.js:1729:8[90m)[39m
+
+ [32m✓[39m backend/src/routes/__tests__/cases.test.ts [2m([22m[2m40 tests[22m[2m)[22m[32m 227[2mms[22m[39m
+[90mstdout[2m | src/store/__tests__/useCourtroomStore.test.ts[2m > [22m[2museCourtroomStore[2m > [22m[2mCase Management[2m > [22m[2mshould set current case
+[22m[39m📋 Setting current case: Test Case
+📋 Case phase: pre-trial
+📋 Participants count: [33m1[39m
+⚙️ Created ProceedingsEngine successfully
+
+[90mstdout[2m | src/store/__tests__/useCourtroomStore.test.ts[2m > [22m[2museCourtroomStore[2m > [22m[2mCase Management[2m > [22m[2mshould update participant
+[22m[39m📋 Setting current case: Test Case
+📋 Case phase: pre-trial
+📋 Participants count: [33m1[39m
+⚙️ Created ProceedingsEngine successfully
+
+[90mstdout[2m | src/store/__tests__/useCourtroomStore.test.ts[2m > [22m[2museCourtroomStore[2m > [22m[2mUser Role Management[2m > [22m[2mshould update participant AI control when setting user role
+[22m[39m📋 Setting current case: Test Case
+📋 Case phase: pre-trial
+📋 Participants count: [33m1[39m
+⚙️ Created ProceedingsEngine successfully
+
+[90mstdout[2m | src/store/__tests__/useCourtroomStore.test.ts[2m > [22m[2museCourtroomStore[2m > [22m[2mEvidence Management[2m > [22m[2mshould add evidence to case
+[22m[39m📋 Setting current case: Test Case
+📋 Case phase: pre-trial
+📋 Participants count: [33m1[39m
+⚙️ Created ProceedingsEngine successfully
+
+[90mstdout[2m | src/store/__tests__/useCourtroomStore.test.ts[2m > [22m[2museCourtroomStore[2m > [22m[2mEvidence Management[2m > [22m[2mshould remove evidence from case
+[22m[39m📋 Setting current case: Test Case
+📋 Case phase: pre-trial
+📋 Participants count: [33m1[39m
+⚙️ Created ProceedingsEngine successfully
+
+ [31m❯[39m backend/src/__tests__/integration/case-workflow.test.ts [2m([22m[2m12 tests[22m[2m | [22m[31m1 failed[39m[2m)[22m[32m 54[2mms[22m[39m
+   [32m✓[39m Case Workflow Integration[2m > [22mComplete Case Lifecycle[2m > [22mshould create and manage a complete case workflow[32m 3[2mms[22m[39m
+   [32m✓[39m Case Workflow Integration[2m > [22mComplete Case Lifecycle[2m > [22mshould handle case with jury[32m 0[2mms[22m[39m
+   [32m✓[39m Case Workflow Integration[2m > [22mComplete Case Lifecycle[2m > [22mshould manage participant updates throughout trial[32m 1[2mms[22m[39m
+   [32m✓[39m Case Workflow Integration[2m > [22mTranscript Management[2m > [22mshould maintain chronological transcript order[32m 33[2mms[22m[39m
+   [32m✓[39m Case Workflow Integration[2m > [22mPhase Transitions[2m > [22mshould transition through all case phases[32m 1[2mms[22m[39m
+[31m   [31m×[31m Case Workflow Integration[2m > [22mMulti-Case Operations[2m > [22mshould handle multiple cases for same user[39m[32m 11[2mms[22m[39m
+[31m     → expected 0 to be greater than or equal to 3[39m
+   [32m✓[39m Case Workflow Integration[2m > [22mMulti-Case Operations[2m > [22mshould handle pagination for large case lists[32m 0[2mms[22m[39m
+   [32m✓[39m Case Workflow Integration[2m > [22mCase Validation[2m > [22mshould not retrieve non-existent case[32m 0[2mms[22m[39m
+   [32m✓[39m Case Workflow Integration[2m > [22mCase Validation[2m > [22mshould not delete non-existent case[32m 0[2mms[22m[39m
+   [32m✓[39m Case Workflow Integration[2m > [22mCase Validation[2m > [22mshould not update non-existent case[32m 0[2mms[22m[39m
+   [32m✓[39m Case Workflow Integration[2m > [22mCase Validation[2m > [22mshould not add participant to non-existent case[32m 0[2mms[22m[39m
+   [32m✓[39m Case Workflow Integration[2m > [22mComplex Workflows[2m > [22mshould handle a full trial simulation workflow[32m 1[2mms[22m[39m
+[90mstdout[2m | src/store/__tests__/useCourtroomStore.test.ts[2m > [22m[2museCourtroomStore[2m > [22m[2mSimulation Settings[2m > [22m[2mshould recreate proceedings engine when settings change with active case
+[22m[39m📋 Setting current case: Test Case
+📋 Case phase: pre-trial
+📋 Participants count: [33m1[39m
+⚙️ Created ProceedingsEngine successfully
+
+[90mstdout[2m | src/store/__tests__/useCourtroomStore.test.ts[2m > [22m[2museCourtroomStore[2m > [22m[2mTranscript Management[2m > [22m[2mshould add transcript entry
+[22m[39m📋 Setting current case: Test Case
+📋 Case phase: pre-trial
+📋 Participants count: [33m1[39m
+⚙️ Created ProceedingsEngine successfully
+
+[90mstdout[2m | src/store/__tests__/useCourtroomStore.test.ts[2m > [22m[2museCourtroomStore[2m > [22m[2mTranscript Management[2m > [22m[2mshould clear transcript
+[22m[39m📋 Setting current case: Test Case
+📋 Case phase: pre-trial
+📋 Participants count: [33m1[39m
+⚙️ Created ProceedingsEngine successfully
+
+[90mstdout[2m | src/store/__tests__/useCourtroomStore.test.ts[2m > [22m[2museCourtroomStore[2m > [22m[2mUser Input Processing[2m > [22m[2mshould process user input when user role is set
+[22m[39m📋 Setting current case: Test Case
+📋 Case phase: pre-trial
+📋 Participants count: [33m1[39m
+⚙️ Created ProceedingsEngine successfully
+
+[90mstdout[2m | src/store/__tests__/useCourtroomStore.test.ts[2m > [22m[2museCourtroomStore[2m > [22m[2mUser Input Processing[2m > [22m[2mshould not process user input without user role
+[22m[39m📋 Setting current case: Test Case
+📋 Case phase: pre-trial
+📋 Participants count: [33m1[39m
+⚙️ Created ProceedingsEngine successfully
+
+[90mstdout[2m | src/store/__tests__/useCourtroomStore.test.ts[2m > [22m[2museCourtroomStore[2m > [22m[2mCase Persistence[2m > [22m[2mshould save case to localStorage
+[22m[39m📋 Setting current case: Test Case
+📋 Case phase: pre-trial
+📋 Participants count: [33m1[39m
+⚙️ Created ProceedingsEngine successfully
+
+[90mstdout[2m | src/store/__tests__/useCourtroomStore.test.ts[2m > [22m[2museCourtroomStore[2m > [22m[2mCase Persistence[2m > [22m[2mshould load case from localStorage
+[22m[39m📋 Setting current case: Test Case
+📋 Case phase: pre-trial
+📋 Participants count: [33m1[39m
+⚙️ Created ProceedingsEngine successfully
+
+[90mstdout[2m | src/store/__tests__/useCourtroomStore.test.ts[2m > [22m[2museCourtroomStore[2m > [22m[2mTranscript Export[2m > [22m[2mshould export transcript
+[22m[39m📋 Setting current case: Test Case
+📋 Case phase: pre-trial
+📋 Participants count: [33m1[39m
+⚙️ Created ProceedingsEngine successfully
+
+[90mstdout[2m | src/store/__tests__/useCourtroomStore.test.ts[2m > [22m[2museCourtroomStore[2m > [22m[2mSimulation Control[2m > [22m[2mshould start simulation
+[22m[39m📋 Setting current case: Test Case
+📋 Case phase: pre-trial
+📋 Participants count: [33m1[39m
+⚙️ Created ProceedingsEngine successfully
+🚀 Starting simulation...
+Engine exists: [33mtrue[39m
+Case exists: [33mtrue[39m
+Current phase: pre-trial
+✅ Setting simulation running to true
+🎬 Calling engine.start()...
+
+ [31m❯[39m src/services/__tests__/ProceedingsEngine.test.ts [2m([22m[2m17 tests[22m[2m | [22m[31m1 failed[39m[2m)[22m[33m 1029[2mms[22m[39m
+   [32m✓[39m ProceedingsEngine[2m > [22mConstructor[2m > [22mshould initialize with provided case and settings[32m 4[2mms[22m[39m
+   [32m✓[39m ProceedingsEngine[2m > [22mConstructor[2m > [22mshould initialize AI callbacks[32m 1[2mms[22m[39m
+   [32m✓[39m ProceedingsEngine[2m > [22mPhase Management[2m > [22mshould return current phase[32m 1[2mms[22m[39m
+[31m   [31m×[31m ProceedingsEngine[2m > [22mPhase Management[2m > [22mshould process phase when called[39m[33m 1009[2mms[22m[39m
+[31m     → Test timed out in 1000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".[39m
+   [32m✓[39m ProceedingsEngine[2m > [22mEvent Queue[2m > [22mshould initialize with empty event queue[32m 2[2mms[22m[39m
+   [32m✓[39m ProceedingsEngine[2m > [22mEvent Queue[2m > [22mshould be able to clear event queue[32m 1[2mms[22m[39m
+   [32m✓[39m ProceedingsEngine[2m > [22mTranscript Management[2m > [22mshould return empty transcript initially[32m 1[2mms[22m[39m
+   [32m✓[39m ProceedingsEngine[2m > [22mTranscript Management[2m > [22mshould maintain transcript entries[32m 2[2mms[22m[39m
+   [32m✓[39m ProceedingsEngine[2m > [22mSimulation Control[2m > [22mshould not be active initially[32m 1[2mms[22m[39m
+   [32m✓[39m ProceedingsEngine[2m > [22mSimulation Control[2m > [22mshould be able to stop simulation[32m 1[2mms[22m[39m
+   [32m✓[39m ProceedingsEngine[2m > [22mSimulation Control[2m > [22mshould handle start and stop lifecycle[32m 0[2mms[22m[39m
+   [32m✓[39m ProceedingsEngine[2m > [22mSpeaker Management[2m > [22mshould return null for current speaker initially[32m 0[2mms[22m[39m
+   [32m✓[39m ProceedingsEngine[2m > [22mAI Callbacks Integration[2m > [22mshould use AI callbacks when provided[32m 0[2mms[22m[39m
+   [32m✓[39m ProceedingsEngine[2m > [22mAI Callbacks Integration[2m > [22mshould work without AI callbacks[32m 3[2mms[22m[39m
+   [32m✓[39m ProceedingsEngine[2m > [22mEdge Cases[2m > [22mshould handle case with no participants gracefully[32m 0[2mms[22m[39m
+   [32m✓[39m ProceedingsEngine[2m > [22mEdge Cases[2m > [22mshould handle case with no evidence[32m 1[2mms[22m[39m
+   [32m✓[39m ProceedingsEngine[2m > [22mEdge Cases[2m > [22mshould handle different case types[32m 0[2mms[22m[39m
+[90mstdout[2m | src/store/__tests__/useCourtroomStore.test.ts[2m > [22m[2museCourtroomStore[2m > [22m[2mSimulation Control[2m > [22m[2mshould start simulation
+[22m[39m✅ Engine started successfully
+
+[90mstdout[2m | src/store/__tests__/useCourtroomStore.test.ts[2m > [22m[2museCourtroomStore[2m > [22m[2mSimulation Control[2m > [22m[2mshould stop simulation
+[22m[39m📋 Setting current case: Test Case
+📋 Case phase: pre-trial
+📋 Participants count: [33m1[39m
+⚙️ Created ProceedingsEngine successfully
+
+[90mstdout[2m | src/store/__tests__/useCourtroomStore.test.ts[2m > [22m[2museCourtroomStore[2m > [22m[2mSimulation Control[2m > [22m[2mshould pause simulation
+[22m[39m📋 Setting current case: Test Case
+📋 Case phase: pre-trial
+📋 Participants count: [33m1[39m
+⚙️ Created ProceedingsEngine successfully
+
+ [31m❯[39m src/store/__tests__/useCourtroomStore.test.ts [2m([22m[2m26 tests[22m[2m | [22m[31m26 failed[39m[2m)[22m[32m 163[2mms[22m[39m
+[31m   [31m×[31m useCourtroomStore[2m > [22mInitial State[2m > [22mshould have correct initial state[39m[32m 23[2mms[22m[39m
+[31m     → Cannot read properties of null (reading 'title')[39m
+[31m   [31m×[31m useCourtroomStore[2m > [22mInitial State[2m > [22mshould have default simulation settings[39m[32m 3[2mms[22m[39m
+[31m     → Cannot read properties of null (reading 'title')[39m
+[31m   [31m×[31m useCourtroomStore[2m > [22mCase Management[2m > [22mshould set current case[39m[32m 7[2mms[22m[39m
+[31m     → Cannot read properties of null (reading 'title')[39m
+[31m   [31m×[31m useCourtroomStore[2m > [22mCase Management[2m > [22mshould update participant[39m[32m 4[2mms[22m[39m
+[31m     → Cannot read properties of null (reading 'title')[39m
+[31m   [31m×[31m useCourtroomStore[2m > [22mCase Management[2m > [22mshould handle participant update with no current case[39m[32m 7[2mms[22m[39m
+[31m     → expected { id: 'test-case-1', …(11) } to be null[39m
+[31m     → Cannot read properties of null (reading 'title')[39m
+[31m   [31m×[31m useCourtroomStore[2m > [22mUser Role Management[2m > [22mshould set user role[39m[32m 4[2mms[22m[39m
+[31m     → Cannot read properties of null (reading 'title')[39m
+[31m   [31m×[31m useCourtroomStore[2m > [22mUser Role Management[2m > [22mshould update participant AI control when setting user role[39m[32m 5[2mms[22m[39m
+[31m     → Cannot read properties of null (reading 'title')[39m
+[31m   [31m×[31m useCourtroomStore[2m > [22mEvidence Management[2m > [22mshould add evidence to case[39m[32m 11[2mms[22m[39m
+[31m     → Cannot read properties of null (reading 'title')[39m
+[31m   [31m×[31m useCourtroomStore[2m > [22mEvidence Management[2m > [22mshould remove evidence from case[39m[32m 4[2mms[22m[39m
+[31m     → Cannot read properties of null (reading 'title')[39m
+[31m   [31m×[31m useCourtroomStore[2m > [22mEvidence Management[2m > [22mshould handle evidence operations with no current case[39m[32m 4[2mms[22m[39m
+[31m     → expected { id: 'test-case-1', …(11) } to be null[39m
+[31m     → Cannot read properties of null (reading 'title')[39m
+[31m   [31m×[31m useCourtroomStore[2m > [22mSimulation Settings[2m > [22mshould update simulation settings[39m[32m 4[2mms[22m[39m
+[31m     → Cannot read properties of null (reading 'title')[39m
+[31m   [31m×[31m useCourtroomStore[2m > [22mSimulation Settings[2m > [22mshould recreate proceedings engine when settings change with active case[39m[32m 4[2mms[22m[39m
+[31m     → Cannot read properties of null (reading 'title')[39m
+[31m   [31m×[31m useCourtroomStore[2m > [22mTranscript Management[2m > [22mshould add transcript entry[39m[32m 4[2mms[22m[39m
+[31m     → Cannot read properties of null (reading 'title')[39m
+[31m   [31m×[31m useCourtroomStore[2m > [22mTranscript Management[2m > [22mshould clear transcript[39m[32m 4[2mms[22m[39m
+[31m     → Cannot read properties of null (reading 'title')[39m
+[31m   [31m×[31m useCourtroomStore[2m > [22mUser Input Processing[2m > [22mshould process user input when user role is set[39m[32m 4[2mms[22m[39m
+[31m     → Cannot read properties of null (reading 'title')[39m
+[31m   [31m×[31m useCourtroomStore[2m > [22mUser Input Processing[2m > [22mshould not process user input without user role[39m[32m 5[2mms[22m[39m
+[31m     → expected [ { id: 'user-1769008402264', …(5) } ] to have a length of +0 but got 1[39m
+[31m     → Cannot read properties of null (reading 'title')[39m
+[31m   [31m×[31m useCourtroomStore[2m > [22mAI Processing State[2m > [22mshould set AI processing state[39m[32m 3[2mms[22m[39m
+[31m     → Cannot read properties of null (reading 'title')[39m
+[31m   [31m×[31m useCourtroomStore[2m > [22mAI Processing State[2m > [22mshould set AI progress[39m[32m 5[2mms[22m[39m
+[31m     → Cannot read properties of null (reading 'title')[39m
+[31m   [31m×[31m useCourtroomStore[2m > [22mCase Persistence[2m > [22mshould save case to localStorage[39m[32m 4[2mms[22m[39m
+[31m     → Cannot read properties of null (reading 'title')[39m
+[31m   [31m×[31m useCourtroomStore[2m > [22mCase Persistence[2m > [22mshould load case from localStorage[39m[32m 4[2mms[22m[39m
+[31m     → Cannot read properties of null (reading 'title')[39m
+[31m   [31m×[31m useCourtroomStore[2m > [22mCase Persistence[2m > [22mshould handle missing case in localStorage[39m[32m 2[2mms[22m[39m
+[31m     → expected { id: 'test-case-1', …(11) } to be null[39m
+[31m     → Cannot read properties of null (reading 'title')[39m
+[31m   [31m×[31m useCourtroomStore[2m > [22mTranscript Export[2m > [22mshould export transcript[39m[32m 17[2mms[22m[39m
+[31m     → Cannot read properties of null (reading 'title')[39m
+[31m   [31m×[31m useCourtroomStore[2m > [22mTranscript Export[2m > [22mshould return empty string when no case[39m[32m 2[2mms[22m[39m
+[31m     → expected 'Case: Test Case\nType: criminal\nLega…' to be '' // Object.is equality[39m
+[31m     → Cannot read properties of null (reading 'title')[39m
+[31m   [31m×[31m useCourtroomStore[2m > [22mSimulation Control[2m > [22mshould start simulation[39m[32m 15[2mms[22m[39m
+[31m     → Cannot read properties of null (reading 'title')[39m
+[31m   [31m×[31m useCourtroomStore[2m > [22mSimulation Control[2m > [22mshould stop simulation[39m[32m 7[2mms[22m[39m
+[31m     → Cannot read properties of null (reading 'title')[39m
+[31m   [31m×[31m useCourtroomStore[2m > [22mSimulation Control[2m > [22mshould pause simulation[39m[32m 4[2mms[22m[39m
+[31m     → Cannot read properties of null (reading 'title')[39m
+ [32m✓[39m src/services/agents/__tests__/CourtroomAgent.test.ts [2m([22m[2m22 tests[22m[2m)[22m[32m 12[2mms[22m[39m
+[90mstdout[2m | backend/src/__tests__/integration/websocket.test.ts[2m > [22m[2mWebSocket Communication Integration[2m > [22m[2mConnection Management[2m > [22m[2mshould establish WebSocket connection
+[22m[39mQueue processing started
+
+[90mstdout[2m | backend/src/__tests__/integration/websocket.test.ts[2m > [22m[2mWebSocket Communication Integration[2m > [22m[2mConnection Management[2m > [22m[2mshould handle disconnection
+[22m[39mQueue processing started
+
+[90mstdout[2m | backend/src/__tests__/integration/websocket.test.ts[2m > [22m[2mWebSocket Communication Integration[2m > [22m[2mConnection Management[2m > [22m[2mshould allow multiple concurrent connections
+[22m[39mQueue processing started
+
+[90mstdout[2m | backend/src/__tests__/integration/websocket.test.ts[2m > [22m[2mWebSocket Communication Integration[2m > [22m[2mCase Subscription[2m > [22m[2mshould subscribe to case updates
+[22m[39mQueue processing started
+
+[90mstdout[2m | backend/src/__tests__/integration/websocket.test.ts[2m > [22m[2mWebSocket Communication Integration[2m > [22m[2mCase Subscription[2m > [22m[2mshould unsubscribe from case updates
+[22m[39mQueue processing started
+
+[90mstdout[2m | backend/src/__tests__/integration/websocket.test.ts[2m > [22m[2mWebSocket Communication Integration[2m > [22m[2mCase Subscription[2m > [22m[2mshould receive case updates when subscribed
+[22m[39mQueue processing started
+
+[90mstdout[2m | backend/src/__tests__/integration/websocket.test.ts[2m > [22m[2mWebSocket Communication Integration[2m > [22m[2mLLM Request Handling[2m > [22m[2mshould handle LLM request via WebSocket
+[22m[39mQueue processing started
+
+[90mstdout[2m | backend/src/__tests__/integration/websocket.test.ts[2m > [22m[2mWebSocket Communication Integration[2m > [22m[2mLLM Request Handling[2m > [22m[2mshould handle streaming LLM request
+[22m[39mQueue processing started
+
+[90mstdout[2m | backend/src/__tests__/integration/websocket.test.ts[2m > [22m[2mWebSocket Communication Integration[2m > [22m[2mLLM Request Handling[2m > [22m[2mshould handle LLM request errors
+[22m[39mQueue processing started
+
+[90mstdout[2m | backend/src/__tests__/integration/websocket.test.ts[2m > [22m[2mWebSocket Communication Integration[2m > [22m[2mReal-time Updates[2m > [22m[2mshould broadcast transcript updates to subscribed clients
+[22m[39mQueue processing started
+
+[90mstdout[2m | backend/src/__tests__/integration/websocket.test.ts[2m > [22m[2mWebSocket Communication Integration[2m > [22m[2mReal-time Updates[2m > [22m[2mshould broadcast phase changes to subscribed clients
+[22m[39mQueue processing started
+
+[90mstdout[2m | backend/src/__tests__/integration/websocket.test.ts[2m > [22m[2mWebSocket Communication Integration[2m > [22m[2mReal-time Updates[2m > [22m[2mshould handle participant updates
+[22m[39mQueue processing started
+
+[90mstdout[2m | backend/src/__tests__/integration/websocket.test.ts[2m > [22m[2mWebSocket Communication Integration[2m > [22m[2mError Handling and Recovery[2m > [22m[2mshould handle malformed messages gracefully
+[22m[39mQueue processing started
+
+[90mstdout[2m | backend/src/__tests__/integration/websocket.test.ts[2m > [22m[2mWebSocket Communication Integration[2m > [22m[2mError Handling and Recovery[2m > [22m[2mshould reconnect after disconnection
+[22m[39mQueue processing started
+
+[90mstdout[2m | backend/src/__tests__/integration/websocket.test.ts[2m > [22m[2mWebSocket Communication Integration[2m > [22m[2mError Handling and Recovery[2m > [22m[2mshould handle concurrent requests
+[22m[39mQueue processing started
+
+ [31m❯[39m backend/src/__tests__/integration/websocket.test.ts [2m([22m[2m15 tests[22m[2m | [22m[31m14 failed[39m[2m)[22m[32m 48[2mms[22m[39m
+[31m   [31m×[31m WebSocket Communication Integration[2m > [22mConnection Management[2m > [22mshould establish WebSocket connection[39m[32m 11[2mms[22m[39m
+[31m     → Cannot read properties of undefined (reading 'connected')[39m
+[31m   [31m×[31m WebSocket Communication Integration[2m > [22mConnection Management[2m > [22mshould handle disconnection[39m[32m 1[2mms[22m[39m
+[31m     → Cannot read properties of undefined (reading 'on')[39m
+   [32m✓[39m WebSocket Communication Integration[2m > [22mConnection Management[2m > [22mshould allow multiple concurrent connections[32m 19[2mms[22m[39m
+[31m   [31m×[31m WebSocket Communication Integration[2m > [22mCase Subscription[2m > [22mshould subscribe to case updates[39m[32m 1[2mms[22m[39m
+[31m     → Cannot read properties of undefined (reading 'emit')[39m
+[31m   [31m×[31m WebSocket Communication Integration[2m > [22mCase Subscription[2m > [22mshould unsubscribe from case updates[39m[32m 1[2mms[22m[39m
+[31m     → Cannot read properties of undefined (reading 'emit')[39m
+[31m   [31m×[31m WebSocket Communication Integration[2m > [22mCase Subscription[2m > [22mshould receive case updates when subscribed[39m[32m 1[2mms[22m[39m
+[31m     → Cannot read properties of undefined (reading 'on')[39m
+[31m   [31m×[31m WebSocket Communication Integration[2m > [22mLLM Request Handling[2m > [22mshould handle LLM request via WebSocket[39m[32m 1[2mms[22m[39m
+[31m     → Cannot read properties of undefined (reading 'on')[39m
+[31m   [31m×[31m WebSocket Communication Integration[2m > [22mLLM Request Handling[2m > [22mshould handle streaming LLM request[39m[32m 1[2mms[22m[39m
+[31m     → Cannot read properties of undefined (reading 'on')[39m
+[31m   [31m×[31m WebSocket Communication Integration[2m > [22mLLM Request Handling[2m > [22mshould handle LLM request errors[39m[32m 1[2mms[22m[39m
+[31m     → Cannot read properties of undefined (reading 'on')[39m
+[31m   [31m×[31m WebSocket Communication Integration[2m > [22mReal-time Updates[2m > [22mshould broadcast transcript updates to subscribed clients[39m[32m 2[2mms[22m[39m
+[31m     → Cannot read properties of undefined (reading 'on')[39m
+[31m   [31m×[31m WebSocket Communication Integration[2m > [22mReal-time Updates[2m > [22mshould broadcast phase changes to subscribed clients[39m[32m 1[2mms[22m[39m
+[31m     → Cannot read properties of undefined (reading 'on')[39m
+[31m   [31m×[31m WebSocket Communication Integration[2m > [22mReal-time Updates[2m > [22mshould handle participant updates[39m[32m 1[2mms[22m[39m
+[31m     → Cannot read properties of undefined (reading 'on')[39m
+[31m   [31m×[31m WebSocket Communication Integration[2m > [22mError Handling and Recovery[2m > [22mshould handle malformed messages gracefully[39m[32m 1[2mms[22m[39m
+[31m     → Cannot read properties of undefined (reading 'emit')[39m
+[31m   [31m×[31m WebSocket Communication Integration[2m > [22mError Handling and Recovery[2m > [22mshould reconnect after disconnection[39m[32m 1[2mms[22m[39m
+[31m     → done() callback is deprecated, use promise instead[39m
+[31m   [31m×[31m WebSocket Communication Integration[2m > [22mError Handling and Recovery[2m > [22mshould handle concurrent requests[39m[32m 1[2mms[22m[39m
+[31m     → done() callback is deprecated, use promise instead[39m
+[90mstdout[2m | backend/src/__tests__/integration/llm-service.test.ts[2m > [22m[2mLLM Service Integration[2m > [22m[2mLLM Request Flow[2m > [22m[2mshould queue and process an LLM request
+[22m[39mQueue processing started
+
+[90mstdout[2m | backend/src/__tests__/integration/llm-service.test.ts[2m > [22m[2mLLM Service Integration[2m > [22m[2mLLM Request Flow[2m > [22m[2mshould queue and process an LLM request
+[22m[39mJob req-test-1 added to queue. Queue length: 1
+
+[90mstdout[2m | backend/src/__tests__/integration/llm-service.test.ts[2m > [22m[2mLLM Service Integration[2m > [22m[2mLLM Request Flow[2m > [22m[2mshould handle multiple concurrent requests
+[22m[39mQueue processing started
+
+[90mstdout[2m | backend/src/__tests__/integration/llm-service.test.ts[2m > [22m[2mLLM Service Integration[2m > [22m[2mLLM Request Flow[2m > [22m[2mshould handle multiple concurrent requests
+[22m[39mJob req-test-0 added to queue. Queue length: 1
+Job req-test-1 added to queue. Queue length: 2
+Job req-test-2 added to queue. Queue length: 3
+Job req-test-3 added to queue. Queue length: 4
+Job req-test-4 added to queue. Queue length: 5
+
+[90mstdout[2m | backend/src/__tests__/integration/llm-service.test.ts[2m > [22m[2mLLM Service Integration[2m > [22m[2mLLM Request Flow[2m > [22m[2mshould handle request cancellation
+[22m[39mQueue processing started
+
+[90mstdout[2m | backend/src/__tests__/integration/llm-service.test.ts[2m > [22m[2mLLM Service Integration[2m > [22m[2mLLM Request Flow[2m > [22m[2mshould handle request cancellation
+[22m[39mJob req-cancel-test added to queue. Queue length: 1
+
+[90mstdout[2m | backend/src/__tests__/integration/llm-service.test.ts[2m > [22m[2mLLM Service Integration[2m > [22m[2mLLM Request Flow[2m > [22m[2mshould respect priority ordering
+[22m[39mQueue processing started
+
+[90mstdout[2m | backend/src/__tests__/integration/llm-service.test.ts[2m > [22m[2mLLM Service Integration[2m > [22m[2mLLM Request Flow[2m > [22m[2mshould respect priority ordering
+[22m[39mJob req-low added to queue. Queue length: 1
+
+[90mstdout[2m | backend/src/__tests__/integration/llm-service.test.ts[2m > [22m[2mLLM Service Integration[2m > [22m[2mLLM Request Flow[2m > [22m[2mshould respect priority ordering
+[22m[39mJob req-high added to queue. Queue length: 2
+
+[90mstdout[2m | backend/src/__tests__/integration/llm-service.test.ts[2m > [22m[2mLLM Service Integration[2m > [22m[2mProvider Management[2m > [22m[2mshould return provider status
+[22m[39mQueue processing started
+
+[90mstderr[2m | backend/src/routes/__tests__/valuation.test.ts[2m > [22m[2mValuation Routes[2m > [22m[2mGET /api/valuation[2m > [22m[2mshould handle service errors
+[22m[39mError fetching valuations: Error: Database error
+    at Object.<anonymous> [90m(/home/runner/work/courthouse/courthouse/[39mbackend/src/routes/__tests__/valuation.test.ts:79:15[90m)[39m
+    at Object.mockCall [90m(file:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/spy[24m/dist/index.js:96:15[90m)[39m
+    at Object.spy [as getAllValuations] [90m(file:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4mtinyspy[24m/dist/index.js:47:103[90m)[39m
+    at [90m/home/runner/work/courthouse/courthouse/[39mbackend/src/routes/valuation.ts:12:41
+    at Layer.handle [as handle_request] [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/layer.js:95:5[90m)[39m
+    at next [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/route.js:149:13[90m)[39m
+    at Route.dispatch [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/route.js:119:3[90m)[39m
+    at Layer.handle [as handle_request] [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/layer.js:95:5[90m)[39m
+    at [90m/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/index.js:284:15
+    at Function.process_params [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/index.js:346:12[90m)[39m
+
+[90mstderr[2m | backend/src/routes/__tests__/valuation.test.ts[2m > [22m[2mValuation Routes[2m > [22m[2mGET /api/valuation/:id[2m > [22m[2mshould handle service errors
+[22m[39mError fetching valuation: Error: Database error
+    at Object.<anonymous> [90m(/home/runner/work/courthouse/courthouse/[39mbackend/src/routes/__tests__/valuation.test.ts:112:15[90m)[39m
+    at Object.mockCall [90m(file:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/spy[24m/dist/index.js:96:15[90m)[39m
+    at Object.spy [as getValuation] [90m(file:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4mtinyspy[24m/dist/index.js:47:103[90m)[39m
+    at [90m/home/runner/work/courthouse/courthouse/[39mbackend/src/routes/valuation.ts:27:40
+    at Layer.handle [as handle_request] [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/layer.js:95:5[90m)[39m
+    at next [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/route.js:149:13[90m)[39m
+    at Route.dispatch [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/route.js:119:3[90m)[39m
+    at Layer.handle [as handle_request] [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/layer.js:95:5[90m)[39m
+    at [90m/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/index.js:284:15
+    at param [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/index.js:365:14[90m)[39m
+
+[90mstderr[2m | backend/src/routes/__tests__/valuation.test.ts[2m > [22m[2mValuation Routes[2m > [22m[2mGET /api/valuation/case/:caseId[2m > [22m[2mshould handle service errors
+[22m[39mError fetching case valuations: Error: Database error
+    at Object.<anonymous> [90m(/home/runner/work/courthouse/courthouse/[39mbackend/src/routes/__tests__/valuation.test.ts:136:15[90m)[39m
+    at Object.mockCall [90m(file:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/spy[24m/dist/index.js:96:15[90m)[39m
+    at Object.spy [as getValuationsByCaseId] [90m(file:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4mtinyspy[24m/dist/index.js:47:103[90m)[39m
+    at [90m/home/runner/work/courthouse/courthouse/[39mbackend/src/routes/valuation.ts:47:41
+    at Layer.handle [as handle_request] [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/layer.js:95:5[90m)[39m
+    at next [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/route.js:149:13[90m)[39m
+    at Route.dispatch [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/route.js:119:3[90m)[39m
+    at Layer.handle [as handle_request] [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/layer.js:95:5[90m)[39m
+    at [90m/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/index.js:284:15
+    at param [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/index.js:365:14[90m)[39m
+
+[90mstderr[2m | backend/src/routes/__tests__/valuation.test.ts[2m > [22m[2mValuation Routes[2m > [22m[2mPOST /api/valuation[2m > [22m[2mshould handle service errors
+[22m[39mError creating valuation: Error: Database error
+    at Object.<anonymous> [90m(/home/runner/work/courthouse/courthouse/[39mbackend/src/routes/__tests__/valuation.test.ts:167:15[90m)[39m
+    at Object.mockCall [90m(file:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/spy[24m/dist/index.js:96:15[90m)[39m
+    at Object.spy [as createValuation] [90m(file:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4mtinyspy[24m/dist/index.js:47:103[90m)[39m
+    at [90m/home/runner/work/courthouse/courthouse/[39mbackend/src/routes/valuation.ts:61:40
+    at Layer.handle [as handle_request] [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/layer.js:95:5[90m)[39m
+    at next [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/route.js:149:13[90m)[39m
+    at Route.dispatch [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/route.js:119:3[90m)[39m
+    at Layer.handle [as handle_request] [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/layer.js:95:5[90m)[39m
+    at [90m/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/index.js:284:15
+    at Function.process_params [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/index.js:346:12[90m)[39m
+
+[90mstderr[2m | backend/src/__tests__/integration/llm-service.test.ts[2m > [22m[2mLLM Service Integration[2m > [22m[2mProvider Management[2m > [22m[2mshould return provider status
+[22m[39mError: Error: getaddrinfo ENOTFOUND api.anthropic.com
+    at Object.dispatchError (/home/runner/work/courthouse/courthouse/node_modules/jsdom/lib/jsdom/living/xhr/xhr-utils.js:62:19)
+    at EventEmitter.<anonymous> (/home/runner/work/courthouse/courthouse/node_modules/jsdom/lib/jsdom/living/xhr/XMLHttpRequest-impl.js:655:18)
+    at EventEmitter.emit (node:events:536:35)
+    at Request.<anonymous> (/home/runner/work/courthouse/courthouse/node_modules/jsdom/lib/jsdom/living/xhr/xhr-utils.js:380:14)
+    at Request.emit (node:events:524:28)
+    at ClientRequest.<anonymous> (/home/runner/work/courthouse/courthouse/node_modules/jsdom/lib/jsdom/living/helpers/http-request.js:127:14)
+    at ClientRequest.emit (node:events:524:28)
+    at emitErrorEvent (node:_http_client:101:11)
+    at TLSSocket.socketErrorListener (node:_http_client:504:5)
+    at TLSSocket.emit (node:events:524:28) [90mundefined[39m
+
+[90mstderr[2m | backend/src/routes/__tests__/valuation.test.ts[2m > [22m[2mValuation Routes[2m > [22m[2mPUT /api/valuation/:id[2m > [22m[2mshould handle service errors
+[22m[39mError updating valuation: Error: Database error
+    at Object.<anonymous> [90m(/home/runner/work/courthouse/courthouse/[39mbackend/src/routes/__tests__/valuation.test.ts:210:15[90m)[39m
+    at Object.mockCall [90m(file:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/spy[24m/dist/index.js:96:15[90m)[39m
+    at Object.spy [as updateValuation] [90m(file:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4mtinyspy[24m/dist/index.js:47:103[90m)[39m
+    at [90m/home/runner/work/courthouse/courthouse/[39mbackend/src/routes/valuation.ts:76:40
+    at Layer.handle [as handle_request] [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/layer.js:95:5[90m)[39m
+    at next [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/route.js:149:13[90m)[39m
+    at Route.dispatch [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/route.js:119:3[90m)[39m
+    at Layer.handle [as handle_request] [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/layer.js:95:5[90m)[39m
+    at [90m/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/index.js:284:15
+    at param [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/index.js:365:14[90m)[39m
+
+[90mstderr[2m | backend/src/routes/__tests__/valuation.test.ts[2m > [22m[2mValuation Routes[2m > [22m[2mDELETE /api/valuation/:id[2m > [22m[2mshould handle service errors
+[22m[39mError deleting valuation: Error: Database error
+    at Object.<anonymous> [90m(/home/runner/work/courthouse/courthouse/[39mbackend/src/routes/__tests__/valuation.test.ts:243:15[90m)[39m
+    at Object.mockCall [90m(file:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/spy[24m/dist/index.js:96:15[90m)[39m
+    at Object.spy [as deleteValuation] [90m(file:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4mtinyspy[24m/dist/index.js:47:103[90m)[39m
+    at [90m/home/runner/work/courthouse/courthouse/[39mbackend/src/routes/valuation.ts:96:38
+    at Layer.handle [as handle_request] [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/layer.js:95:5[90m)[39m
+    at next [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/route.js:149:13[90m)[39m
+    at Route.dispatch [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/route.js:119:3[90m)[39m
+    at Layer.handle [as handle_request] [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/layer.js:95:5[90m)[39m
+    at [90m/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/index.js:284:15
+    at param [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/index.js:365:14[90m)[39m
+
+[90mstderr[2m | backend/src/routes/__tests__/valuation.test.ts[2m > [22m[2mValuation Routes[2m > [22m[2mPOST /api/valuation/calculate/saas-metrics[2m > [22m[2mshould handle service errors
+[22m[39mError calculating SaaS metrics: Error: Calculation error
+    at Object.<anonymous> [90m(/home/runner/work/courthouse/courthouse/[39mbackend/src/routes/__tests__/valuation.test.ts:296:15[90m)[39m
+    at Object.mockCall [90m(file:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/spy[24m/dist/index.js:96:15[90m)[39m
+    at Object.spy [as calculateSaaSMetrics] [90m(file:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4mtinyspy[24m/dist/index.js:47:103[90m)[39m
+    at [90m/home/runner/work/courthouse/courthouse/[39mbackend/src/routes/valuation.ts:121:42
+    at Layer.handle [as handle_request] [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/layer.js:95:5[90m)[39m
+    at next [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/route.js:149:13[90m)[39m
+    at Route.dispatch [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/route.js:119:3[90m)[39m
+    at Layer.handle [as handle_request] [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/layer.js:95:5[90m)[39m
+    at [90m/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/index.js:284:15
+    at Function.process_params [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/index.js:346:12[90m)[39m
+
+[90mstderr[2m | backend/src/__tests__/integration/llm-service.test.ts[2m > [22m[2mLLM Service Integration[2m > [22m[2mProvider Management[2m > [22m[2mshould return provider status
+[22m[39mError: Error: getaddrinfo ENOTFOUND api.groq.com
+    at Object.dispatchError (/home/runner/work/courthouse/courthouse/node_modules/jsdom/lib/jsdom/living/xhr/xhr-utils.js:62:19)
+    at EventEmitter.<anonymous> (/home/runner/work/courthouse/courthouse/node_modules/jsdom/lib/jsdom/living/xhr/XMLHttpRequest-impl.js:655:18)
+    at EventEmitter.emit (node:events:536:35)
+    at Request.<anonymous> (/home/runner/work/courthouse/courthouse/node_modules/jsdom/lib/jsdom/living/xhr/xhr-utils.js:380:14)
+    at Request.emit (node:events:524:28)
+    at ClientRequest.<anonymous> (/home/runner/work/courthouse/courthouse/node_modules/jsdom/lib/jsdom/living/helpers/http-request.js:127:14)
+    at ClientRequest.emit (node:events:524:28)
+    at emitErrorEvent (node:_http_client:101:11)
+    at TLSSocket.socketErrorListener (node:_http_client:504:5)
+    at TLSSocket.emit (node:events:524:28) [90mundefined[39m
+
+[90mstdout[2m | backend/src/__tests__/integration/llm-service.test.ts[2m > [22m[2mLLM Service Integration[2m > [22m[2mProvider Management[2m > [22m[2mshould create provider instances
+[22m[39mQueue processing started
+
+[90mstdout[2m | backend/src/__tests__/integration/llm-service.test.ts[2m > [22m[2mLLM Service Integration[2m > [22m[2mProvider Management[2m > [22m[2mshould validate provider configurations
+[22m[39mQueue processing started
+
+ [32m✓[39m src/components/__tests__/Courtroom3D.test.tsx [2m([22m[2m13 tests[22m[2m)[22m[32m 86[2mms[22m[39m
+[90mstdout[2m | backend/src/__tests__/integration/llm-service.test.ts[2m > [22m[2mLLM Service Integration[2m > [22m[2mQueue Management[2m > [22m[2mshould track active jobs
+[22m[39mQueue processing started
+
+[90mstdout[2m | backend/src/__tests__/integration/llm-service.test.ts[2m > [22m[2mLLM Service Integration[2m > [22m[2mQueue Management[2m > [22m[2mshould track active jobs
+[22m[39mJob req-active-test added to queue. Queue length: 1
+
+[90mstdout[2m | backend/src/__tests__/integration/llm-service.test.ts[2m > [22m[2mLLM Service Integration[2m > [22m[2mQueue Management[2m > [22m[2mshould track pending jobs
+[22m[39mQueue processing started
+
+[90mstdout[2m | backend/src/__tests__/integration/llm-service.test.ts[2m > [22m[2mLLM Service Integration[2m > [22m[2mQueue Management[2m > [22m[2mshould track pending jobs
+[22m[39mJob req-pending-test added to queue. Queue length: 1
+
+[90mstdout[2m | backend/src/__tests__/integration/llm-service.test.ts[2m > [22m[2mLLM Service Integration[2m > [22m[2mQueue Management[2m > [22m[2mshould clear completed jobs
+[22m[39mQueue processing started
+
+[90mstdout[2m | backend/src/__tests__/integration/llm-service.test.ts[2m > [22m[2mLLM Service Integration[2m > [22m[2mQueue Management[2m > [22m[2mshould clear failed jobs
+[22m[39mQueue processing started
+
+[90mstdout[2m | backend/src/__tests__/integration/llm-service.test.ts[2m > [22m[2mLLM Service Integration[2m > [22m[2mQueue Management[2m > [22m[2mshould get queue statistics
+[22m[39mQueue processing started
+
+[90mstdout[2m | backend/src/__tests__/integration/llm-service.test.ts[2m > [22m[2mLLM Service Integration[2m > [22m[2mError Handling[2m > [22m[2mshould handle invalid provider gracefully
+[22m[39mQueue processing started
+
+[90mstdout[2m | backend/src/__tests__/integration/llm-service.test.ts[2m > [22m[2mLLM Service Integration[2m > [22m[2mError Handling[2m > [22m[2mshould handle failed requests with retry
+[22m[39mQueue processing started
+
+[90mstdout[2m | backend/src/__tests__/integration/llm-service.test.ts[2m > [22m[2mLLM Service Integration[2m > [22m[2mError Handling[2m > [22m[2mshould handle failed requests with retry
+[22m[39mJob req-retry-test added to queue. Queue length: 1
+
+ [32m✓[39m backend/src/__tests__/integration/llm-service.test.ts [2m([22m[2m14 tests[22m[2m)[22m[32m 125[2mms[22m[39m
+[90mstderr[2m | backend/src/routes/__tests__/valuation.test.ts[2m > [22m[2mValuation Routes[2m > [22m[2mPOST /api/valuation/:id/analyze[2m > [22m[2mshould handle service errors
+[22m[39mError analyzing valuation: Error: Database error
+    at Object.<anonymous> [90m(/home/runner/work/courthouse/courthouse/[39mbackend/src/routes/__tests__/valuation.test.ts:581:15[90m)[39m
+    at Object.mockCall [90m(file:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4m@vitest/spy[24m/dist/index.js:96:15[90m)[39m
+    at Object.spy [as getValuation] [90m(file:///home/runner/work/courthouse/courthouse/[39mnode_modules/[4mtinyspy[24m/dist/index.js:47:103[90m)[39m
+    at [90m/home/runner/work/courthouse/courthouse/[39mbackend/src/routes/valuation.ts:294:40
+    at Layer.handle [as handle_request] [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/layer.js:95:5[90m)[39m
+    at next [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/route.js:149:13[90m)[39m
+    at Route.dispatch [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/route.js:119:3[90m)[39m
+    at Layer.handle [as handle_request] [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/layer.js:95:5[90m)[39m
+    at [90m/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/index.js:284:15
+    at param [90m(/home/runner/work/courthouse/courthouse/[39mbackend/node_modules/[4mexpress[24m/lib/router/index.js:365:14[90m)[39m
+
+ [32m✓[39m backend/src/routes/__tests__/valuation.test.ts [2m([22m[2m36 tests[22m[2m)[22m[32m 206[2mms[22m[39m
+ [32m✓[39m src/services/__tests__/WitnessFactory.test.ts [2m([22m[2m47 tests[22m[2m)[22m[32m 29[2mms[22m[39m
+ [32m✓[39m src/services/proceedings/__tests__/SentencingEngine.test.ts [2m([22m[2m47 tests[22m[2m)[22m[32m 35[2mms[22m[39m
+ [32m✓[39m src/services/factories/__tests__/CivilCaseFactory.test.ts [2m([22m[2m43 tests[22m[2m)[22m[32m 38[2mms[22m[39m
+ [32m✓[39m src/data/__tests__/motionTemplates.test.ts [2m([22m[2m39 tests[22m[2m)[22m[32m 29[2mms[22m[39m
+ [32m✓[39m src/types/__tests__/louisianaLaw.test.ts [2m([22m[2m33 tests[22m[2m)[22m[32m 21[2mms[22m[39m
+ [32m✓[39m src/services/factories/__tests__/CriminalCaseFactory.test.ts [2m([22m[2m32 tests[22m[2m)[22m[32m 41[2mms[22m[39m
+ [32m✓[39m src/services/__tests__/MemoryManager.test.ts [2m([22m[2m19 tests[22m[2m)[22m[32m 19[2mms[22m[39m
+ [32m✓[39m src/services/proceedings/__tests__/MotionProcessor.test.ts [2m([22m[2m31 tests[22m[2m)[22m[32m 12[2mms[22m[39m
+ [32m✓[39m src/services/__tests__/EnhancedJudgeFactory.test.ts [2m([22m[2m12 tests[22m[2m)[22m[32m 15[2mms[22m[39m
+ [32m✓[39m src/services/__tests__/CourtCalendar.test.ts [2m([22m[2m11 tests[22m[2m)[22m[32m 8[2mms[22m[39m
+
+[31m⎯⎯⎯⎯⎯⎯[39m[1m[41m Failed Suites 1 [49m[22m[31m⎯⎯⎯⎯⎯⎯⎯[39m
+
+[41m[1m FAIL [22m[49m backend/src/routes/__tests__/evidence.test.ts[2m [ backend/src/routes/__tests__/evidence.test.ts ][22m
+[31m[1mError[22m: [vitest] No "default" export is defined on the "fs" mock. Did you forget to return it from "vi.mock"?
+If you need to partially mock a module, you can use "importOriginal" helper inside:
+[39m
+vi[33m.[39m[34mmock[39m([35mimport[39m([32m"fs"[39m)[33m,[39m [35masync[39m (importOriginal) [33m=>[39m {
+  [35mconst[39m actual [33m=[39m [35mawait[39m [34mimportOriginal[39m()
+  [35mreturn[39m {
+    [33m...[39mactual[33m,[39m
+    [90m// your mocked methods[39m
+  }
+})
+
+[36m [2m❯[22m backend/src/routes/evidence.ts:[2m4:32[22m[39m
+    [90m  2| [39m[35mimport[39m multer [35mfrom[39m [32m'multer'[39m[33m;[39m
+    [90m  3| [39m[35mimport[39m path [35mfrom[39m [32m'path'[39m[33m;[39m
+    [90m  4| [39m[35mimport[39m { promises [35mas[39m fs } [35mfrom[39m [32m'fs'[39m[33m;[39m
+    [90m   | [39m                               [31m^[39m
+    [90m  5| [39m[35mimport[39m { v4 [35mas[39m uuidv4 } [35mfrom[39m [32m'uuid'[39m[33m;[39m
+    [90m  6| [39m[35mimport[39m [33mJoi[39m [35mfrom[39m [32m'joi'[39m[33m;[39m
+[90m [2m❯[22m backend/src/routes/__tests__/evidence.test.ts:[2m6:1[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/48]⎯[22m[39m
+
+
+[31m⎯⎯⎯⎯⎯⎯[39m[1m[41m Failed Tests 42 [49m[22m[31m⎯⎯⎯⎯⎯⎯⎯[39m
+
+[41m[1m FAIL [22m[49m src/services/__tests__/ProceedingsEngine.test.ts[2m > [22mProceedingsEngine[2m > [22mPhase Management[2m > [22mshould process phase when called
+[31m[1mError[22m: Test timed out in 1000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".[39m
+[36m [2m❯[22m src/services/__tests__/ProceedingsEngine.test.ts:[2m119:5[22m[39m
+    [90m117| [39m    })[33m;[39m
+    [90m118| [39m
+    [90m119| [39m    [34mit[39m([32m'should process phase when called'[39m[33m,[39m [35masync[39m () [33m=>[39m {
+    [90m   | [39m    [31m^[39m
+    [90m120| [39m      [90m// Mock the delay function to avoid waiting[39m
+    [90m121| [39m      [35mconst[39m originalDelay [33m=[39m (engine [35mas[39m any)[33m.[39mdelay[33m;[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/48]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m src/store/__tests__/useCourtroomStore.test.ts[2m > [22museCourtroomStore[2m > [22mInitial State[2m > [22mshould have correct initial state
+[41m[1m FAIL [22m[49m src/store/__tests__/useCourtroomStore.test.ts[2m > [22museCourtroomStore[2m > [22mInitial State[2m > [22mshould have default simulation settings
+[41m[1m FAIL [22m[49m src/store/__tests__/useCourtroomStore.test.ts[2m > [22museCourtroomStore[2m > [22mCase Management[2m > [22mshould set current case
+[41m[1m FAIL [22m[49m src/store/__tests__/useCourtroomStore.test.ts[2m > [22museCourtroomStore[2m > [22mCase Management[2m > [22mshould update participant
+[41m[1m FAIL [22m[49m src/store/__tests__/useCourtroomStore.test.ts[2m > [22museCourtroomStore[2m > [22mCase Management[2m > [22mshould handle participant update with no current case
+[41m[1m FAIL [22m[49m src/store/__tests__/useCourtroomStore.test.ts[2m > [22museCourtroomStore[2m > [22mUser Role Management[2m > [22mshould set user role
+[41m[1m FAIL [22m[49m src/store/__tests__/useCourtroomStore.test.ts[2m > [22museCourtroomStore[2m > [22mUser Role Management[2m > [22mshould update participant AI control when setting user role
+[41m[1m FAIL [22m[49m src/store/__tests__/useCourtroomStore.test.ts[2m > [22museCourtroomStore[2m > [22mEvidence Management[2m > [22mshould add evidence to case
+[41m[1m FAIL [22m[49m src/store/__tests__/useCourtroomStore.test.ts[2m > [22museCourtroomStore[2m > [22mEvidence Management[2m > [22mshould remove evidence from case
+[41m[1m FAIL [22m[49m src/store/__tests__/useCourtroomStore.test.ts[2m > [22museCourtroomStore[2m > [22mEvidence Management[2m > [22mshould handle evidence operations with no current case
+[41m[1m FAIL [22m[49m src/store/__tests__/useCourtroomStore.test.ts[2m > [22museCourtroomStore[2m > [22mSimulation Settings[2m > [22mshould update simulation settings
+[41m[1m FAIL [22m[49m src/store/__tests__/useCourtroomStore.test.ts[2m > [22museCourtroomStore[2m > [22mSimulation Settings[2m > [22mshould recreate proceedings engine when settings change with active case
+[41m[1m FAIL [22m[49m src/store/__tests__/useCourtroomStore.test.ts[2m > [22museCourtroomStore[2m > [22mTranscript Management[2m > [22mshould add transcript entry
+[41m[1m FAIL [22m[49m src/store/__tests__/useCourtroomStore.test.ts[2m > [22museCourtroomStore[2m > [22mTranscript Management[2m > [22mshould clear transcript
+[41m[1m FAIL [22m[49m src/store/__tests__/useCourtroomStore.test.ts[2m > [22museCourtroomStore[2m > [22mUser Input Processing[2m > [22mshould process user input when user role is set
+[41m[1m FAIL [22m[49m src/store/__tests__/useCourtroomStore.test.ts[2m > [22museCourtroomStore[2m > [22mUser Input Processing[2m > [22mshould not process user input without user role
+[41m[1m FAIL [22m[49m src/store/__tests__/useCourtroomStore.test.ts[2m > [22museCourtroomStore[2m > [22mAI Processing State[2m > [22mshould set AI processing state
+[41m[1m FAIL [22m[49m src/store/__tests__/useCourtroomStore.test.ts[2m > [22museCourtroomStore[2m > [22mAI Processing State[2m > [22mshould set AI progress
+[41m[1m FAIL [22m[49m src/store/__tests__/useCourtroomStore.test.ts[2m > [22museCourtroomStore[2m > [22mCase Persistence[2m > [22mshould save case to localStorage
+[41m[1m FAIL [22m[49m src/store/__tests__/useCourtroomStore.test.ts[2m > [22museCourtroomStore[2m > [22mCase Persistence[2m > [22mshould load case from localStorage
+[41m[1m FAIL [22m[49m src/store/__tests__/useCourtroomStore.test.ts[2m > [22museCourtroomStore[2m > [22mCase Persistence[2m > [22mshould handle missing case in localStorage
+[41m[1m FAIL [22m[49m src/store/__tests__/useCourtroomStore.test.ts[2m > [22museCourtroomStore[2m > [22mTranscript Export[2m > [22mshould export transcript
+[41m[1m FAIL [22m[49m src/store/__tests__/useCourtroomStore.test.ts[2m > [22museCourtroomStore[2m > [22mTranscript Export[2m > [22mshould return empty string when no case
+[41m[1m FAIL [22m[49m src/store/__tests__/useCourtroomStore.test.ts[2m > [22museCourtroomStore[2m > [22mSimulation Control[2m > [22mshould start simulation
+[41m[1m FAIL [22m[49m src/store/__tests__/useCourtroomStore.test.ts[2m > [22museCourtroomStore[2m > [22mSimulation Control[2m > [22mshould stop simulation
+[41m[1m FAIL [22m[49m src/store/__tests__/useCourtroomStore.test.ts[2m > [22museCourtroomStore[2m > [22mSimulation Control[2m > [22mshould pause simulation
+[31m[1mTypeError[22m: Cannot read properties of null (reading 'title')[39m
+[36m [2m❯[22m Object.setCurrentCase src/store/useCourtroomStore.ts:[2m152:58[22m[39m
+    [90m150| [39m
+    [90m151| [39m      setCurrentCase[33m:[39m (caseData) [33m=>[39m {
+    [90m152| [39m        console[33m.[39m[34mlog[39m([32m'📋 Setting current case:'[39m[33m,[39m caseData[33m.[39mtitle)[33m;[39m
+    [90m   | [39m                                                         [31m^[39m
+    [90m153| [39m        console[33m.[39m[34mlog[39m([32m'📋 Case phase:'[39m[33m,[39m caseData[33m.[39mcurrentPhase)[33m;[39m
+    [90m154| [39m        console.log('📋 Participants count:', caseData.participants.le…
+[90m [2m❯[22m src/store/__tests__/useCourtroomStore.test.ts:[2m83:22[22m[39m
+[90m [2m❯[22m node_modules/@testing-library/react/dist/act-compat.js:[2m48:24[22m[39m
+[90m [2m❯[22m process.env.NODE_ENV.exports.act node_modules/react/cjs/react.development.js:[2m790:22[22m[39m
+[90m [2m❯[22m Proxy.<anonymous> node_modules/@testing-library/react/dist/act-compat.js:[2m47:25[22m[39m
+[90m [2m❯[22m src/store/__tests__/useCourtroomStore.test.ts:[2m82:5[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/48]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m src/store/__tests__/useCourtroomStore.test.ts[2m > [22museCourtroomStore[2m > [22mCase Management[2m > [22mshould handle participant update with no current case
+[31m[1mAssertionError[22m: expected { id: 'test-case-1', …(11) } to be null[39m
+
+[32m- Expected:[39m 
+null
+
+[31m+ Received:[39m 
+{
+  "charges": [
+    "Test Charge",
+  ],
+  "currentPhase": "pre-trial",
+  "evidence": [
+    {
+      "admissible": true,
+      "chainOfCustody": [
+        "Officer A",
+      ],
+      "description": "Test evidence description",
+      "id": "evidence-1",
+      "submittedBy": "prosecutor-1",
+      "title": "Test Evidence",
+      "type": "document",
+    },
+  ],
+  "facts": [
+    "Fact 1",
+    "Fact 2",
+  ],
+  "id": "test-case-1",
+  "legalSystem": "common-law",
+  "participants": [
+    {
+      "aiControlled": false,
+      "background": {
+        "age": 35,
+        "education": "JD from Law School",
+        "experience": "10 years",
+        "motivations": [
+          "Justice",
+        ],
+        "personalHistory": "Test background",
+      },
+      "currentMood": 0.7,
+      "id": "participant-1",
+      "knowledge": [
+        "Criminal Law",
+      ],
+      "name": "Updated Name",
+      "objectives": [
+        "Client defense",
+      ],
+      "personality": {
+        "analyticalThinking": 8,
+        "assertiveness": 7,
+        "conscientiousness": 8,
+        "emotionalStability": 7,
+        "empathy": 6,
+        "openness": 6,
+        "persuasiveness": 9,
+      },
+      "role": "defense-attorney",
+    },
+  ],
+  "rulings": [],
+  "summary": "Test case summary",
+  "title": "Test Case",
+  "transcript": [],
+  "type": "criminal",
+}
+
+[36m [2m❯[22m src/store/__tests__/useCourtroomStore.test.ts:[2m155:42[22m[39m
+    [90m153| [39m      })[33m;[39m
+    [90m154| [39m      
+    [90m155| [39m      [34mexpect[39m(result[33m.[39mcurrent[33m.[39mcurrentCase)[33m.[39m[34mtoBeNull[39m()[33m;[39m
+    [90m   | [39m                                         [31m^[39m
+    [90m156| [39m    })[33m;[39m
+    [90m157| [39m  })[33m;[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/48]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m src/store/__tests__/useCourtroomStore.test.ts[2m > [22museCourtroomStore[2m > [22mEvidence Management[2m > [22mshould handle evidence operations with no current case
+[31m[1mAssertionError[22m: expected { id: 'test-case-1', …(11) } to be null[39m
+
+[32m- Expected:[39m 
+null
+
+[31m+ Received:[39m 
+{
+  "charges": [
+    "Test Charge",
+  ],
+  "currentPhase": "pre-trial",
+  "evidence": [],
+  "facts": [
+    "Fact 1",
+    "Fact 2",
+  ],
+  "id": "test-case-1",
+  "legalSystem": "common-law",
+  "participants": [
+    {
+      "aiControlled": true,
+      "background": {
+        "age": 35,
+        "education": "JD from Law School",
+        "experience": "10 years",
+        "motivations": [
+          "Justice",
+        ],
+        "personalHistory": "Test background",
+      },
+      "currentMood": 0.7,
+      "id": "participant-1",
+      "knowledge": [
+        "Criminal Law",
+      ],
+      "name": "Test Participant",
+      "objectives": [
+        "Client defense",
+      ],
+      "personality": {
+        "analyticalThinking": 8,
+        "assertiveness": 7,
+        "conscientiousness": 8,
+        "emotionalStability": 7,
+        "empathy": 6,
+        "openness": 6,
+        "persuasiveness": 9,
+      },
+      "role": "defense-attorney",
+    },
+  ],
+  "rulings": [],
+  "summary": "Test case summary",
+  "title": "Test Case",
+  "transcript": [],
+  "type": "criminal",
+}
+
+[36m [2m❯[22m src/store/__tests__/useCourtroomStore.test.ts:[2m226:42[22m[39m
+    [90m224| [39m      })[33m;[39m
+    [90m225| [39m      
+    [90m226| [39m      [34mexpect[39m(result[33m.[39mcurrent[33m.[39mcurrentCase)[33m.[39m[34mtoBeNull[39m()[33m;[39m
+    [90m   | [39m                                         [31m^[39m
+    [90m227| [39m    })[33m;[39m
+    [90m228| [39m  })[33m;[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/48]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m src/store/__tests__/useCourtroomStore.test.ts[2m > [22museCourtroomStore[2m > [22mUser Input Processing[2m > [22mshould not process user input without user role
+[31m[1mAssertionError[22m: expected [ { id: 'user-1769008402264', …(5) } ] to have a length of +0 but got 1[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- 0[39m
+[31m+ 1[39m
+
+[36m [2m❯[22m src/store/__tests__/useCourtroomStore.test.ts:[2m330:54[22m[39m
+    [90m328| [39m      })[33m;[39m
+    [90m329| [39m      
+    [90m330| [39m      [34mexpect[39m(result[33m.[39mcurrent[33m.[39mcurrentCase[33m?.[39mtranscript)[33m.[39m[34mtoHaveLength[39m([34m0[39m)[33m;[39m
+    [90m   | [39m                                                     [31m^[39m
+    [90m331| [39m    })[33m;[39m
+    [90m332| [39m  })[33m;[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/48]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m src/store/__tests__/useCourtroomStore.test.ts[2m > [22museCourtroomStore[2m > [22mCase Persistence[2m > [22mshould handle missing case in localStorage
+[31m[1mAssertionError[22m: expected { id: 'test-case-1', …(11) } to be null[39m
+
+[32m- Expected:[39m 
+null
+
+[31m+ Received:[39m 
+{
+  "charges": [
+    "Test Charge",
+  ],
+  "currentPhase": "pre-trial",
+  "evidence": [
+    {
+      "admissible": true,
+      "chainOfCustody": [
+        "Officer A",
+      ],
+      "description": "Test evidence description",
+      "id": "evidence-1",
+      "submittedBy": "prosecutor-1",
+      "title": "Test Evidence",
+      "type": "document",
+    },
+  ],
+  "facts": [
+    "Fact 1",
+    "Fact 2",
+  ],
+  "id": "test-case-1",
+  "legalSystem": "common-law",
+  "participants": [
+    {
+      "aiControlled": true,
+      "background": {
+        "age": 35,
+        "education": "JD from Law School",
+        "experience": "10 years",
+        "motivations": [
+          "Justice",
+        ],
+        "personalHistory": "Test background",
+      },
+      "currentMood": 0.7,
+      "id": "participant-1",
+      "knowledge": [
+        "Criminal Law",
+      ],
+      "name": "Test Participant",
+      "objectives": [
+        "Client defense",
+      ],
+      "personality": {
+        "analyticalThinking": 8,
+        "assertiveness": 7,
+        "conscientiousness": 8,
+        "emotionalStability": 7,
+        "empathy": 6,
+        "openness": 6,
+        "persuasiveness": 9,
+      },
+      "role": "defense-attorney",
+    },
+  ],
+  "rulings": [],
+  "summary": "Test case summary",
+  "title": "Test Case",
+  "transcript": [],
+  "type": "criminal",
+}
+
+[36m [2m❯[22m src/store/__tests__/useCourtroomStore.test.ts:[2m402:42[22m[39m
+    [90m400| [39m      })[33m;[39m
+    [90m401| [39m      
+    [90m402| [39m      [34mexpect[39m(result[33m.[39mcurrent[33m.[39mcurrentCase)[33m.[39m[34mtoBeNull[39m()[33m;[39m
+    [90m   | [39m                                         [31m^[39m
+    [90m403| [39m    })[33m;[39m
+    [90m404| [39m  })[33m;[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/48]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m src/store/__tests__/useCourtroomStore.test.ts[2m > [22museCourtroomStore[2m > [22mTranscript Export[2m > [22mshould return empty string when no case
+[31m[1mAssertionError[22m: expected 'Case: Test Case\nType: criminal\nLega…' to be '' // Object.is equality[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[31m+ Case: Test Case\nType: criminal\nLegal System: common-law\n\nTRANSCRIPT\n==========\n\n[3:13:22 PM] Judge Smith (judge): Court is now in session\n\n[39m
+
+[36m [2m❯[22m src/store/__tests__/useCourtroomStore.test.ts:[2m435:24[22m[39m
+    [90m433| [39m      
+    [90m434| [39m      [35mconst[39m exported [33m=[39m result[33m.[39mcurrent[33m.[39m[34mexportTranscript[39m()[33m;[39m
+    [90m435| [39m      [34mexpect[39m(exported)[33m.[39m[34mtoBe[39m([32m''[39m)[33m;[39m
+    [90m   | [39m                       [31m^[39m
+    [90m436| [39m    })[33m;[39m
+    [90m437| [39m  })[33m;[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/48]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m backend/src/__tests__/integration/case-workflow.test.ts[2m > [22mCase Workflow Integration[2m > [22mMulti-Case Operations[2m > [22mshould handle multiple cases for same user
+[31m[1mAssertionError[22m: expected 0 to be greater than or equal to 3[39m
+[36m [2m❯[22m backend/src/__tests__/integration/case-workflow.test.ts:[2m269:31[22m[39m
+    [90m267| [39m
+    [90m268| [39m      [35mconst[39m allCases [33m=[39m [35mawait[39m caseService[33m.[39m[34mgetAllCases[39m(userId)[33m;[39m
+    [90m269| [39m      [34mexpect[39m(allCases[33m.[39mlength)[33m.[39m[34mtoBeGreaterThanOrEqual[39m(caseCount)[33m;[39m
+    [90m   | [39m                              [31m^[39m
+    [90m270| [39m
+    [90m271| [39m      [35mfor[39m ([35mconst[39m testCase [35mof[39m cases) {
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/48]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m backend/src/__tests__/integration/websocket.test.ts[2m > [22mWebSocket Communication Integration[2m > [22mConnection Management[2m > [22mshould establish WebSocket connection
+[31m[1mTypeError[22m: Cannot read properties of undefined (reading 'connected')[39m
+[36m [2m❯[22m backend/src/__tests__/integration/websocket.test.ts:[2m60:27[22m[39m
+    [90m 58| [39m  [34mdescribe[39m([32m'Connection Management'[39m[33m,[39m () [33m=>[39m {
+    [90m 59| [39m    [34mit[39m([32m'should establish WebSocket connection'[39m[33m,[39m (done) [33m=>[39m {
+    [90m 60| [39m      [34mexpect[39m(clientSocket[33m.[39mconnected)[33m.[39m[34mtoBe[39m([35mtrue[39m)[33m;[39m
+    [90m   | [39m                          [31m^[39m
+    [90m 61| [39m      [34mdone[39m()[33m;[39m
+    [90m 62| [39m    })[33m;[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/48]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m backend/src/__tests__/integration/websocket.test.ts[2m > [22mWebSocket Communication Integration[2m > [22mConnection Management[2m > [22mshould handle disconnection
+[31m[1mTypeError[22m: Cannot read properties of undefined (reading 'on')[39m
+[36m [2m❯[22m backend/src/__tests__/integration/websocket.test.ts:[2m65:20[22m[39m
+    [90m 63| [39m
+    [90m 64| [39m    [34mit[39m([32m'should handle disconnection'[39m[33m,[39m (done) [33m=>[39m {
+    [90m 65| [39m      clientSocket[33m.[39m[34mon[39m([32m'disconnect'[39m[33m,[39m () [33m=>[39m {
+    [90m   | [39m                   [31m^[39m
+    [90m 66| [39m        [34mexpect[39m(clientSocket[33m.[39mconnected)[33m.[39m[34mtoBe[39m([35mfalse[39m)[33m;[39m
+    [90m 67| [39m        [34mdone[39m()[33m;[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/48]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m backend/src/__tests__/integration/websocket.test.ts[2m > [22mWebSocket Communication Integration[2m > [22mCase Subscription[2m > [22mshould subscribe to case updates
+[31m[1mTypeError[22m: Cannot read properties of undefined (reading 'emit')[39m
+[36m [2m❯[22m backend/src/__tests__/integration/websocket.test.ts:[2m98:20[22m[39m
+    [90m 96| [39m      [35mconst[39m caseId [33m=[39m [32m'case-123'[39m[33m;[39m
+    [90m 97| [39m      
+    [90m 98| [39m      clientSocket[33m.[39m[34memit[39m([32m'case_subscribe'[39m[33m,[39m caseId)[33m;[39m
+    [90m   | [39m                   [31m^[39m
+    [90m 99| [39m      
+    [90m100| [39m      [34msetTimeout[39m(() [33m=>[39m {
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[12/48]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m backend/src/__tests__/integration/websocket.test.ts[2m > [22mWebSocket Communication Integration[2m > [22mCase Subscription[2m > [22mshould unsubscribe from case updates
+[31m[1mTypeError[22m: Cannot read properties of undefined (reading 'emit')[39m
+[36m [2m❯[22m backend/src/__tests__/integration/websocket.test.ts:[2m109:20[22m[39m
+    [90m107| [39m      [35mconst[39m caseId [33m=[39m [32m'case-123'[39m[33m;[39m
+    [90m108| [39m      
+    [90m109| [39m      clientSocket[33m.[39m[34memit[39m([32m'case_subscribe'[39m[33m,[39m caseId)[33m;[39m
+    [90m   | [39m                   [31m^[39m
+    [90m110| [39m      
+    [90m111| [39m      [34msetTimeout[39m(() [33m=>[39m {
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[13/48]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m backend/src/__tests__/integration/websocket.test.ts[2m > [22mWebSocket Communication Integration[2m > [22mCase Subscription[2m > [22mshould receive case updates when subscribed
+[31m[1mTypeError[22m: Cannot read properties of undefined (reading 'on')[39m
+[36m [2m❯[22m backend/src/__tests__/integration/websocket.test.ts:[2m124:20[22m[39m
+    [90m122| [39m      [35mlet[39m updateReceived [33m=[39m [35mfalse[39m[33m;[39m
+    [90m123| [39m
+    [90m124| [39m      clientSocket[33m.[39m[34mon[39m([32m'case_update'[39m[33m,[39m (data) [33m=>[39m {
+    [90m   | [39m                   [31m^[39m
+    [90m125| [39m        updateReceived [33m=[39m [35mtrue[39m[33m;[39m
+    [90m126| [39m        [34mexpect[39m(data)[33m.[39m[34mtoBeDefined[39m()[33m;[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[14/48]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m backend/src/__tests__/integration/websocket.test.ts[2m > [22mWebSocket Communication Integration[2m > [22mLLM Request Handling[2m > [22mshould handle LLM request via WebSocket
+[31m[1mTypeError[22m: Cannot read properties of undefined (reading 'on')[39m
+[36m [2m❯[22m backend/src/__tests__/integration/websocket.test.ts:[2m162:20[22m[39m
+    [90m160| [39m      }[33m;[39m
+    [90m161| [39m
+    [90m162| [39m      clientSocket[33m.[39m[34mon[39m([32m'llm_response'[39m[33m,[39m (data) [33m=>[39m {
+    [90m   | [39m                   [31m^[39m
+    [90m163| [39m        [34mexpect[39m(data)[33m.[39m[34mtoBeDefined[39m()[33m;[39m
+    [90m164| [39m        [34mexpect[39m(data[33m.[39mrequestId)[33m.[39m[34mtoBeDefined[39m()[33m;[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[15/48]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m backend/src/__tests__/integration/websocket.test.ts[2m > [22mWebSocket Communication Integration[2m > [22mLLM Request Handling[2m > [22mshould handle streaming LLM request
+[31m[1mTypeError[22m: Cannot read properties of undefined (reading 'on')[39m
+[36m [2m❯[22m backend/src/__tests__/integration/websocket.test.ts:[2m190:20[22m[39m
+    [90m188| [39m      [35mlet[39m chunksReceived [33m=[39m [34m0[39m[33m;[39m
+    [90m189| [39m
+    [90m190| [39m      clientSocket[33m.[39m[34mon[39m([32m'llm_stream_chunk'[39m[33m,[39m (data) [33m=>[39m {
+    [90m   | [39m                   [31m^[39m
+    [90m191| [39m        chunksReceived[33m++[39m[33m;[39m
+    [90m192| [39m        [34mexpect[39m(data)[33m.[39m[34mtoBeDefined[39m()[33m;[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[16/48]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m backend/src/__tests__/integration/websocket.test.ts[2m > [22mWebSocket Communication Integration[2m > [22mLLM Request Handling[2m > [22mshould handle LLM request errors
+[31m[1mTypeError[22m: Cannot read properties of undefined (reading 'on')[39m
+[36m [2m❯[22m backend/src/__tests__/integration/websocket.test.ts:[2m220:20[22m[39m
+    [90m218| [39m      }[33m;[39m
+    [90m219| [39m
+    [90m220| [39m      clientSocket[33m.[39m[34mon[39m([32m'llm_error'[39m[33m,[39m (error) [33m=>[39m {
+    [90m   | [39m                   [31m^[39m
+    [90m221| [39m        [34mexpect[39m(error)[33m.[39m[34mtoBeDefined[39m()[33m;[39m
+    [90m222| [39m        [34mexpect[39m(error[33m.[39mmessage)[33m.[39m[34mtoBeDefined[39m()[33m;[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[17/48]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m backend/src/__tests__/integration/websocket.test.ts[2m > [22mWebSocket Communication Integration[2m > [22mReal-time Updates[2m > [22mshould broadcast transcript updates to subscribed clients
+[31m[1mTypeError[22m: Cannot read properties of undefined (reading 'on')[39m
+[36m [2m❯[22m backend/src/__tests__/integration/websocket.test.ts:[2m243:20[22m[39m
+    [90m241| [39m      }[33m;[39m
+    [90m242| [39m
+    [90m243| [39m      clientSocket[33m.[39m[34mon[39m([32m'transcript_update'[39m[33m,[39m (data) [33m=>[39m {
+    [90m   | [39m                   [31m^[39m
+    [90m244| [39m        [34mexpect[39m(data)[33m.[39m[34mtoBeDefined[39m()[33m;[39m
+    [90m245| [39m        [34mexpect[39m(data[33m.[39mcaseId)[33m.[39m[34mtoBe[39m(caseId)[33m;[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[18/48]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m backend/src/__tests__/integration/websocket.test.ts[2m > [22mWebSocket Communication Integration[2m > [22mReal-time Updates[2m > [22mshould broadcast phase changes to subscribed clients
+[31m[1mTypeError[22m: Cannot read properties of undefined (reading 'on')[39m
+[36m [2m❯[22m backend/src/__tests__/integration/websocket.test.ts:[2m265:20[22m[39m
+    [90m263| [39m      [35mconst[39m newPhase [33m=[39m [32m'closing'[39m[33m;[39m
+    [90m264| [39m
+    [90m265| [39m      clientSocket[33m.[39m[34mon[39m([32m'phase_change'[39m[33m,[39m (data) [33m=>[39m {
+    [90m   | [39m                   [31m^[39m
+    [90m266| [39m        [34mexpect[39m(data)[33m.[39m[34mtoBeDefined[39m()[33m;[39m
+    [90m267| [39m        [34mexpect[39m(data[33m.[39mcaseId)[33m.[39m[34mtoBe[39m(caseId)[33m;[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[19/48]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m backend/src/__tests__/integration/websocket.test.ts[2m > [22mWebSocket Communication Integration[2m > [22mReal-time Updates[2m > [22mshould handle participant updates
+[31m[1mTypeError[22m: Cannot read properties of undefined (reading 'on')[39m
+[36m [2m❯[22m backend/src/__tests__/integration/websocket.test.ts:[2m290:20[22m[39m
+    [90m288| [39m      }[33m;[39m
+    [90m289| [39m
+    [90m290| [39m      clientSocket[33m.[39m[34mon[39m([32m'participant_update'[39m[33m,[39m (data) [33m=>[39m {
+    [90m   | [39m                   [31m^[39m
+    [90m291| [39m        [34mexpect[39m(data)[33m.[39m[34mtoBeDefined[39m()[33m;[39m
+    [90m292| [39m        [34mexpect[39m(data[33m.[39mcaseId)[33m.[39m[34mtoBe[39m(caseId)[33m;[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[20/48]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m backend/src/__tests__/integration/websocket.test.ts[2m > [22mWebSocket Communication Integration[2m > [22mError Handling and Recovery[2m > [22mshould handle malformed messages gracefully
+[31m[1mTypeError[22m: Cannot read properties of undefined (reading 'emit')[39m
+[36m [2m❯[22m backend/src/__tests__/integration/websocket.test.ts:[2m310:20[22m[39m
+    [90m308| [39m  [34mdescribe[39m([32m'Error Handling and Recovery'[39m[33m,[39m () [33m=>[39m {
+    [90m309| [39m    [34mit[39m([32m'should handle malformed messages gracefully'[39m[33m,[39m (done) [33m=>[39m {
+    [90m310| [39m      clientSocket[33m.[39m[34memit[39m([32m'llm_request'[39m[33m,[39m [32m'invalid-data'[39m)[33m;[39m
+    [90m   | [39m                   [31m^[39m
+    [90m311| [39m      
+    [90m312| [39m      [34msetTimeout[39m(() [33m=>[39m {
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[21/48]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m backend/src/__tests__/integration/websocket.test.ts[2m > [22mWebSocket Communication Integration[2m > [22mError Handling and Recovery[2m > [22mshould reconnect after disconnection
+[31m[1mError[22m: done() callback is deprecated, use promise instead[39m
+[36m [2m❯[22m backend/src/__tests__/integration/websocket.test.ts:[2m320:9[22m[39m
+    [90m318| [39m    [34mit[39m([32m'should reconnect after disconnection'[39m[33m,[39m (done) [33m=>[39m {
+    [90m319| [39m      [35mif[39m ([33m![39mclientSocket) {
+    [90m320| [39m        [34mdone[39m([35mnew[39m [33mError[39m([32m'Client socket not initialized'[39m))[33m;[39m
+    [90m   | [39m        [31m^[39m
+    [90m321| [39m        [35mreturn[39m[33m;[39m
+    [90m322| [39m      }
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[22/48]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m backend/src/__tests__/integration/websocket.test.ts[2m > [22mWebSocket Communication Integration[2m > [22mError Handling and Recovery[2m > [22mshould handle concurrent requests
+[31m[1mError[22m: done() callback is deprecated, use promise instead[39m
+[36m [2m❯[22m backend/src/__tests__/integration/websocket.test.ts:[2m344:9[22m[39m
+    [90m342| [39m    [34mit[39m([32m'should handle concurrent requests'[39m[33m,[39m (done) [33m=>[39m {
+    [90m343| [39m      [35mif[39m ([33m![39mclientSocket) {
+    [90m344| [39m        [34mdone[39m([35mnew[39m [33mError[39m([32m'Client socket not initialized'[39m))[33m;[39m
+    [90m   | [39m        [31m^[39m
+    [90m345| [39m        [35mreturn[39m[33m;[39m
+    [90m346| [39m      }
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[23/48]⎯[22m[39m
+
+[31m⎯⎯⎯⎯⎯⎯[39m[1m[41m Unhandled Errors [49m[22m[31m⎯⎯⎯⎯⎯⎯[39m
+[31m[1m
+Vitest caught 15 unhandled errors during the test run.
+This might cause false positive tests. Resolve unhandled errors to make sure your tests are not affected.[22m[39m
+
+[31m⎯⎯⎯⎯⎯[39m[1m[41m Uncaught Exception [49m[22m[31m⎯⎯⎯⎯⎯[39m
+[31m[1mError[22m: done() callback is deprecated, use promise instead[39m
+[90m [2m❯[22m Server.context node_modules/@vitest/runner/dist/chunk-hooks.js:[2m1926:9[22m[39m
+[90m [2m❯[22m Object.onceWrapper node:events:[2m638:28[22m[39m
+[90m [2m❯[22m Server.emit node:events:[2m536:35[22m[39m
+[90m [2m❯[22m emitCloseNT node:net:[2m2344:8[22m[39m
+[90m [2m❯[22m processTicksAndRejections node:internal/process/task_queues:[2m81:21[22m[39m
+
+[31mThis error originated in "[1mbackend/src/__tests__/integration/websocket.test.ts[22m" test file. It doesn't mean the error was thrown inside the file itself, but while it was running.[39m
+
+[31m⎯⎯⎯⎯⎯[39m[1m[41m Uncaught Exception [49m[22m[31m⎯⎯⎯⎯⎯[39m
+[31m[1mError[22m: done() callback is deprecated, use promise instead[39m
+[90m [2m❯[22m Server.context node_modules/@vitest/runner/dist/chunk-hooks.js:[2m1926:9[22m[39m
+[90m [2m❯[22m Object.onceWrapper node:events:[2m638:28[22m[39m
+[90m [2m❯[22m Server.emit node:events:[2m536:35[22m[39m
+[90m [2m❯[22m emitCloseNT node:net:[2m2344:8[22m[39m
+[90m [2m❯[22m processTicksAndRejections node:internal/process/task_queues:[2m81:21[22m[39m
+
+[31mThis error originated in "[1mbackend/src/__tests__/integration/websocket.test.ts[22m" test file. It doesn't mean the error was thrown inside the file itself, but while it was running.[39m
+
+[31m⎯⎯⎯⎯⎯[39m[1m[41m Uncaught Exception [49m[22m[31m⎯⎯⎯⎯⎯[39m
+[31m[1mError[22m: done() callback is deprecated, use promise instead[39m
+[90m [2m❯[22m Server.context node_modules/@vitest/runner/dist/chunk-hooks.js:[2m1926:9[22m[39m
+[90m [2m❯[22m Object.onceWrapper node:events:[2m638:28[22m[39m
+[90m [2m❯[22m Server.emit node:events:[2m536:35[22m[39m
+[90m [2m❯[22m emitCloseNT node:net:[2m2344:8[22m[39m
+[90m [2m❯[22m processTicksAndRejections node:internal/process/task_queues:[2m81:21[22m[39m
+[90m [2m❯[22m runNextTicks node:internal/process/task_queues:[2m64:3[22m[39m
+[90m [2m❯[22m processImmediate node:internal/timers:[2m454:9[22m[39m
+
+[31mThis error originated in "[1mbackend/src/__tests__/integration/websocket.test.ts[22m" test file. It doesn't mean the error was thrown inside the file itself, but while it was running.[39m
+
+[31m⎯⎯⎯⎯⎯[39m[1m[41m Uncaught Exception [49m[22m[31m⎯⎯⎯⎯⎯[39m
+[31m[1mError[22m: done() callback is deprecated, use promise instead[39m
+[90m [2m❯[22m Server.context node_modules/@vitest/runner/dist/chunk-hooks.js:[2m1926:9[22m[39m
+[90m [2m❯[22m Object.onceWrapper node:events:[2m638:28[22m[39m
+[90m [2m❯[22m Server.emit node:events:[2m536:35[22m[39m
+[90m [2m❯[22m emitCloseNT node:net:[2m2344:8[22m[39m
+[90m [2m❯[22m processTicksAndRejections node:internal/process/task_queues:[2m81:21[22m[39m
+
+[31mThis error originated in "[1mbackend/src/__tests__/integration/websocket.test.ts[22m" test file. It doesn't mean the error was thrown inside the file itself, but while it was running.[39m
+
+[31m⎯⎯⎯⎯⎯[39m[1m[41m Uncaught Exception [49m[22m[31m⎯⎯⎯⎯⎯[39m
+[31m[1mError[22m: done() callback is deprecated, use promise instead[39m
+[90m [2m❯[22m Server.context node_modules/@vitest/runner/dist/chunk-hooks.js:[2m1926:9[22m[39m
+[90m [2m❯[22m Object.onceWrapper node:events:[2m638:28[22m[39m
+[90m [2m❯[22m Server.emit node:events:[2m536:35[22m[39m
+[90m [2m❯[22m emitCloseNT node:net:[2m2344:8[22m[39m
+[90m [2m❯[22m processTicksAndRejections node:internal/process/task_queues:[2m81:21[22m[39m
+
+[31mThis error originated in "[1mbackend/src/__tests__/integration/websocket.test.ts[22m" test file. It doesn't mean the error was thrown inside the file itself, but while it was running.[39m
+
+[31m⎯⎯⎯⎯⎯[39m[1m[41m Uncaught Exception [49m[22m[31m⎯⎯⎯⎯⎯[39m
+[31m[1mError[22m: done() callback is deprecated, use promise instead[39m
+[90m [2m❯[22m Server.context node_modules/@vitest/runner/dist/chunk-hooks.js:[2m1926:9[22m[39m
+[90m [2m❯[22m Object.onceWrapper node:events:[2m638:28[22m[39m
+[90m [2m❯[22m Server.emit node:events:[2m536:35[22m[39m
+[90m [2m❯[22m emitCloseNT node:net:[2m2344:8[22m[39m
+[90m [2m❯[22m processTicksAndRejections node:internal/process/task_queues:[2m81:21[22m[39m
+
+[31mThis error originated in "[1mbackend/src/__tests__/integration/websocket.test.ts[22m" test file. It doesn't mean the error was thrown inside the file itself, but while it was running.[39m
+
+[31m⎯⎯⎯⎯⎯[39m[1m[41m Uncaught Exception [49m[22m[31m⎯⎯⎯⎯⎯[39m
+[31m[1mError[22m: done() callback is deprecated, use promise instead[39m
+[90m [2m❯[22m Server.context node_modules/@vitest/runner/dist/chunk-hooks.js:[2m1926:9[22m[39m
+[90m [2m❯[22m Object.onceWrapper node:events:[2m638:28[22m[39m
+[90m [2m❯[22m Server.emit node:events:[2m536:35[22m[39m
+[90m [2m❯[22m emitCloseNT node:net:[2m2344:8[22m[39m
+[90m [2m❯[22m processTicksAndRejections node:internal/process/task_queues:[2m81:21[22m[39m
+
+[31mThis error originated in "[1mbackend/src/__tests__/integration/websocket.test.ts[22m" test file. It doesn't mean the error was thrown inside the file itself, but while it was running.[39m
+
+[31m⎯⎯⎯⎯⎯[39m[1m[41m Uncaught Exception [49m[22m[31m⎯⎯⎯⎯⎯[39m
+[31m[1mError[22m: done() callback is deprecated, use promise instead[39m
+[90m [2m❯[22m Server.context node_modules/@vitest/runner/dist/chunk-hooks.js:[2m1926:9[22m[39m
+[90m [2m❯[22m Object.onceWrapper node:events:[2m638:28[22m[39m
+[90m [2m❯[22m Server.emit node:events:[2m536:35[22m[39m
+[90m [2m❯[22m emitCloseNT node:net:[2m2344:8[22m[39m
+[90m [2m❯[22m processTicksAndRejections node:internal/process/task_queues:[2m81:21[22m[39m
+
+[31mThis error originated in "[1mbackend/src/__tests__/integration/websocket.test.ts[22m" test file. It doesn't mean the error was thrown inside the file itself, but while it was running.[39m
+
+[31m⎯⎯⎯⎯⎯[39m[1m[41m Uncaught Exception [49m[22m[31m⎯⎯⎯⎯⎯[39m
+[31m[1mError[22m: done() callback is deprecated, use promise instead[39m
+[90m [2m❯[22m Server.context node_modules/@vitest/runner/dist/chunk-hooks.js:[2m1926:9[22m[39m
+[90m [2m❯[22m Object.onceWrapper node:events:[2m638:28[22m[39m
+[90m [2m❯[22m Server.emit node:events:[2m536:35[22m[39m
+[90m [2m❯[22m emitCloseNT node:net:[2m2344:8[22m[39m
+[90m [2m❯[22m processTicksAndRejections node:internal/process/task_queues:[2m81:21[22m[39m
+
+[31mThis error originated in "[1mbackend/src/__tests__/integration/websocket.test.ts[22m" test file. It doesn't mean the error was thrown inside the file itself, but while it was running.[39m
+
+[31m⎯⎯⎯⎯⎯[39m[1m[41m Uncaught Exception [49m[22m[31m⎯⎯⎯⎯⎯[39m
+[31m[1mError[22m: done() callback is deprecated, use promise instead[39m
+[90m [2m❯[22m Server.context node_modules/@vitest/runner/dist/chunk-hooks.js:[2m1926:9[22m[39m
+[90m [2m❯[22m Object.onceWrapper node:events:[2m638:28[22m[39m
+[90m [2m❯[22m Server.emit node:events:[2m536:35[22m[39m
+[90m [2m❯[22m emitCloseNT node:net:[2m2344:8[22m[39m
+[90m [2m❯[22m processTicksAndRejections node:internal/process/task_queues:[2m81:21[22m[39m
+[90m [2m❯[22m runNextTicks node:internal/process/task_queues:[2m64:3[22m[39m
+[90m [2m❯[22m processImmediate node:internal/timers:[2m454:9[22m[39m
+
+[31mThis error originated in "[1mbackend/src/__tests__/integration/websocket.test.ts[22m" test file. It doesn't mean the error was thrown inside the file itself, but while it was running.[39m
+
+[31m⎯⎯⎯⎯⎯[39m[1m[41m Uncaught Exception [49m[22m[31m⎯⎯⎯⎯⎯[39m
+[31m[1mError[22m: done() callback is deprecated, use promise instead[39m
+[90m [2m❯[22m Server.context node_modules/@vitest/runner/dist/chunk-hooks.js:[2m1926:9[22m[39m
+[90m [2m❯[22m Object.onceWrapper node:events:[2m638:28[22m[39m
+[90m [2m❯[22m Server.emit node:events:[2m536:35[22m[39m
+[90m [2m❯[22m emitCloseNT node:net:[2m2344:8[22m[39m
+[90m [2m❯[22m processTicksAndRejections node:internal/process/task_queues:[2m81:21[22m[39m
+[90m [2m❯[22m runNextTicks node:internal/process/task_queues:[2m64:3[22m[39m
+[90m [2m❯[22m processImmediate node:internal/timers:[2m454:9[22m[39m
+
+[31mThis error originated in "[1mbackend/src/__tests__/integration/websocket.test.ts[22m" test file. It doesn't mean the error was thrown inside the file itself, but while it was running.[39m
+
+[31m⎯⎯⎯⎯⎯[39m[1m[41m Uncaught Exception [49m[22m[31m⎯⎯⎯⎯⎯[39m
+[31m[1mError[22m: done() callback is deprecated, use promise instead[39m
+[90m [2m❯[22m Server.context node_modules/@vitest/runner/dist/chunk-hooks.js:[2m1926:9[22m[39m
+[90m [2m❯[22m Object.onceWrapper node:events:[2m638:28[22m[39m
+[90m [2m❯[22m Server.emit node:events:[2m536:35[22m[39m
+[90m [2m❯[22m emitCloseNT node:net:[2m2344:8[22m[39m
+[90m [2m❯[22m processTicksAndRejections node:internal/process/task_queues:[2m81:21[22m[39m
+[90m [2m❯[22m runNextTicks node:internal/process/task_queues:[2m64:3[22m[39m
+[90m [2m❯[22m processImmediate node:internal/timers:[2m454:9[22m[39m
+
+[31mThis error originated in "[1mbackend/src/__tests__/integration/websocket.test.ts[22m" test file. It doesn't mean the error was thrown inside the file itself, but while it was running.[39m
+
+[31m⎯⎯⎯⎯⎯[39m[1m[41m Uncaught Exception [49m[22m[31m⎯⎯⎯⎯⎯[39m
+[31m[1mError[22m: done() callback is deprecated, use promise instead[39m
+[90m [2m❯[22m Server.context node_modules/@vitest/runner/dist/chunk-hooks.js:[2m1926:9[22m[39m
+[90m [2m❯[22m Object.onceWrapper node:events:[2m638:28[22m[39m
+[90m [2m❯[22m Server.emit node:events:[2m536:35[22m[39m
+[90m [2m❯[22m emitCloseNT node:net:[2m2344:8[22m[39m
+[90m [2m❯[22m processTicksAndRejections node:internal/process/task_queues:[2m81:21[22m[39m
+[90m [2m❯[22m runNextTicks node:internal/process/task_queues:[2m64:3[22m[39m
+[90m [2m❯[22m processImmediate node:internal/timers:[2m454:9[22m[39m
+
+[31mThis error originated in "[1mbackend/src/__tests__/integration/websocket.test.ts[22m" test file. It doesn't mean the error was thrown inside the file itself, but while it was running.[39m
+
+[31m⎯⎯⎯⎯⎯[39m[1m[41m Uncaught Exception [49m[22m[31m⎯⎯⎯⎯⎯[39m
+[31m[1mError[22m: done() callback is deprecated, use promise instead[39m
+[90m [2m❯[22m Server.context node_modules/@vitest/runner/dist/chunk-hooks.js:[2m1926:9[22m[39m
+[90m [2m❯[22m Object.onceWrapper node:events:[2m638:28[22m[39m
+[90m [2m❯[22m Server.emit node:events:[2m536:35[22m[39m
+[90m [2m❯[22m emitCloseNT node:net:[2m2344:8[22m[39m
+[90m [2m❯[22m processTicksAndRejections node:internal/process/task_queues:[2m81:21[22m[39m
+[90m [2m❯[22m runNextTicks node:internal/process/task_queues:[2m64:3[22m[39m
+[90m [2m❯[22m processImmediate node:internal/timers:[2m454:9[22m[39m
+
+[31mThis error originated in "[1mbackend/src/__tests__/integration/websocket.test.ts[22m" test file. It doesn't mean the error was thrown inside the file itself, but while it was running.[39m
+
+[31m⎯⎯⎯⎯⎯[39m[1m[41m Uncaught Exception [49m[22m[31m⎯⎯⎯⎯⎯[39m
+[31m[1mError[22m: done() callback is deprecated, use promise instead[39m
+[90m [2m❯[22m Server.context node_modules/@vitest/runner/dist/chunk-hooks.js:[2m1926:9[22m[39m
+[90m [2m❯[22m Object.onceWrapper node:events:[2m638:28[22m[39m
+[90m [2m❯[22m Server.emit node:events:[2m536:35[22m[39m
+[90m [2m❯[22m emitCloseNT node:net:[2m2344:8[22m[39m
+[90m [2m❯[22m processTicksAndRejections node:internal/process/task_queues:[2m81:21[22m[39m
+[90m [2m❯[22m runNextTicks node:internal/process/task_queues:[2m64:3[22m[39m
+[90m [2m❯[22m processImmediate node:internal/timers:[2m454:9[22m[39m
+
+[31mThis error originated in "[1mbackend/src/__tests__/integration/websocket.test.ts[22m" test file. It doesn't mean the error was thrown inside the file itself, but while it was running.[39m
+[31m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[39m
+
+
+[2m Test Files [22m [1m[31m5 failed[39m[22m[2m | [22m[1m[32m16 passed[39m[22m[90m (21)[39m
+[2m      Tests [22m [1m[31m42 failed[39m[22m[2m | [22m[1m[32m505 passed[39m[22m[90m (547)[39m
+[2m     Errors [22m [1m[31m15 errors[39m[22m
+[2m   Start at [22m 15:13:19
+[2m   Duration [22m 9.28s[2m (transform 867ms, setup 3.37s, collect 2.34s, tests 2.41s, environment 11.23s, prepare 2.93s)[22m
+
+
+::error file=/home/runner/work/courthouse/courthouse/src/services/__tests__/ProceedingsEngine.test.ts,title=src/services/__tests__/ProceedingsEngine.test.ts > ProceedingsEngine > Phase Management > should process phase when called,line=119,column=5::Error: Test timed out in 1000ms.%0AIf this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".%0A ❯ src/services/__tests__/ProceedingsEngine.test.ts:119:5%0A%0A
+
+::error file=/home/runner/work/courthouse/courthouse/src/store/useCourtroomStore.ts,title=src/store/__tests__/useCourtroomStore.test.ts > useCourtroomStore > Initial State > should have correct initial state,line=152,column=58::TypeError: Cannot read properties of null (reading 'title')%0A ❯ Object.setCurrentCase src/store/useCourtroomStore.ts:152:58%0A ❯ src/store/__tests__/useCourtroomStore.test.ts:83:22%0A ❯ node_modules/@testing-library/react/dist/act-compat.js:48:24%0A ❯ process.env.NODE_ENV.exports.act node_modules/react/cjs/react.development.js:790:22%0A ❯ Proxy.<anonymous> node_modules/@testing-library/react/dist/act-compat.js:47:25%0A ❯ src/store/__tests__/useCourtroomStore.test.ts:82:5%0A%0A
+
+::error file=/home/runner/work/courthouse/courthouse/src/store/useCourtroomStore.ts,title=src/store/__tests__/useCourtroomStore.test.ts > useCourtroomStore > Initial State > should have default simulation settings,line=152,column=58::TypeError: Cannot read properties of null (reading 'title')%0A ❯ Object.setCurrentCase src/store/useCourtroomStore.ts:152:58%0A ❯ src/store/__tests__/useCourtroomStore.test.ts:83:22%0A ❯ node_modules/@testing-library/react/dist/act-compat.js:48:24%0A ❯ process.env.NODE_ENV.exports.act node_modules/react/cjs/react.development.js:790:22%0A ❯ Proxy.<anonymous> node_modules/@testing-library/react/dist/act-compat.js:47:25%0A ❯ src/store/__tests__/useCourtroomStore.test.ts:82:5%0A%0A
+
+::error file=/home/runner/work/courthouse/courthouse/src/store/useCourtroomStore.ts,title=src/store/__tests__/useCourtroomStore.test.ts > useCourtroomStore > Case Management > should set current case,line=152,column=58::TypeError: Cannot read properties of null (reading 'title')%0A ❯ Object.setCurrentCase src/store/useCourtroomStore.ts:152:58%0A ❯ src/store/__tests__/useCourtroomStore.test.ts:83:22%0A ❯ node_modules/@testing-library/react/dist/act-compat.js:48:24%0A ❯ process.env.NODE_ENV.exports.act node_modules/react/cjs/react.development.js:790:22%0A ❯ Proxy.<anonymous> node_modules/@testing-library/react/dist/act-compat.js:47:25%0A ❯ src/store/__tests__/useCourtroomStore.test.ts:82:5%0A%0A
+
+::error file=/home/runner/work/courthouse/courthouse/src/store/useCourtroomStore.ts,title=src/store/__tests__/useCourtroomStore.test.ts > useCourtroomStore > Case Management > should update participant,line=152,column=58::TypeError: Cannot read properties of null (reading 'title')%0A ❯ Object.setCurrentCase src/store/useCourtroomStore.ts:152:58%0A ❯ src/store/__tests__/useCourtroomStore.test.ts:83:22%0A ❯ node_modules/@testing-library/react/dist/act-compat.js:48:24%0A ❯ process.env.NODE_ENV.exports.act node_modules/react/cjs/react.development.js:790:22%0A ❯ Proxy.<anonymous> node_modules/@testing-library/react/dist/act-compat.js:47:25%0A ❯ src/store/__tests__/useCourtroomStore.test.ts:82:5%0A%0A
+
+::error file=/home/runner/work/courthouse/courthouse/src/store/__tests__/useCourtroomStore.test.ts,title=src/store/__tests__/useCourtroomStore.test.ts > useCourtroomStore > Case Management > should handle participant update with no current case,line=155,column=42::AssertionError: expected { id: 'test-case-1', …(11) } to be null%0A%0A- Expected: %0Anull%0A%0A+ Received: %0A{%0A  "charges": [%0A    "Test Charge",%0A  ],%0A  "currentPhase": "pre-trial",%0A  "evidence": [%0A    {%0A      "admissible": true,%0A      "chainOfCustody": [%0A        "Officer A",%0A      ],%0A      "description": "Test evidence description",%0A      "id": "evidence-1",%0A      "submittedBy": "prosecutor-1",%0A      "title": "Test Evidence",%0A      "type": "document",%0A    },%0A  ],%0A  "facts": [%0A    "Fact 1",%0A    "Fact 2",%0A  ],%0A  "id": "test-case-1",%0A  "legalSystem": "common-law",%0A  "participants": [%0A    {%0A      "aiControlled": false,%0A      "background": {%0A        "age": 35,%0A        "education": "JD from Law School",%0A        "experience": "10 years",%0A        "motivations": [%0A          "Justice",%0A        ],%0A        "personalHistory": "Test background",%0A      },%0A      "currentMood": 0.7,%0A      "id": "participant-1",%0A      "knowledge": [%0A        "Criminal Law",%0A      ],%0A      "name": "Updated Name",%0A      "objectives": [%0A        "Client defense",%0A      ],%0A      "personality": {%0A        "analyticalThinking": 8,%0A        "assertiveness": 7,%0A        "conscientiousness": 8,%0A        "emotionalStability": 7,%0A        "empathy": 6,%0A        "openness": 6,%0A        "persuasiveness": 9,%0A      },%0A      "role": "defense-attorney",%0A    },%0A  ],%0A  "rulings": [],%0A  "summary": "Test case summary",%0A  "title": "Test Case",%0A  "transcript": [],%0A  "type": "criminal",%0A}%0A%0A ❯ src/store/__tests__/useCourtroomStore.test.ts:155:42%0A%0A
+
+::error file=/home/runner/work/courthouse/courthouse/src/store/useCourtroomStore.ts,title=src/store/__tests__/useCourtroomStore.test.ts > useCourtroomStore > Case Management > should handle participant update with no current case,line=152,column=58::TypeError: Cannot read properties of null (reading 'title')%0A ❯ Object.setCurrentCase src/store/useCourtroomStore.ts:152:58%0A ❯ src/store/__tests__/useCourtroomStore.test.ts:83:22%0A ❯ node_modules/@testing-library/react/dist/act-compat.js:48:24%0A ❯ process.env.NODE_ENV.exports.act node_modules/react/cjs/react.development.js:790:22%0A ❯ Proxy.<anonymous> node_modules/@testing-library/react/dist/act-compat.js:47:25%0A ❯ src/store/__tests__/useCourtroomStore.test.ts:82:5%0A%0A
+
+::error file=/home/runner/work/courthouse/courthouse/src/store/useCourtroomStore.ts,title=src/store/__tests__/useCourtroomStore.test.ts > useCourtroomStore > User Role Management > should set user role,line=152,column=58::TypeError: Cannot read properties of null (reading 'title')%0A ❯ Object.setCurrentCase src/store/useCourtroomStore.ts:152:58%0A ❯ src/store/__tests__/useCourtroomStore.test.ts:83:22%0A ❯ node_modules/@testing-library/react/dist/act-compat.js:48:24%0A ❯ process.env.NODE_ENV.exports.act node_modules/react/cjs/react.development.js:790:22%0A ❯ Proxy.<anonymous> node_modules/@testing-library/react/dist/act-compat.js:47:25%0A ❯ src/store/__tests__/useCourtroomStore.test.ts:82:5%0A%0A
+
+::error file=/home/runner/work/courthouse/courthouse/src/store/useCourtroomStore.ts,title=src/store/__tests__/useCourtroomStore.test.ts > useCourtroomStore > User Role Management > should update participant AI control when setting user role,line=152,column=58::TypeError: Cannot read properties of null (reading 'title')%0A ❯ Object.setCurrentCase src/store/useCourtroomStore.ts:152:58%0A ❯ src/store/__tests__/useCourtroomStore.test.ts:83:22%0A ❯ node_modules/@testing-library/react/dist/act-compat.js:48:24%0A ❯ process.env.NODE_ENV.exports.act node_modules/react/cjs/react.development.js:790:22%0A ❯ Proxy.<anonymous> node_modules/@testing-library/react/dist/act-compat.js:47:25%0A ❯ src/store/__tests__/useCourtroomStore.test.ts:82:5%0A%0A
+
+::error file=/home/runner/work/courthouse/courthouse/src/store/useCourtroomStore.ts,title=src/store/__tests__/useCourtroomStore.test.ts > useCourtroomStore > Evidence Management > should add evidence to case,line=152,column=58::TypeError: Cannot read properties of null (reading 'title')%0A ❯ Object.setCurrentCase src/store/useCourtroomStore.ts:152:58%0A ❯ src/store/__tests__/useCourtroomStore.test.ts:83:22%0A ❯ node_modules/@testing-library/react/dist/act-compat.js:48:24%0A ❯ process.env.NODE_ENV.exports.act node_modules/react/cjs/react.development.js:790:22%0A ❯ Proxy.<anonymous> node_modules/@testing-library/react/dist/act-compat.js:47:25%0A ❯ src/store/__tests__/useCourtroomStore.test.ts:82:5%0A%0A
+
+::error file=/home/runner/work/courthouse/courthouse/src/store/useCourtroomStore.ts,title=src/store/__tests__/useCourtroomStore.test.ts > useCourtroomStore > Evidence Management > should remove evidence from case,line=152,column=58::TypeError: Cannot read properties of null (reading 'title')%0A ❯ Object.setCurrentCase src/store/useCourtroomStore.ts:152:58%0A ❯ src/store/__tests__/useCourtroomStore.test.ts:83:22%0A ❯ node_modules/@testing-library/react/dist/act-compat.js:48:24%0A ❯ process.env.NODE_ENV.exports.act node_modules/react/cjs/react.development.js:790:22%0A ❯ Proxy.<anonymous> node_modules/@testing-library/react/dist/act-compat.js:47:25%0A ❯ src/store/__tests__/useCourtroomStore.test.ts:82:5%0A%0A
+
+::error file=/home/runner/work/courthouse/courthouse/src/store/__tests__/useCourtroomStore.test.ts,title=src/store/__tests__/useCourtroomStore.test.ts > useCourtroomStore > Evidence Management > should handle evidence operations with no current case,line=226,column=42::AssertionError: expected { id: 'test-case-1', …(11) } to be null%0A%0A- Expected: %0Anull%0A%0A+ Received: %0A{%0A  "charges": [%0A    "Test Charge",%0A  ],%0A  "currentPhase": "pre-trial",%0A  "evidence": [],%0A  "facts": [%0A    "Fact 1",%0A    "Fact 2",%0A  ],%0A  "id": "test-case-1",%0A  "legalSystem": "common-law",%0A  "participants": [%0A    {%0A      "aiControlled": true,%0A      "background": {%0A        "age": 35,%0A        "education": "JD from Law School",%0A        "experience": "10 years",%0A        "motivations": [%0A          "Justice",%0A        ],%0A        "personalHistory": "Test background",%0A      },%0A      "currentMood": 0.7,%0A      "id": "participant-1",%0A      "knowledge": [%0A        "Criminal Law",%0A      ],%0A      "name": "Test Participant",%0A      "objectives": [%0A        "Client defense",%0A      ],%0A      "personality": {%0A        "analyticalThinking": 8,%0A        "assertiveness": 7,%0A        "conscientiousness": 8,%0A        "emotionalStability": 7,%0A        "empathy": 6,%0A        "openness": 6,%0A        "persuasiveness": 9,%0A      },%0A      "role": "defense-attorney",%0A    },%0A  ],%0A  "rulings": [],%0A  "summary": "Test case summary",%0A  "title": "Test Case",%0A  "transcript": [],%0A  "type": "criminal",%0A}%0A%0A ❯ src/store/__tests__/useCourtroomStore.test.ts:226:42%0A%0A
+
+::error file=/home/runner/work/courthouse/courthouse/src/store/useCourtroomStore.ts,title=src/store/__tests__/useCourtroomStore.test.ts > useCourtroomStore > Evidence Management > should handle evidence operations with no current case,line=152,column=58::TypeError: Cannot read properties of null (reading 'title')%0A ❯ Object.setCurrentCase src/store/useCourtroomStore.ts:152:58%0A ❯ src/store/__tests__/useCourtroomStore.test.ts:83:22%0A ❯ node_modules/@testing-library/react/dist/act-compat.js:48:24%0A ❯ process.env.NODE_ENV.exports.act node_modules/react/cjs/react.development.js:790:22%0A ❯ Proxy.<anonymous> node_modules/@testing-library/react/dist/act-compat.js:47:25%0A ❯ src/store/__tests__/useCourtroomStore.test.ts:82:5%0A%0A
+
+::error file=/home/runner/work/courthouse/courthouse/src/store/useCourtroomStore.ts,title=src/store/__tests__/useCourtroomStore.test.ts > useCourtroomStore > Simulation Settings > should update simulation settings,line=152,column=58::TypeError: Cannot read properties of null (reading 'title')%0A ❯ Object.setCurrentCase src/store/useCourtroomStore.ts:152:58%0A ❯ src/store/__tests__/useCourtroomStore.test.ts:83:22%0A ❯ node_modules/@testing-library/react/dist/act-compat.js:48:24%0A ❯ process.env.NODE_ENV.exports.act node_modules/react/cjs/react.development.js:790:22%0A ❯ Proxy.<anonymous> node_modules/@testing-library/react/dist/act-compat.js:47:25%0A ❯ src/store/__tests__/useCourtroomStore.test.ts:82:5%0A%0A
+
+::error file=/home/runner/work/courthouse/courthouse/src/store/useCourtroomStore.ts,title=src/store/__tests__/useCourtroomStore.test.ts > useCourtroomStore > Simulation Settings > should recreate proceedings engine when settings change with active case,line=152,column=58::TypeError: Cannot read properties of null (reading 'title')%0A ❯ Object.setCurrentCase src/store/useCourtroomStore.ts:152:58%0A ❯ src/store/__tests__/useCourtroomStore.test.ts:83:22%0A ❯ node_modules/@testing-library/react/dist/act-compat.js:48:24%0A ❯ process.env.NODE_ENV.exports.act node_modules/react/cjs/react.development.js:790:22%0A ❯ Proxy.<anonymous> node_modules/@testing-library/react/dist/act-compat.js:47:25%0A ❯ src/store/__tests__/useCourtroomStore.test.ts:82:5%0A%0A
+
+::error file=/home/runner/work/courthouse/courthouse/src/store/useCourtroomStore.ts,title=src/store/__tests__/useCourtroomStore.test.ts > useCourtroomStore > Transcript Management > should add transcript entry,line=152,column=58::TypeError: Cannot read properties of null (reading 'title')%0A ❯ Object.setCurrentCase src/store/useCourtroomStore.ts:152:58%0A ❯ src/store/__tests__/useCourtroomStore.test.ts:83:22%0A ❯ node_modules/@testing-library/react/dist/act-compat.js:48:24%0A ❯ process.env.NODE_ENV.exports.act node_modules/react/cjs/react.development.js:790:22%0A ❯ Proxy.<anonymous> node_modules/@testing-library/react/dist/act-compat.js:47:25%0A ❯ src/store/__tests__/useCourtroomStore.test.ts:82:5%0A%0A
+
+::error file=/home/runner/work/courthouse/courthouse/src/store/useCourtroomStore.ts,title=src/store/__tests__/useCourtroomStore.test.ts > useCourtroomStore > Transcript Management > should clear transcript,line=152,column=58::TypeError: Cannot read properties of null (reading 'title')%0A ❯ Object.setCurrentCase src/store/useCourtroomStore.ts:152:58%0A ❯ src/store/__tests__/useCourtroomStore.test.ts:83:22%0A ❯ node_modules/@testing-library/react/dist/act-compat.js:48:24%0A ❯ process.env.NODE_ENV.exports.act node_modules/react/cjs/react.development.js:790:22%0A ❯ Proxy.<anonymous> node_modules/@testing-library/react/dist/act-compat.js:47:25%0A ❯ src/store/__tests__/useCourtroomStore.test.ts:82:5%0A%0A
+
+::error file=/home/runner/work/courthouse/courthouse/src/store/useCourtroomStore.ts,title=src/store/__tests__/useCourtroomStore.test.ts > useCourtroomStore > User Input Processing > should process user input when user role is set,line=152,column=58::TypeError: Cannot read properties of null (reading 'title')%0A ❯ Object.setCurrentCase src/store/useCourtroomStore.ts:152:58%0A ❯ src/store/__tests__/useCourtroomStore.test.ts:83:22%0A ❯ node_modules/@testing-library/react/dist/act-compat.js:48:24%0A ❯ process.env.NODE_ENV.exports.act node_modules/react/cjs/react.development.js:790:22%0A ❯ Proxy.<anonymous> node_modules/@testing-library/react/dist/act-compat.js:47:25%0A ❯ src/store/__tests__/useCourtroomStore.test.ts:82:5%0A%0A
+
+::error file=/home/runner/work/courthouse/courthouse/src/store/__tests__/useCourtroomStore.test.ts,title=src/store/__tests__/useCourtroomStore.test.ts > useCourtroomStore > User Input Processing > should not process user input without user role,line=330,column=54::AssertionError: expected [ { id: 'user-1769008402264', …(5) } ] to have a length of +0 but got 1%0A%0A- Expected%0A+ Received%0A%0A- 0%0A+ 1%0A%0A ❯ src/store/__tests__/useCourtroomStore.test.ts:330:54%0A%0A
+
+::error file=/home/runner/work/courthouse/courthouse/src/store/useCourtroomStore.ts,title=src/store/__tests__/useCourtroomStore.test.ts > useCourtroomStore > User Input Processing > should not process user input without user role,line=152,column=58::TypeError: Cannot read properties of null (reading 'title')%0A ❯ Object.setCurrentCase src/store/useCourtroomStore.ts:152:58%0A ❯ src/store/__tests__/useCourtroomStore.test.ts:83:22%0A ❯ node_modules/@testing-library/react/dist/act-compat.js:48:24%0A ❯ process.env.NODE_ENV.exports.act node_modules/react/cjs/react.development.js:790:22%0A ❯ Proxy.<anonymous> node_modules/@testing-library/react/dist/act-compat.js:47:25%0A ❯ src/store/__tests__/useCourtroomStore.test.ts:82:5%0A%0A
+
+::error file=/home/runner/work/courthouse/courthouse/src/store/useCourtroomStore.ts,title=src/store/__tests__/useCourtroomStore.test.ts > useCourtroomStore > AI Processing State > should set AI processing state,line=152,column=58::TypeError: Cannot read properties of null (reading 'title')%0A ❯ Object.setCurrentCase src/store/useCourtroomStore.ts:152:58%0A ❯ src/store/__tests__/useCourtroomStore.test.ts:83:22%0A ❯ node_modules/@testing-library/react/dist/act-compat.js:48:24%0A ❯ process.env.NODE_ENV.exports.act node_modules/react/cjs/react.development.js:790:22%0A ❯ Proxy.<anonymous> node_modules/@testing-library/react/dist/act-compat.js:47:25%0A ❯ src/store/__tests__/useCourtroomStore.test.ts:82:5%0A%0A
+
+::error file=/home/runner/work/courthouse/courthouse/src/store/useCourtroomStore.ts,title=src/store/__tests__/useCourtroomStore.test.ts > useCourtroomStore > AI Processing State > should set AI progress,line=152,column=58::TypeError: Cannot read properties of null (reading 'title')%0A ❯ Object.setCurrentCase src/store/useCourtroomStore.ts:152:58%0A ❯ src/store/__tests__/useCourtroomStore.test.ts:83:22%0A ❯ node_modules/@testing-library/react/dist/act-compat.js:48:24%0A ❯ process.env.NODE_ENV.exports.act node_modules/react/cjs/react.development.js:790:22%0A ❯ Proxy.<anonymous> node_modules/@testing-library/react/dist/act-compat.js:47:25%0A ❯ src/store/__tests__/useCourtroomStore.test.ts:82:5%0A%0A
+
+::error file=/home/runner/work/courthouse/courthouse/src/store/useCourtroomStore.ts,title=src/store/__tests__/useCourtroomStore.test.ts > useCourtroomStore > Case Persistence > should save case to localStorage,line=152,column=58::TypeError: Cannot read properties of null (reading 'title')%0A ❯ Object.setCurrentCase src/store/useCourtroomStore.ts:152:58%0A ❯ src/store/__tests__/useCourtroomStore.test.ts:83:22%0A ❯ node_modules/@testing-library/react/dist/act-compat.js:48:24%0A ❯ process.env.NODE_ENV.exports.act node_modules/react/cjs/react.development.js:790:22%0A ❯ Proxy.<anonymous> node_modules/@testing-library/react/dist/act-compat.js:47:25%0A ❯ src/store/__tests__/useCourtroomStore.test.ts:82:5%0A%0A
+
+::error file=/home/runner/work/courthouse/courthouse/src/store/useCourtroomStore.ts,title=src/store/__tests__/useCourtroomStore.test.ts > useCourtroomStore > Case Persistence > should load case from localStorage,line=152,column=58::TypeError: Cannot read properties of null (reading 'title')%0A ❯ Object.setCurrentCase src/store/useCourtroomStore.ts:152:58%0A ❯ src/store/__tests__/useCourtroomStore.test.ts:83:22%0A ❯ node_modules/@testing-library/react/dist/act-compat.js:48:24%0A ❯ process.env.NODE_ENV.exports.act node_modules/react/cjs/react.development.js:790:22%0A ❯ Proxy.<anonymous> node_modules/@testing-library/react/dist/act-compat.js:47:25%0A ❯ src/store/__tests__/useCourtroomStore.test.ts:82:5%0A%0A
+
+::error file=/home/runner/work/courthouse/courthouse/src/store/__tests__/useCourtroomStore.test.ts,title=src/store/__tests__/useCourtroomStore.test.ts > useCourtroomStore > Case Persistence > should handle missing case in localStorage,line=402,column=42::AssertionError: expected { id: 'test-case-1', …(11) } to be null%0A%0A- Expected: %0Anull%0A%0A+ Received: %0A{%0A  "charges": [%0A    "Test Charge",%0A  ],%0A  "currentPhase": "pre-trial",%0A  "evidence": [%0A    {%0A      "admissible": true,%0A      "chainOfCustody": [%0A        "Officer A",%0A      ],%0A      "description": "Test evidence description",%0A      "id": "evidence-1",%0A      "submittedBy": "prosecutor-1",%0A      "title": "Test Evidence",%0A      "type": "document",%0A    },%0A  ],%0A  "facts": [%0A    "Fact 1",%0A    "Fact 2",%0A  ],%0A  "id": "test-case-1",%0A  "legalSystem": "common-law",%0A  "participants": [%0A    {%0A      "aiControlled": true,%0A      "background": {%0A        "age": 35,%0A        "education": "JD from Law School",%0A        "experience": "10 years",%0A        "motivations": [%0A          "Justice",%0A        ],%0A        "personalHistory": "Test background",%0A      },%0A      "currentMood": 0.7,%0A      "id": "participant-1",%0A      "knowledge": [%0A        "Criminal Law",%0A      ],%0A      "name": "Test Participant",%0A      "objectives": [%0A        "Client defense",%0A      ],%0A      "personality": {%0A        "analyticalThinking": 8,%0A        "assertiveness": 7,%0A        "conscientiousness": 8,%0A        "emotionalStability": 7,%0A        "empathy": 6,%0A        "openness": 6,%0A        "persuasiveness": 9,%0A      },%0A      "role": "defense-attorney",%0A    },%0A  ],%0A  "rulings": [],%0A  "summary": "Test case summary",%0A  "title": "Test Case",%0A  "transcript": [],%0A  "type": "criminal",%0A}%0A%0A ❯ src/store/__tests__/useCourtroomStore.test.ts:402:42%0A%0A
+
+::error file=/home/runner/work/courthouse/courthouse/src/store/useCourtroomStore.ts,title=src/store/__tests__/useCourtroomStore.test.ts > useCourtroomStore > Case Persistence > should handle missing case in localStorage,line=152,column=58::TypeError: Cannot read properties of null (reading 'title')%0A ❯ Object.setCurrentCase src/store/useCourtroomStore.ts:152:58%0A ❯ src/store/__tests__/useCourtroomStore.test.ts:83:22%0A ❯ node_modules/@testing-library/react/dist/act-compat.js:48:24%0A ❯ process.env.NODE_ENV.exports.act node_modules/react/cjs/react.development.js:790:22%0A ❯ Proxy.<anonymous> node_modules/@testing-library/react/dist/act-compat.js:47:25%0A ❯ src/store/__tests__/useCourtroomStore.test.ts:82:5%0A%0A
+
+::error file=/home/runner/work/courthouse/courthouse/src/store/useCourtroomStore.ts,title=src/store/__tests__/useCourtroomStore.test.ts > useCourtroomStore > Transcript Export > should export transcript,line=152,column=58::TypeError: Cannot read properties of null (reading 'title')%0A ❯ Object.setCurrentCase src/store/useCourtroomStore.ts:152:58%0A ❯ src/store/__tests__/useCourtroomStore.test.ts:83:22%0A ❯ node_modules/@testing-library/react/dist/act-compat.js:48:24%0A ❯ process.env.NODE_ENV.exports.act node_modules/react/cjs/react.development.js:790:22%0A ❯ Proxy.<anonymous> node_modules/@testing-library/react/dist/act-compat.js:47:25%0A ❯ src/store/__tests__/useCourtroomStore.test.ts:82:5%0A%0A
+
+::error file=/home/runner/work/courthouse/courthouse/src/store/__tests__/useCourtroomStore.test.ts,title=src/store/__tests__/useCourtroomStore.test.ts > useCourtroomStore > Transcript Export > should return empty string when no case,line=435,column=24::AssertionError: expected 'Case: Test Case\nType: criminal\nLega…' to be '' // Object.is equality%0A%0A- Expected%0A+ Received%0A%0A+ Case: Test Case\nType: criminal\nLegal System: common-law\n\nTRANSCRIPT\n==========\n\n[3:13:22 PM] Judge Smith (judge): Court is now in session\n\n%0A%0A ❯ src/store/__tests__/useCourtroomStore.test.ts:435:24%0A%0A
+
+::error file=/home/runner/work/courthouse/courthouse/src/store/useCourtroomStore.ts,title=src/store/__tests__/useCourtroomStore.test.ts > useCourtroomStore > Transcript Export > should return empty string when no case,line=152,column=58::TypeError: Cannot read properties of null (reading 'title')%0A ❯ Object.setCurrentCase src/store/useCourtroomStore.ts:152:58%0A ❯ src/store/__tests__/useCourtroomStore.test.ts:83:22%0A ❯ node_modules/@testing-library/react/dist/act-compat.js:48:24%0A ❯ process.env.NODE_ENV.exports.act node_modules/react/cjs/react.development.js:790:22%0A ❯ Proxy.<anonymous> node_modules/@testing-library/react/dist/act-compat.js:47:25%0A ❯ src/store/__tests__/useCourtroomStore.test.ts:82:5%0A%0A
+
+::error file=/home/runner/work/courthouse/courthouse/src/store/useCourtroomStore.ts,title=src/store/__tests__/useCourtroomStore.test.ts > useCourtroomStore > Simulation Control > should start simulation,line=152,column=58::TypeError: Cannot read properties of null (reading 'title')%0A ❯ Object.setCurrentCase src/store/useCourtroomStore.ts:152:58%0A ❯ src/store/__tests__/useCourtroomStore.test.ts:83:22%0A ❯ node_modules/@testing-library/react/dist/act-compat.js:48:24%0A ❯ process.env.NODE_ENV.exports.act node_modules/react/cjs/react.development.js:790:22%0A ❯ Proxy.<anonymous> node_modules/@testing-library/react/dist/act-compat.js:47:25%0A ❯ src/store/__tests__/useCourtroomStore.test.ts:82:5%0A%0A
+
+::error file=/home/runner/work/courthouse/courthouse/src/store/useCourtroomStore.ts,title=src/store/__tests__/useCourtroomStore.test.ts > useCourtroomStore > Simulation Control > should stop simulation,line=152,column=58::TypeError: Cannot read properties of null (reading 'title')%0A ❯ Object.setCurrentCase src/store/useCourtroomStore.ts:152:58%0A ❯ src/store/__tests__/useCourtroomStore.test.ts:83:22%0A ❯ node_modules/@testing-library/react/dist/act-compat.js:48:24%0A ❯ process.env.NODE_ENV.exports.act node_modules/react/cjs/react.development.js:790:22%0A ❯ Proxy.<anonymous> node_modules/@testing-library/react/dist/act-compat.js:47:25%0A ❯ src/store/__tests__/useCourtroomStore.test.ts:82:5%0A%0A
+
+::error file=/home/runner/work/courthouse/courthouse/src/store/useCourtroomStore.ts,title=src/store/__tests__/useCourtroomStore.test.ts > useCourtroomStore > Simulation Control > should pause simulation,line=152,column=58::TypeError: Cannot read properties of null (reading 'title')%0A ❯ Object.setCurrentCase src/store/useCourtroomStore.ts:152:58%0A ❯ src/store/__tests__/useCourtroomStore.test.ts:83:22%0A ❯ node_modules/@testing-library/react/dist/act-compat.js:48:24%0A ❯ process.env.NODE_ENV.exports.act node_modules/react/cjs/react.development.js:790:22%0A ❯ Proxy.<anonymous> node_modules/@testing-library/react/dist/act-compat.js:47:25%0A ❯ src/store/__tests__/useCourtroomStore.test.ts:82:5%0A%0A
+
+::error file=/home/runner/work/courthouse/courthouse/backend/src/__tests__/integration/case-workflow.test.ts,title=backend/src/__tests__/integration/case-workflow.test.ts > Case Workflow Integration > Multi-Case Operations > should handle multiple cases for same user,line=269,column=31::AssertionError: expected 0 to be greater than or equal to 3%0A ❯ backend/src/__tests__/integration/case-workflow.test.ts:269:31%0A%0A
+
+::error file=/home/runner/work/courthouse/courthouse/backend/src/__tests__/integration/websocket.test.ts,title=backend/src/__tests__/integration/websocket.test.ts > WebSocket Communication Integration > Connection Management > should establish WebSocket connection,line=60,column=27::TypeError: Cannot read properties of undefined (reading 'connected')%0A ❯ backend/src/__tests__/integration/websocket.test.ts:60:27%0A%0A
+
+::error file=/home/runner/work/courthouse/courthouse/backend/src/__tests__/integration/websocket.test.ts,title=backend/src/__tests__/integration/websocket.test.ts > WebSocket Communication Integration > Connection Management > should handle disconnection,line=65,column=20::TypeError: Cannot read properties of undefined (reading 'on')%0A ❯ backend/src/__tests__/integration/websocket.test.ts:65:20%0A%0A
+
+::error file=/home/runner/work/courthouse/courthouse/backend/src/__tests__/integration/websocket.test.ts,title=backend/src/__tests__/integration/websocket.test.ts > WebSocket Communication Integration > Case Subscription > should subscribe to case updates,line=98,column=20::TypeError: Cannot read properties of undefined (reading 'emit')%0A ❯ backend/src/__tests__/integration/websocket.test.ts:98:20%0A%0A
+
+::error file=/home/runner/work/courthouse/courthouse/backend/src/__tests__/integration/websocket.test.ts,title=backend/src/__tests__/integration/websocket.test.ts > WebSocket Communication Integration > Case Subscription > should unsubscribe from case updates,line=109,column=20::TypeError: Cannot read properties of undefined (reading 'emit')%0A ❯ backend/src/__tests__/integration/websocket.test.ts:109:20%0A%0A
+
+::error file=/home/runner/work/courthouse/courthouse/backend/src/__tests__/integration/websocket.test.ts,title=backend/src/__tests__/integration/websocket.test.ts > WebSocket Communication Integration > Case Subscription > should receive case updates when subscribed,line=124,column=20::TypeError: Cannot read properties of undefined (reading 'on')%0A ❯ backend/src/__tests__/integration/websocket.test.ts:124:20%0A%0A
+
+::error file=/home/runner/work/courthouse/courthouse/backend/src/__tests__/integration/websocket.test.ts,title=backend/src/__tests__/integration/websocket.test.ts > WebSocket Communication Integration > LLM Request Handling > should handle LLM request via WebSocket,line=162,column=20::TypeError: Cannot read properties of undefined (reading 'on')%0A ❯ backend/src/__tests__/integration/websocket.test.ts:162:20%0A%0A
+
+::error file=/home/runner/work/courthouse/courthouse/backend/src/__tests__/integration/websocket.test.ts,title=backend/src/__tests__/integration/websocket.test.ts > WebSocket Communication Integration > LLM Request Handling > should handle streaming LLM request,line=190,column=20::TypeError: Cannot read properties of undefined (reading 'on')%0A ❯ backend/src/__tests__/integration/websocket.test.ts:190:20%0A%0A
+
+::error file=/home/runner/work/courthouse/courthouse/backend/src/__tests__/integration/websocket.test.ts,title=backend/src/__tests__/integration/websocket.test.ts > WebSocket Communication Integration > LLM Request Handling > should handle LLM request errors,line=220,column=20::TypeError: Cannot read properties of undefined (reading 'on')%0A ❯ backend/src/__tests__/integration/websocket.test.ts:220:20%0A%0A
+
+::error file=/home/runner/work/courthouse/courthouse/backend/src/__tests__/integration/websocket.test.ts,title=backend/src/__tests__/integration/websocket.test.ts > WebSocket Communication Integration > Real-time Updates > should broadcast transcript updates to subscribed clients,line=243,column=20::TypeError: Cannot read properties of undefined (reading 'on')%0A ❯ backend/src/__tests__/integration/websocket.test.ts:243:20%0A%0A
+
+::error file=/home/runner/work/courthouse/courthouse/backend/src/__tests__/integration/websocket.test.ts,title=backend/src/__tests__/integration/websocket.test.ts > WebSocket Communication Integration > Real-time Updates > should broadcast phase changes to subscribed clients,line=265,column=20::TypeError: Cannot read properties of undefined (reading 'on')%0A ❯ backend/src/__tests__/integration/websocket.test.ts:265:20%0A%0A
+
+::error file=/home/runner/work/courthouse/courthouse/backend/src/__tests__/integration/websocket.test.ts,title=backend/src/__tests__/integration/websocket.test.ts > WebSocket Communication Integration > Real-time Updates > should handle participant updates,line=290,column=20::TypeError: Cannot read properties of undefined (reading 'on')%0A ❯ backend/src/__tests__/integration/websocket.test.ts:290:20%0A%0A
+
+::error file=/home/runner/work/courthouse/courthouse/backend/src/__tests__/integration/websocket.test.ts,title=backend/src/__tests__/integration/websocket.test.ts > WebSocket Communication Integration > Error Handling and Recovery > should handle malformed messages gracefully,line=310,column=20::TypeError: Cannot read properties of undefined (reading 'emit')%0A ❯ backend/src/__tests__/integration/websocket.test.ts:310:20%0A%0A
+
+::error file=/home/runner/work/courthouse/courthouse/backend/src/__tests__/integration/websocket.test.ts,title=backend/src/__tests__/integration/websocket.test.ts > WebSocket Communication Integration > Error Handling and Recovery > should reconnect after disconnection,line=320,column=9::Error: done() callback is deprecated, use promise instead%0A ❯ backend/src/__tests__/integration/websocket.test.ts:320:9%0A%0A
+
+::error file=/home/runner/work/courthouse/courthouse/backend/src/__tests__/integration/websocket.test.ts,title=backend/src/__tests__/integration/websocket.test.ts > WebSocket Communication Integration > Error Handling and Recovery > should handle concurrent requests,line=344,column=9::Error: done() callback is deprecated, use promise instead%0A ❯ backend/src/__tests__/integration/websocket.test.ts:344:9%0A%0A
+
+::error file=/home/runner/work/courthouse/courthouse/backend/src/routes/evidence.ts,title=backend/src/routes/__tests__/evidence.test.ts,line=4,column=32::Error: [vitest] No "default" export is defined on the "fs" mock. Did you forget to return it from "vi.mock"?%0AIf you need to partially mock a module, you can use "importOriginal" helper inside:%0A%0Avi.mock(import("fs"), async (importOriginal) => {%0A  const actual = await importOriginal()%0A  return {%0A    ...actual,%0A    // your mocked methods%0A  }%0A})%0A%0A ❯ backend/src/routes/evidence.ts:4:32%0A ❯ backend/src/routes/__tests__/evidence.test.ts:6:1%0A%0A

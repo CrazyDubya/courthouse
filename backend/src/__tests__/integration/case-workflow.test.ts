@@ -252,6 +252,7 @@ describe('Case Workflow Integration', () => {
             title: `Test Case ${i + 1}`,
             type: 'civil',
             summary: `Test case number ${i + 1}`,
+            userId,
             participants: [
               {
                 name: 'Judge',
