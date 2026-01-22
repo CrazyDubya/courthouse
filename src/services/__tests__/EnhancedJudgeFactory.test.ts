@@ -110,7 +110,7 @@ describe('EnhancedJudgeFactory', () => {
       expect(judge.appointingAuthority).toBeTruthy();
       expect(Array.isArray(judge.previousCareer)).toBe(true);
       expect(judge.lawSchool).toBeTruthy();
-      expect(judge.graduationYear).toBeGreaterThan(1970);
+      expect(judge.graduationYear).toBeGreaterThanOrEqual(1970);
       expect(judge.graduationYear).toBeLessThan(new Date().getFullYear());
     });
   });

@@ -149,6 +149,12 @@ export const useCourtroomStore = create<CourtroomState>()(
       showValuationPanel: false,
 
       setCurrentCase: (caseData) => {
+        if (!caseData) {
+          console.log('📋 Clearing current case (null case data provided)');
+          set({ currentCase: null, proceedingsEngine: null });
+          return;
+        }
+        
         console.log('📋 Setting current case:', caseData.title);
         console.log('📋 Case phase:', caseData.currentPhase);
         console.log('📋 Participants count:', caseData.participants.length);

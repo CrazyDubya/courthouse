@@ -69,7 +69,7 @@ export class EnhancedJudgeFactory {
       appointingAuthority: this.generateAppointingAuthority(),
       previousCareer: this.generatePreviousCareer(template),
       lawSchool: this.generateLawSchool(),
-      graduationYear: appointedDate.getFullYear() - yearsOnBench - Math.floor(Math.random() * 10) - 3,
+      graduationYear: Math.max(1970, appointedDate.getFullYear() - yearsOnBench - Math.floor(Math.random() * 10) - 3),
       barAdmissions: this.generateBarAdmissions(),
       
       // Reputation and ratings

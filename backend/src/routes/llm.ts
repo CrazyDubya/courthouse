@@ -4,8 +4,6 @@ import { LLMService } from '../services/LLMService.js';
 import { QueueService } from '../services/QueueService.js';
 import { LLMRequest } from '../types/index.js';
 
-const router = express.Router();
-
 const llmRequestSchema = Joi.object({
   messages: Joi.array().items(Joi.object({
     role: Joi.string().valid('system', 'user', 'assistant').required(),
@@ -24,6 +22,8 @@ const llmRequestSchema = Joi.object({
 });
 
 export default function createLLMRoutes(llmService: LLMService, queueService: QueueService) {
+  const router = express.Router();
+  
   router.post('/request', async (req, res) => {
     try {
       const { error, value } = llmRequestSchema.validate(req.body);

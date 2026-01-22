@@ -485,7 +485,7 @@ Act according to your role and personality. Be professional and follow courtroom
           'Please proceed with your next witness.',
           'Sustained. The jury will disregard.',
           'Overruled. You may continue.',
-          'The objection is noted. Please move on.'
+          'Order in the court. Please proceed.'
         ]
       },
       'prosecutor': {
@@ -506,7 +506,7 @@ Act according to your role and personality. Be professional and follow courtroom
         ],
         'default': [
           'Objection, your honor - relevance.',
-          'The People have no further questions.',
+          'The State has no further questions.',
           'We would like to admit this exhibit into evidence.'
         ]
       },
@@ -528,8 +528,8 @@ Act according to your role and personality. Be professional and follow courtroom
         ],
         'default': [
           'Objection - leading the witness.',
-          'I have no further questions for this witness.',
-          'Your Honor, I move for a directed verdict.'
+          'My client is innocent and this line of questioning is improper.',
+          'Your Honor, I move to dismiss based on insufficient evidence.'
         ]
       },
       'plaintiff-attorney': {

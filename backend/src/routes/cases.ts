@@ -3,8 +3,6 @@ import Joi from 'joi';
 import { CaseService } from '../services/CaseService.js';
 import { Case, Participant, SimulationSettings } from '../types/index.js';
 
-const router = express.Router();
-
 const caseSchema = Joi.object({
   title: Joi.string().required().min(1).max(200),
   type: Joi.string().valid('civil', 'criminal').required(),
@@ -47,6 +45,8 @@ const updateCaseSchema = Joi.object({
 });
 
 export default function createCaseRoutes(caseService: CaseService) {
+  const router = express.Router();
+  
   router.get('/', async (req, res) => {
     try {
       const { userId, limit = 50, offset = 0 } = req.query;
