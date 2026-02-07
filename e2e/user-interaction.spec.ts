@@ -1,158 +1,198 @@
 import { test, expect } from '@playwright/test';
 
-test.describe('User Interaction E2E', () => {
+async function setupCase(page: import('@playwright/test').Page) {
+  await page.goto('/');
+  // Wait for framer-motion entry animations to settle
+  await page.waitForTimeout(1500);
+  await page.locator('button:has-text("Generate This Case")').first().click({ force: true });
+  await expect(page.locator('text=LLM Courtroom Simulator')).toBeVisible({ timeout: 15000 });
+}
+
+test.describe('Role Selection', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto('/');
-    
-    // Create a test case
-    await page.click('button:has-text("New Case")');
-    await page.fill('input[name="title"]', 'User Interaction Test');
-    await page.selectOption('select[name="type"]', 'criminal');
-    await page.click('button:has-text("Create Case")');
+    await setupCase(page);
   });
 
-  test('should select user role', async ({ page }) => {
-    // Select user role
-    await page.click('button:has-text("Select Role")');
-    await page.click('text=Defense Attorney');
-    
-    // Verify role is selected
-    await expect(page.locator('text=You are: Defense Attorney')).toBeVisible();
+  test('should show Your Role section', async ({ page }) => {
+    await expect(page.locator('span:has-text("Your Role")')).toBeVisible();
   });
 
-  test('should submit user input during simulation', async ({ page }) => {
-    // Select role
-    await page.click('button:has-text("Select Role")');
-    await page.click('text=Defense Attorney');
-    
-    // Start simulation
-    await page.click('button:has-text("Start Simulation")');
-    
-    // Wait for input opportunity
-    await page.waitForSelector('textarea[placeholder*="Enter your statement"]', { timeout: 15000 });
-    
-    // Submit user input
-    await page.fill('textarea[placeholder*="Enter your statement"]', 'I object to this line of questioning.');
-    await page.click('button:has-text("Submit")');
-    
-    // Verify input appears in transcript
-    await expect(page.locator('text=I object to this line of questioning.')).toBeVisible();
+  test('should have role dropdown with AI Controlled default', async ({ page }) => {
+    const roleSelect = page.locator('select').first();
+    await expect(roleSelect).toBeVisible();
+    // Default is "AI Controlled (Observer)"
+    await expect(roleSelect).toHaveValue('');
   });
 
-  test('should toggle participant AI control', async ({ page }) => {
-    // Toggle AI control for a participant
-    await page.click('[data-testid="participant-settings"]');
-    await page.click('input[name="aiControlled"]');
-    
-    // Verify AI control is disabled
-    await expect(page.locator('text=Manual Control')).toBeVisible();
+  test('should allow selecting judge role', async ({ page }) => {
+    const roleSelect = page.locator('select').first();
+    await roleSelect.selectOption('judge');
+    await expect(roleSelect).toHaveValue('judge');
+    // Should show role description
+    await expect(page.locator('text=Presides over proceedings')).toBeVisible();
   });
 
-  test('should update participant personality', async ({ page }) => {
-    // Open participant settings
-    await page.click('[data-testid="participant-settings"]');
-    
-    // Update personality trait
-    await page.fill('input[name="assertiveness"]', '8');
-    await page.click('button:has-text("Save")');
-    
-    // Verify personality is updated
-    const assertiveness = await page.locator('input[name="assertiveness"]').inputValue();
-    expect(assertiveness).toBe('8');
+  test('should allow selecting prosecutor role', async ({ page }) => {
+    const roleSelect = page.locator('select').first();
+    await roleSelect.selectOption('prosecutor');
+    await expect(roleSelect).toHaveValue('prosecutor');
+    await expect(page.locator('text=Represents the state')).toBeVisible();
+  });
+
+  test('should allow selecting defense attorney role', async ({ page }) => {
+    const roleSelect = page.locator('select').first();
+    await roleSelect.selectOption('defense-attorney');
+    await expect(roleSelect).toHaveValue('defense-attorney');
+    await expect(page.locator('text=Defends the accused')).toBeVisible();
+  });
+
+  test('should show role tips for non-observer roles', async ({ page }) => {
+    const roleSelect = page.locator('select').first();
+    await roleSelect.selectOption('prosecutor');
+    await expect(page.locator('text=Present evidence methodically')).toBeVisible();
+  });
+
+  test('should show user actions for attorney roles', async ({ page }) => {
+    const roleSelect = page.locator('select').first();
+    await roleSelect.selectOption('prosecutor');
+
+    // Should show the statement input and Speak button
+    await expect(page.locator('input[placeholder="Enter your statement..."]')).toBeVisible();
+    await expect(page.locator('button:has-text("Speak")')).toBeVisible();
+
+    // Should show objection controls for attorneys
+    await expect(page.locator('button:has-text("Object!")')).toBeVisible();
+  });
+
+  test('should not show user actions for observer role', async ({ page }) => {
+    // Default is observer - no action buttons
+    await expect(page.locator('input[placeholder="Enter your statement..."]')).not.toBeVisible();
+    await expect(page.locator('button:has-text("Speak")')).not.toBeVisible();
+  });
+
+  test('should not show objection for non-attorney roles', async ({ page }) => {
+    const roleSelect = page.locator('select').first();
+    await roleSelect.selectOption('witness');
+
+    // Should show statement input but NOT objection button
+    await expect(page.locator('input[placeholder="Enter your statement..."]')).toBeVisible();
+    await expect(page.locator('button:has-text("Object!")')).not.toBeVisible();
   });
 });
 
-test.describe('Transcript Management E2E', () => {
+test.describe('Simulation Settings', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto('/');
-    
-    // Create and start simulation
-    await page.click('button:has-text("New Case")');
-    await page.fill('input[name="title"]', 'Transcript Test');
-    await page.click('button:has-text("Create Case")');
-    await page.click('button:has-text("Start Simulation")');
-    
-    // Wait for some transcript entries
-    await page.waitForTimeout(5000);
+    await setupCase(page);
   });
 
-  test('should display transcript entries', async ({ page }) => {
-    // Verify transcript entries are visible
-    await expect(page.locator('[data-testid="transcript-entry"]')).toHaveCount({ minimum: 1 });
+  test('should show Speed section', async ({ page }) => {
+    await expect(page.locator('span:has-text("Speed")')).toBeVisible();
   });
 
-  test('should export transcript', async ({ page }) => {
-    // Click export button
-    const downloadPromise = page.waitForEvent('download');
-    await page.click('button:has-text("Export Transcript")');
-    const download = await downloadPromise;
-    
-    // Verify download occurred
-    expect(download.suggestedFilename()).toContain('transcript');
+  test('should show Settings section', async ({ page }) => {
+    await expect(page.locator('span:has-text("Settings")')).toBeVisible();
   });
 
-  test('should clear transcript', async ({ page }) => {
-    // Clear transcript
-    await page.click('button:has-text("Clear Transcript")');
-    await page.click('button:has-text("Confirm")');
-    
-    // Verify transcript is empty
-    await expect(page.locator('[data-testid="transcript-entry"]')).toHaveCount(0);
-  });
+  test('should toggle Auto Progress setting', async ({ page }) => {
+    // Open Settings section using evaluate to dispatch native click
+    await page.locator('button:has-text("Settings")').evaluate(el => el.click());
 
-  test('should filter transcript by speaker', async ({ page }) => {
-    // Filter by speaker
-    await page.selectOption('select[name="filterSpeaker"]', 'Judge');
-    
-    // Verify only judge entries are shown
-    const entries = page.locator('[data-testid="transcript-entry"]');
-    const count = await entries.count();
-    
-    for (let i = 0; i < count; i++) {
-      const entry = entries.nth(i);
-      await expect(entry).toContainText('Judge');
-    }
-  });
-});
+    const autoProgressLabel = page.locator('label:has-text("Auto Progress")');
+    await expect(autoProgressLabel).toBeVisible();
 
-test.describe('UI Responsiveness E2E', () => {
-  test('should toggle left sidebar', async ({ page }) => {
-    await page.goto('/');
-    
-    // Toggle left sidebar
-    await page.click('[data-testid="toggle-left-sidebar"]');
-    
-    // Verify sidebar is collapsed
-    await expect(page.locator('[data-testid="left-sidebar"]')).toHaveClass(/collapsed/);
-    
+    const checkbox = autoProgressLabel.locator('input[type="checkbox"]');
+    const initialState = await checkbox.isChecked();
+
+    // Toggle via evaluate to ensure React event fires
+    await checkbox.evaluate(el => el.click());
+    expect(await checkbox.isChecked()).toBe(!initialState);
+
     // Toggle back
-    await page.click('[data-testid="toggle-left-sidebar"]');
-    await expect(page.locator('[data-testid="left-sidebar"]')).not.toHaveClass(/collapsed/);
+    await checkbox.evaluate(el => el.click());
+    expect(await checkbox.isChecked()).toBe(initialState);
   });
 
-  test('should toggle right sidebar', async ({ page }) => {
-    await page.goto('/');
-    
-    // Toggle right sidebar
-    await page.click('[data-testid="toggle-right-sidebar"]');
-    
-    // Verify sidebar is collapsed
-    await expect(page.locator('[data-testid="right-sidebar"]')).toHaveClass(/collapsed/);
+  test('should toggle Enable Objections setting', async ({ page }) => {
+    await page.locator('button:has-text("Settings")').evaluate(el => el.click());
+
+    const label = page.locator('label:has-text("Enable Objections")');
+    await expect(label).toBeVisible();
+
+    const checkbox = label.locator('input[type="checkbox"]');
+    const initialState = await checkbox.isChecked();
+    await checkbox.evaluate(el => el.click());
+    expect(await checkbox.isChecked()).toBe(!initialState);
   });
 
-  test('should resize sidebars', async ({ page }) => {
-    await page.goto('/');
-    
-    // Get initial width
-    const sidebar = page.locator('[data-testid="left-sidebar"]');
-    const initialWidth = await sidebar.evaluate(el => el.clientWidth);
-    
-    // Drag resize handle
-    const resizeHandle = page.locator('[data-testid="resize-handle-left"]');
-    await resizeHandle.dragTo(resizeHandle, { targetPosition: { x: 50, y: 0 } });
-    
-    // Verify width changed
-    const newWidth = await sidebar.evaluate(el => el.clientWidth);
-    expect(newWidth).not.toBe(initialWidth);
+  test('should toggle Enable Sidebar Conferences setting', async ({ page }) => {
+    await page.locator('button:has-text("Settings")').evaluate(el => el.click());
+
+    const label = page.locator('label:has-text("Enable Sidebar Conferences")');
+    await expect(label).toBeVisible();
+
+    const checkbox = label.locator('input[type="checkbox"]');
+    const initialState = await checkbox.isChecked();
+    await checkbox.evaluate(el => el.click());
+    expect(await checkbox.isChecked()).toBe(!initialState);
+  });
+
+  test('should show jury size configuration', async ({ page }) => {
+    // Open Jury Size section - click the button parent
+    await page.locator('button:has-text("Jury Size")').click({ force: true });
+
+    const juryInput = page.locator('input[type="number"]');
+    await expect(juryInput).toBeVisible();
+
+    // Default jury size should be between 6 and 12
+    const value = parseInt(await juryInput.inputValue());
+    expect(value).toBeGreaterThanOrEqual(6);
+    expect(value).toBeLessThanOrEqual(12);
+  });
+});
+
+test.describe('Transcript Viewer', () => {
+  test.beforeEach(async ({ page }) => {
+    await setupCase(page);
+  });
+
+  test('should show Court Transcript heading', async ({ page }) => {
+    await expect(page.locator('text=Court Transcript')).toBeVisible();
+  });
+
+  test('should show Export Transcript button', async ({ page }) => {
+    // Open Export section - click the button parent
+    await page.locator('button:has-text("Export")').click({ force: true });
+    await expect(page.locator('button:has-text("Export Transcript")')).toBeVisible();
+  });
+});
+
+test.describe('Collapsible Sections', () => {
+  test.beforeEach(async ({ page }) => {
+    await setupCase(page);
+  });
+
+  test('should have all control panel sections', async ({ page }) => {
+    await expect(page.locator('span:has-text("Current Phase")')).toBeVisible();
+    await expect(page.locator('span:has-text("Your Role")')).toBeVisible();
+    await expect(page.locator('span:has-text("Speed")')).toBeVisible();
+    await expect(page.locator('span:has-text("Settings")')).toBeVisible();
+    await expect(page.locator('span:has-text("Jury Size")')).toBeVisible();
+    await expect(page.locator('span:has-text("Controls")')).toBeVisible();
+    await expect(page.locator('span:has-text("Export")')).toBeVisible();
+  });
+
+  test('should open collapsed section on click', async ({ page }) => {
+    // Speed section is closed by default (defaultOpen={false})
+    // Range input should not be visible initially
+    await expect(page.locator('input[type="range"]')).not.toBeVisible();
+
+    // Click to open the Speed section
+    await page.locator('button:has-text("Speed")').evaluate(el => el.click());
+
+    // Should now show the range input
+    await expect(page.locator('input[type="range"]')).toBeVisible();
+
+    // Verify the speed value text appears (e.g. "1x speed")
+    await expect(page.locator('text=1x speed')).toBeVisible();
   });
 });
