@@ -336,6 +336,33 @@ function buildMaterials() {
       transparent: true,
       opacity: 0.12,
     }),
+
+    // Character materials
+    characterBody: new THREE.MeshStandardMaterial({
+      color: 0x2c3e50,
+      roughness: 0.6,
+    }),
+    characterHead: new THREE.MeshStandardMaterial({
+      color: 0xf0d0b0,
+      roughness: 0.4,
+    }),
+    characterJudgeRobe: new THREE.MeshStandardMaterial({
+      color: 0x1a1a2e,
+      roughness: 0.7,
+    }),
+    thinkingBubble: new THREE.MeshBasicMaterial({
+      color: 0x87ceeb,
+      transparent: true,
+      opacity: 0.3,
+    }),
+
+    // Phase overlay
+    phaseOverlayBg: new THREE.MeshBasicMaterial({
+      color: 0x000000,
+      transparent: true,
+      opacity: 0.6,
+      side: THREE.DoubleSide,
+    }),
   } as const;
 }
 
@@ -371,6 +398,13 @@ function buildGeometries() {
 
     // Small detail box (gavel rest, etc.)
     smallDetail: new THREE.BoxGeometry(0.3, 0.1, 0.3),
+
+    // Character body parts
+    characterBody: new THREE.BoxGeometry(0.5, 1.2, 0.35),
+    characterHead: new THREE.SphereGeometry(0.22, 12, 10),
+    characterShoulders: new THREE.BoxGeometry(0.6, 0.15, 0.35),
+    thinkingBubble: new THREE.SphereGeometry(0.35, 8, 6),
+    thinkingDot: new THREE.SphereGeometry(0.08, 6, 4),
   } as const;
 }
 

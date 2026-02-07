@@ -209,12 +209,14 @@ Format: ACTION|CONFIDENCE|REASONING`,
   }
 
   async generateStatement(context: string, targetRole?: ParticipantRole): Promise<string> {
-    // Always use fallback statements for now - LLM dependency removed
     const fallbackStatement = this.generateDefaultStatement(context);
-    
-    // Try LLM with very short timeout, but don't block on it
+
     if (this.llmProvider) {
       try {
+        // Build emotional context that influences the prompt
+        const emotionalGuidance = this.getEmotionalGuidance();
+        const recentMemory = this.memory.shortTerm.slice(-3).join('; ');
+
         const messages: LLMMessage[] = [
           {
             role: 'system',
@@ -224,29 +226,79 @@ Format: ACTION|CONFIDENCE|REASONING`,
             role: 'user',
             content: `Context: ${context}
 ${targetRole ? `Speaking to: ${targetRole}` : ''}
-Your current emotional state: ${Array.from(this.emotionalState.entries()).map(([k, v]) => `${k}: ${v}`).join(', ')}
+Your current emotional state: ${this.getEmotionalStateSummary()}
+${emotionalGuidance}
+${recentMemory ? `Recent context: ${recentMemory}` : ''}
 
 Generate an appropriate statement for the current courtroom context. Be concise and professional.`,
           },
         ];
 
-        // Generous timeout with retry logic for Ollama
         const response = await this.withRetry(
           () => this.llmProvider.generateResponse(messages),
-          3, // 3 retry attempts
-          25000, // 25 second timeout per attempt
+          3,
+          25000,
           `${this.participant.name}`
         );
         this.updateMemory(response.content);
+        this.accumulateCrossPhaseMemory(context, response.content);
         return response.content;
       } catch (error) {
-        // LLM failed - use fallback and log the error
-        console.log(`🤖 LLM failed for ${this.participant.name}, using fallback:`, error.message);
+        console.log(`LLM failed for ${this.participant.name}, using fallback:`, error.message);
         return fallbackStatement;
       }
     }
 
     return fallbackStatement;
+  }
+
+  /**
+   * Generate emotional guidance that shapes the LLM prompt
+   * based on the agent's current emotional state.
+   */
+  private getEmotionalGuidance(): string {
+    const stress = this.emotionalState.get('stress') || 0;
+    const confidence = this.emotionalState.get('confidence') || 0.5;
+    const frustration = this.emotionalState.get('frustration') || 0;
+
+    const guidance: string[] = [];
+
+    if (stress > 0.7) {
+      guidance.push('You are under significant stress; your responses may be more terse or defensive.');
+    } else if (stress < 0.2) {
+      guidance.push('You feel calm and composed.');
+    }
+
+    if (confidence > 0.8) {
+      guidance.push('You feel very confident in your position; be more assertive.');
+    } else if (confidence < 0.3) {
+      guidance.push('You are uncertain; hedge your statements and be more cautious.');
+    }
+
+    if (frustration > 0.6) {
+      guidance.push('You are frustrated with how proceedings are going; your tone may be more impatient.');
+    }
+
+    return guidance.length > 0 ? `Emotional guidance: ${guidance.join(' ')}` : '';
+  }
+
+  /**
+   * Track important developments across trial phases so agents
+   * can reference earlier events in later statements.
+   */
+  private accumulateCrossPhaseMemory(context: string, response: string): void {
+    const isSignificant =
+      context.toLowerCase().includes('opening') ||
+      context.toLowerCase().includes('closing') ||
+      context.toLowerCase().includes('verdict') ||
+      context.toLowerCase().includes('ruling') ||
+      context.toLowerCase().includes('objection');
+
+    if (isSignificant && this.memory.longTerm.length < 50) {
+      this.memory.longTerm.push(
+        `[${new Date().toISOString().split('T')[0]}] ${response.substring(0, 200)}`
+      );
+    }
   }
 
   // Timeout wrapper utility
@@ -306,7 +358,12 @@ Generate an appropriate statement for the current courtroom context. Be concise 
 
   async evaluateObjection(statement: string, objectionType: ObjectionType): Promise<boolean> {
     if (!this.llmProvider) {
-      return Math.random() > 0.5;
+      // Use confidence and assertiveness to determine objection probability
+      // instead of pure randomness
+      const confidence = this.emotionalState.get('confidence') || 0.5;
+      const assertiveness = this.participant.personality.assertiveness / 10;
+      const threshold = 0.3 + (1 - confidence) * 0.2 + (1 - assertiveness) * 0.2;
+      return Math.random() > threshold;
     }
 
     const messages: LLMMessage[] = [

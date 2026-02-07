@@ -280,26 +280,30 @@ export const useCourtroomStore = create<CourtroomState>()(
         console.log('✅ Setting simulation running to true');
         set({ isSimulationRunning: true });
         
+        // Poll engine for updates – only set state when values actually change
+        // to avoid unnecessary re-renders across the component tree.
         const updateLoop = setInterval(() => {
           const currentEngine = get().proceedingsEngine;
-          if (currentEngine) {
-            const newEvents = currentEngine.getEventQueue();
-            if (newEvents.length > 0) {
-              console.log(`📝 Processing ${newEvents.length} new events`);
-              set((state) => ({ events: [...state.events, ...newEvents] }));
-              currentEngine.clearEventQueue();
-            }
-            
-            const speaker = currentEngine.getCurrentSpeaker();
-            set({ activeSpeaker: speaker });
-            
-            if (!currentEngine.isActive()) {
-              console.log('🏁 Simulation completed');
-              clearInterval(updateLoop);
-              set({ isSimulationRunning: false });
-            }
+          if (!currentEngine) return;
+
+          // Batch event queue (only update if new events exist)
+          const newEvents = currentEngine.getEventQueue();
+          if (newEvents.length > 0) {
+            set((state) => ({ events: [...state.events, ...newEvents] }));
+            currentEngine.clearEventQueue();
           }
-        }, 100);
+
+          // Only update activeSpeaker if it actually changed
+          const speaker = currentEngine.getCurrentSpeaker();
+          if (speaker !== get().activeSpeaker) {
+            set({ activeSpeaker: speaker });
+          }
+
+          if (!currentEngine.isActive()) {
+            clearInterval(updateLoop);
+            set({ isSimulationRunning: false, activeSpeaker: null });
+          }
+        }, 150);
         
         try {
           console.log('🎬 Calling engine.start()...');
