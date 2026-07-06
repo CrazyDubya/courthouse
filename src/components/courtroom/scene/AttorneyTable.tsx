@@ -1,7 +1,7 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import { useFrame } from '@react-three/fiber';
 import { Box, Sphere, Text } from '@react-three/drei';
-import * as THREE from 'three';
+import { useCourtroomMaterials, useFreshCourtroomMaterial } from '../materials';
 
 // Enhanced attorney tables with nameplates and details
 export const EnhancedAttorneyTable: React.FC<{
@@ -10,20 +10,21 @@ export const EnhancedAttorneyTable: React.FC<{
   isActive?: boolean;
   isThinking?: boolean;
 }> = ({ position, label, isActive, isThinking }) => {
-  const tableRef = useRef<THREE.Mesh>(null);
+  const materials = useCourtroomMaterials();
+  // Fresh (non-shared) clone: the tabletop's `.emissive` is mutated every
+  // frame below. A shared instance would make every mesh using the
+  // `woodMahogany` preset (benches, plant pots, window frames...) glow too.
+  const topMaterial = useFreshCourtroomMaterial('woodMahogany');
 
   // Animate glow effect for thinking/active state
   useFrame(({ clock }) => {
-    const material = tableRef.current?.material as THREE.MeshStandardMaterial | undefined;
-    if (material?.emissive) {
-      if (isThinking) {
-        const intensity = 0.5 + Math.sin(clock.elapsedTime * 2.5) * 0.3;
-        material.emissive.setRGB(intensity * 0.3, intensity * 0.3, 0);
-      } else if (isActive) {
-        material.emissive.setRGB(0, 0.3, 0.5);
-      } else {
-        material.emissive.setRGB(0, 0, 0);
-      }
+    if (isThinking) {
+      const intensity = 0.5 + Math.sin(clock.elapsedTime * 2.5) * 0.3;
+      topMaterial.emissive.setRGB(intensity * 0.3, intensity * 0.3, 0);
+    } else if (isActive) {
+      topMaterial.emissive.setRGB(0, 0.3, 0.5);
+    } else {
+      topMaterial.emissive.setRGB(0, 0, 0);
     }
   });
 
@@ -31,45 +32,39 @@ export const EnhancedAttorneyTable: React.FC<{
     <group position={position}>
       {/* Main table */}
       <Box args={[3.5, 0.15, 2]} position={[0, 0.75, 0]} castShadow receiveShadow>
-        <meshStandardMaterial
-          ref={tableRef}
-          color="#8B4513"
-          roughness={0.2}
-          metalness={0.1}
-          emissive="#000000"
-        />
+        <primitive object={topMaterial} attach="material" />
       </Box>
 
       {/* Table legs */}
       {([[-1.6, 0.375, -0.9], [1.6, 0.375, -0.9], [-1.6, 0.375, 0.9], [1.6, 0.375, 0.9]] as [number, number, number][]).map((legPos, i) => (
         <Box key={i} args={[0.1, 0.75, 0.1]} position={legPos} castShadow receiveShadow>
-          <meshStandardMaterial color="#654321" roughness={0.4} metalness={0.1} />
+          <primitive object={materials.woodWalnutDark} attach="material" />
         </Box>
       ))}
 
       {/* Nameplate */}
       <Box args={[2, 0.2, 0.1]} position={[0, 0.9, -0.9]} castShadow>
-        <meshStandardMaterial color="#B8860B" roughness={0.1} metalness={0.8} />
+        <primitive object={materials.brassBrushed} attach="material" />
       </Box>
 
       {/* Papers and documents */}
       <Box args={[1.5, 0.02, 1]} position={[-0.5, 0.82, 0.2]} castShadow>
-        <meshStandardMaterial color="#FFFFFF" roughness={0.8} />
+        <primitive object={materials.paperWhite} attach="material" />
       </Box>
 
       {/* Laptop/briefcase */}
       <Box args={[0.8, 0.05, 0.6]} position={[0.8, 0.82, -0.2]} castShadow>
-        <meshStandardMaterial color="#2C2C2C" roughness={0.3} metalness={0.7} />
+        <primitive object={materials.metalDarkBrushed} attach="material" />
       </Box>
 
       {/* Water glass */}
       <Sphere args={[0.08]} position={[1.2, 0.9, 0.5]} castShadow>
-        <meshStandardMaterial color="#E6F3FF" transparent opacity={0.7} roughness={0.1} />
+        <primitive object={materials.glassWaterClear} attach="material" />
       </Sphere>
 
       {/* Chair */}
       <Box args={[0.8, 1.2, 0.8]} position={[0, 0.6, 1.5]} castShadow receiveShadow>
-        <meshStandardMaterial color="#654321" roughness={0.4} metalness={0.1} />
+        <primitive object={materials.fabricChair} attach="material" />
       </Box>
 
       {/* Active speaker glow */}

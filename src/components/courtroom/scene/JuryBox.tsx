@@ -1,11 +1,13 @@
 import React from 'react';
 import { Box, Text } from '@react-three/drei';
+import { useCourtroomMaterials } from '../materials';
 
 // Enhanced jury box with individual seats
 export const EnhancedJuryBox: React.FC<{
   jurySize: number;
   activeJurors?: string[];
 }> = ({ jurySize, activeJurors = [] }) => {
+  const materials = useCourtroomMaterials();
   const positions: [number, number, number][] = [];
   const rows = Math.ceil(jurySize / 6);
 
@@ -24,29 +26,29 @@ export const EnhancedJuryBox: React.FC<{
     <group>
       {/* Jury box platform */}
       <Box args={[8, 0.3, 4]} position={[8.5, 0.15, -4]} castShadow receiveShadow>
-        <meshStandardMaterial color="#8B4513" roughness={0.3} metalness={0.1} />
+        <primitive object={materials.woodMahogany} attach="material" />
       </Box>
 
       {/* Jury box railings */}
       <Box args={[8, 1.5, 0.2]} position={[8.5, 1, -6]} castShadow receiveShadow>
-        <meshStandardMaterial color="#654321" roughness={0.4} metalness={0.1} />
+        <primitive object={materials.woodWalnutDark} attach="material" />
       </Box>
 
       <Box args={[0.2, 1.5, 4]} position={[4.5, 1, -4]} castShadow receiveShadow>
-        <meshStandardMaterial color="#654321" roughness={0.4} metalness={0.1} />
+        <primitive object={materials.woodWalnutDark} attach="material" />
       </Box>
 
       {/* Individual jury seats */}
       {positions.map((position, index) => (
         <group key={index} position={position}>
-          {/* Seat */}
+          {/* Seat (upholstered cushion) */}
           <Box args={[0.8, 0.1, 0.8]} position={[0, 0.3, 0]} castShadow receiveShadow>
-            <meshStandardMaterial color="#654321" roughness={0.4} metalness={0.1} />
+            <primitive object={materials.fabricChair} attach="material" />
           </Box>
 
-          {/* Backrest */}
+          {/* Backrest (upholstered) */}
           <Box args={[0.8, 1, 0.1]} position={[0, 0.8, -0.35]} castShadow receiveShadow>
-            <meshStandardMaterial color="#654321" roughness={0.4} metalness={0.1} />
+            <primitive object={materials.fabricChair} attach="material" />
           </Box>
 
           {/* Seat number */}
