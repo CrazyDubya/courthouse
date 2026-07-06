@@ -14,6 +14,7 @@ import {
   CourtReporterStation,
   BailiffStation,
 } from './courtroom/scene';
+import { CourtroomCharacters } from './courtroom/characters';
 
 interface Props {
   participants: Participant[];
@@ -67,6 +68,17 @@ export const ImprovedCourtroom3D: React.FC<Props> = ({ participants, activeSpeak
 
         {/* Gallery seating */}
         <GallerySeating />
+
+        {/* Procedural human figures: one per participant, seated/standing at
+            the furniture above. Principals render individually; jurors and
+            gallery observers are combined into a handful of instanced draw
+            calls. Renders nothing when `participants` is empty. */}
+        <CourtroomCharacters
+          participants={participants}
+          activeRole={activeRole}
+          thinkingRoles={thinkingRoles}
+          activeSpeakerId={activeSpeaker}
+        />
 
         {/* Camera controls */}
         <OrbitControls
