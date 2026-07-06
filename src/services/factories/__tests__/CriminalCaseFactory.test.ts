@@ -73,7 +73,7 @@ describe('CriminalCaseFactory', () => {
       const criminalCase = CriminalCaseFactory.generateNYSCriminalCase();
       
       const custodyStatus = criminalCase.criminal?.defendantCustodyStatus;
-      expect(custodyStatus).toMatch(/^(released-bail|remanded)$/);
+      expect(custodyStatus).toMatch(/^(released-bail|in-custody)$/);
     });
 
     it('should set appropriate bail amount', () => {
