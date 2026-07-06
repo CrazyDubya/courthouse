@@ -14,10 +14,18 @@ export type CrimeCategory =
   | 'infraction'  // Minor violations, fines only
   | 'violation';  // Regulatory offenses
 
-export type CrimeType = 
+export type CrimeType =
   // Violent crimes
   | 'murder-first-degree'
-  | 'murder-second-degree' 
+  | 'murder-second-degree'
+  // Short-form aliases used by the NYS charge dataset (src/data/NYSCriminalCharges.ts)
+  | 'murder-first'
+  | 'murder-second'
+  | 'manslaughter-first'
+  | 'robbery-first'
+  | 'robbery-second'
+  | 'robbery-third'
+  | 'drug-possession-a1'
   | 'manslaughter'
   | 'assault-aggravated'
   | 'assault-simple'
@@ -208,6 +216,7 @@ export interface CriminalCase {
 
 export interface CivilCase {
   baseType: 'civil';
+  causeOfAction?: string; // Primary legal theory / cause of action
   claims: CivilClaim[];
   burdenOfProof: 'preponderance-of-evidence' | 'clear-and-convincing';
 
@@ -266,6 +275,9 @@ export interface EnhancedCase {
   
   // Case outcome tracking
   outcome?: CaseOutcome;
+
+  // Originating scenario used to generate the case (CaseScenario)
+  scenario?: any;
 }
 
 // Case outcome types

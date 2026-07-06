@@ -23,9 +23,9 @@ export interface WitnessCredibility {
   motivations: string[];
 }
 
-export interface DetailedWitness extends Participant {
+export interface DetailedWitness extends Omit<Participant, 'knowledge'> {
   witnessType: 'eyewitness' | 'character' | 'expert' | 'victim' | 'police' | 'forensic' | 'family' | 'accomplice';
-  knowledge: WitnessKnowledge;
+  knowledge: WitnessKnowledge; // Witnesses carry structured knowledge rather than the base string[]
   credibility: WitnessCredibility;
   relationshipToParties: Record<string, string>; // party_id -> relationship
   availabilityForTrial: boolean;
@@ -481,6 +481,7 @@ export class WitnessFactory {
         },
         currentMood: 0.8, // Professional confidence
         knowledge: {
+          hearsayKnowledge: [],
           directObservations: [
             'Performed autopsy on victim within 24 hours of death',
             'Documented 3 stab wounds: 2 to chest, 1 to abdomen',
@@ -645,6 +646,7 @@ export class WitnessFactory {
         },
         currentMood: 0.8,
         knowledge: {
+          hearsayKnowledge: [],
           expertKnowledge: [
             'Analyzed DNA from blood on murder weapon',
             'Victim\'s DNA profile matches with probability 1 in 7.8 billion',

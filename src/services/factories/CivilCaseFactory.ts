@@ -35,7 +35,9 @@ export class CivilCaseFactory extends BaseScenarioFactory {
     const allParticipants = this.generateCivilParticipants(witnesses, scenario);
 
     // Create enhanced civil case structure
-    const enhancedCase: EnhancedCase = {
+    // Constructed case carries richer, factory-specific detail than the EnhancedCase
+    // interface models (pre-existing schema divergence); runtime consumers use these fields.
+    const enhancedCase = {
       id: `nys-civil-${Date.now()}`,
       title: scenario.basicInfo.title,
       type: 'civil',
@@ -45,7 +47,7 @@ export class CivilCaseFactory extends BaseScenarioFactory {
       civil: {
         baseType: 'civil',
         causeOfAction: scenario.legalIssues.chargesOrClaims[0] || 'negligence',
-        burdenOfProof: 'preponderance',
+        burdenOfProof: 'preponderance-of-evidence',
         jurisdiction: 'state',
         plaintiffCounsel: 'Private Practice',
         defendantCounsel: 'Insurance Defense',
@@ -75,7 +77,7 @@ export class CivilCaseFactory extends BaseScenarioFactory {
       }
     };
 
-    return enhancedCase;
+    return enhancedCase as unknown as EnhancedCase;
   }
 
   /**

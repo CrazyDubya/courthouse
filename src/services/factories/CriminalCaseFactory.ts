@@ -37,7 +37,9 @@ export class CriminalCaseFactory extends BaseScenarioFactory {
     const allParticipants = this.generateAllParticipants(witnesses, scenario);
 
     // Create enhanced case structure
-    const enhancedCase: EnhancedCase = {
+    // Constructed case carries richer, factory-specific detail than the EnhancedCase
+    // interface models (pre-existing schema divergence); runtime consumers use these fields.
+    const enhancedCase = {
       id: `nys-criminal-${Date.now()}`,
       title: scenario.basicInfo.title,
       type: 'criminal',
@@ -51,7 +53,7 @@ export class CriminalCaseFactory extends BaseScenarioFactory {
         jurisdiction: 'state',
         districtAttorney: 'Manhattan District Attorney\'s Office',
         investigatingAgency: ['NYPD', 'Detective Bureau'],
-        defendantCustodyStatus: Math.random() > 0.3 ? 'released-bail' : 'remanded',
+        defendantCustodyStatus: Math.random() > 0.3 ? 'released-bail' : 'in-custody',
         bailAmount: Math.floor(Math.random() * 100000) + 10000,
         priorConvictions: scenario.narrative.criminalHistory || [],
         grandJuryIndictment: charges.some(c => c.classification.includes('Felony')),
@@ -72,7 +74,7 @@ export class CriminalCaseFactory extends BaseScenarioFactory {
       testimonySequences: this.generateAllTestimonySequences(witnesses, evidenceList)
     };
 
-    return enhancedCase;
+    return enhancedCase as unknown as EnhancedCase;
   }
 
   /**
@@ -365,8 +367,10 @@ export class CriminalCaseFactory extends BaseScenarioFactory {
   protected static generateAllParticipants(witnesses: DetailedWitness[], scenario: CaseScenario): Participant[] {
     const participants: Participant[] = [];
 
-    // Add witnesses as participants
-    participants.push(...witnesses);
+    // Add witnesses as participants. Witnesses carry a richer `knowledge` shape
+    // (WitnessKnowledge) than the base Participant; downstream consumers detect and
+    // use that via structural type guards, so we preserve the objects as-is.
+    participants.push(...(witnesses as unknown as Participant[]));
 
     // Add attorneys
     participants.push(this.generateProsecutor(scenario));

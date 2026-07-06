@@ -1,6 +1,6 @@
 import { CriminalCharge, CrimeType, CrimeCategory } from '../types/caseTypes';
 
-export const criminalCharges: Record<CrimeType, CriminalCharge> = {
+export const criminalCharges: Partial<Record<CrimeType, CriminalCharge>> = {
   // Theft-related charges
   'theft-grand': {
     id: 'theft-grand-001',

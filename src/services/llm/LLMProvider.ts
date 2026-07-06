@@ -10,6 +10,8 @@ export interface LLMMessage {
 
 export interface LLMResponse {
   content: string;
+  provider?: string; // Populated when routed through the backend LLM service
+  model?: string;
   usage?: {
     promptTokens: number;
     completionTokens: number;

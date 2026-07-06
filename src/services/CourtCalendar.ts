@@ -106,7 +106,7 @@ export interface Deadline {
   
   // Notifications
   advance_notice_days: number[];
-  reminders_sent: Date[];
+  reminders_sent?: Date[];
   final_warning_sent?: Date;
 }
 

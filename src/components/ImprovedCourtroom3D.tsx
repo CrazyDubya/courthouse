@@ -134,18 +134,15 @@ const EnhancedJudgeBench: React.FC<{ isActive?: boolean; isThinking?: boolean }>
   
   // Animate glow effect for thinking state
   useFrame(({ clock }) => {
-    if (meshRef.current && meshRef.current.material && isThinking) {
-      const intensity = 0.5 + Math.sin(clock.elapsedTime * 3) * 0.3;
-      if (meshRef.current.material.emissive) {
-        meshRef.current.material.emissive.setRGB(intensity * 0.2, intensity * 0.2, 0);
-      }
-    } else if (meshRef.current && meshRef.current.material && isActive) {
-      if (meshRef.current.material.emissive) {
-        meshRef.current.material.emissive.setRGB(0, 0.2, 0.3);
-      }
-    } else if (meshRef.current && meshRef.current.material) {
-      if (meshRef.current.material.emissive) {
-        meshRef.current.material.emissive.setRGB(0, 0, 0);
+    const material = meshRef.current?.material as THREE.MeshStandardMaterial | undefined;
+    if (material?.emissive) {
+      if (isThinking) {
+        const intensity = 0.5 + Math.sin(clock.elapsedTime * 3) * 0.3;
+        material.emissive.setRGB(intensity * 0.2, intensity * 0.2, 0);
+      } else if (isActive) {
+        material.emissive.setRGB(0, 0.2, 0.3);
+      } else {
+        material.emissive.setRGB(0, 0, 0);
       }
     }
   });
@@ -249,18 +246,15 @@ const EnhancedAttorneyTable: React.FC<{
   
   // Animate glow effect for thinking/active state
   useFrame(({ clock }) => {
-    if (tableRef.current && tableRef.current.material && isThinking) {
-      const intensity = 0.5 + Math.sin(clock.elapsedTime * 2.5) * 0.3;
-      if (tableRef.current.material.emissive) {
-        tableRef.current.material.emissive.setRGB(intensity * 0.3, intensity * 0.3, 0);
-      }
-    } else if (tableRef.current && tableRef.current.material && isActive) {
-      if (tableRef.current.material.emissive) {
-        tableRef.current.material.emissive.setRGB(0, 0.3, 0.5);
-      }
-    } else if (tableRef.current && tableRef.current.material) {
-      if (tableRef.current.material.emissive) {
-        tableRef.current.material.emissive.setRGB(0, 0, 0);
+    const material = tableRef.current?.material as THREE.MeshStandardMaterial | undefined;
+    if (material?.emissive) {
+      if (isThinking) {
+        const intensity = 0.5 + Math.sin(clock.elapsedTime * 2.5) * 0.3;
+        material.emissive.setRGB(intensity * 0.3, intensity * 0.3, 0);
+      } else if (isActive) {
+        material.emissive.setRGB(0, 0.3, 0.5);
+      } else {
+        material.emissive.setRGB(0, 0, 0);
       }
     }
   });
@@ -279,7 +273,7 @@ const EnhancedAttorneyTable: React.FC<{
       </Box>
       
       {/* Table legs */}
-      {[[-1.6, 0.375, -0.9], [1.6, 0.375, -0.9], [-1.6, 0.375, 0.9], [1.6, 0.375, 0.9]].map((legPos, i) => (
+      {([[-1.6, 0.375, -0.9], [1.6, 0.375, -0.9], [-1.6, 0.375, 0.9], [1.6, 0.375, 0.9]] as [number, number, number][]).map((legPos, i) => (
         <Box key={i} args={[0.1, 0.75, 0.1]} position={legPos} castShadow receiveShadow>
           <meshStandardMaterial color="#654321" roughness={0.4} metalness={0.1} />
         </Box>

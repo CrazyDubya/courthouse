@@ -8,6 +8,8 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
+      // The default `ollama` entry imports node:fs; use the browser-safe build for bundling.
+      ollama: 'ollama/browser',
     },
   },
   server: {
@@ -26,6 +28,7 @@ export default defineConfig({
       '**/node_modules/**',
       '**/dist/**',
       '**/e2e/**', // Exclude Playwright E2E tests
+      '**/backend/**', // Backend has its own vitest config (node env + own deps)
       '**/.{idea,git,cache,output,temp}/**',
     ],
     coverage: {

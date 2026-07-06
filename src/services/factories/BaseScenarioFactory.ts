@@ -50,7 +50,7 @@ export abstract class BaseScenarioFactory {
       personality: witness.personality,
       background: witness.background,
       currentMood: witness.currentMood,
-      knowledge: witness.knowledge,
+      knowledge: witness.knowledge.directObservations,
       objectives: witness.objectives,
       currentLocation: 'courtroom'
     };
@@ -71,7 +71,7 @@ export abstract class BaseScenarioFactory {
       jurors.push({
         id: `juror-${i + 1}`,
         name: jurorNames[i],
-        role: 'juror',
+        role: 'jury-member',
         aiControlled: true,
         llmProvider: {
           provider: 'ollama',

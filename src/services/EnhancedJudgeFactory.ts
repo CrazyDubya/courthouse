@@ -137,7 +137,11 @@ export class EnhancedJudgeFactory {
     const baseQuirks = { ...template.commonQuirks };
     
     // Add some random variation
-    const allQuirks: (keyof JudgeQuirks)[] = [
+    // Only the boolean-valued quirk keys (numeric bias keys are handled separately below)
+    type BooleanQuirkKey = {
+      [K in keyof JudgeQuirks]: JudgeQuirks[K] extends boolean ? K : never
+    }[keyof JudgeQuirks];
+    const allQuirks: BooleanQuirkKey[] = [
       'strictOnTime', 'allowsFood', 'informalAddress', 'longRecesses',
       'harshOnFirstOffenders', 'softOnSeniors', 'strictOnAttorneys', 'allowsObjections',
       'asksManyQuestions', 'givesLongExplanations', 'usesHumor', 'quotesLaw'

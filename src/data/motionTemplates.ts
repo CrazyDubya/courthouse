@@ -1,4 +1,5 @@
-import { MotionTemplate, MotionType, CaseType, LegalStandard } from '../types/motions';
+import { MotionTemplate, MotionType, LegalStandard } from '../types/motions';
+import { CaseType } from '../types';
 
 export const MOTION_TEMPLATES: MotionTemplate[] = [
   // CRIMINAL MOTIONS

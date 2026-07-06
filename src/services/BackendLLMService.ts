@@ -1,5 +1,6 @@
 import { getWebSocketClient, LLMRequest, LLMResponse } from './WebSocketClient';
-import { LLMProvider, LLMMessage, LLMResponse as BaseLLMResponse } from '../types';
+import { LLMProvider } from '../types';
+import { LLMMessage, LLMResponse as BaseLLMResponse } from './llm/LLMProvider';
 import { v4 as uuidv4 } from 'uuid';
 
 export interface BackendLLMConfig {

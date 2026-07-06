@@ -37,7 +37,7 @@ export type Location =
   | 'jury-room'
   | 'courthouse-lobby';
 
-export type EvidenceType = 'document' | 'image' | 'video' | 'audio' | 'physical' | 'testimony';
+export type EvidenceType = 'document' | 'image' | 'video' | 'audio' | 'physical' | 'testimony' | 'photograph';
 
 export type ObjectionType = 
   | 'relevance'
@@ -70,15 +70,15 @@ export interface Participant {
   name: string;
   role: ParticipantRole;
   aiControlled: boolean;
-  llmProvider?: LLMProvider;
+  llmProvider?: LLMConfig;
   personality: PersonalityTraits;
   background: Background;
   currentMood: number;
   knowledge: string[];
   objectives: string[];
   enhancedProfile?: any; // Enhanced judge profile when role is 'judge'
-  currentLocation: Location;
-  isPresent: boolean; // Present in courtroom
+  currentLocation?: Location;
+  isPresent?: boolean; // Present in courtroom
 }
 
 export interface PersonalityTraits {
@@ -89,6 +89,7 @@ export interface PersonalityTraits {
   openness: number;
   conscientiousness: number;
   persuasiveness: number;
+  strictness?: number; // Optional judge-oriented trait used when inferring judicial personality
 }
 
 export interface Background {
@@ -174,7 +175,7 @@ export interface Ruling {
   id: string;
   timestamp: Date;
   judge: string;
-  type: 'objection' | 'motion' | 'admissibility' | 'procedural';
+  type: 'objection' | 'motion' | 'admissibility' | 'procedural' | 'verdict';
   subject: string;
   decision: 'sustained' | 'overruled' | 'granted' | 'denied';
   reasoning?: string;
@@ -198,6 +199,8 @@ export interface LLMConfig {
   temperature?: number;
   maxTokens?: number;
   systemPrompt?: string;
+  baseUrl?: string; // Endpoint base URL for local/self-hosted providers (e.g. Ollama)
+  maxRetries?: number; // Per-agent retry budget for transient LLM failures
 }
 
 export interface SimulationSettings {

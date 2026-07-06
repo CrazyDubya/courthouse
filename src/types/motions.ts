@@ -144,6 +144,7 @@ export interface MotionResponse {
 // Judge's ruling on motion
 export interface MotionRuling {
   id: string;
+  motionId?: string; // ID of the motion this ruling resolves
   judge: string; // Judge ID
   rulingDate: Date;
   decision: MotionStatus; // granted, denied, etc.
@@ -154,6 +155,8 @@ export interface MotionRuling {
   legal_conclusions: string[]; // Legal determinations
   
   // Ruling details
+  precedent_cases?: string[]; // Precedents cited in support of the ruling
+  effectiveDate?: Date; // When the ruling takes effect
   conditions?: string[]; // Conditions if granted in part
   deadlines?: Date[]; // New deadlines imposed
   sanctions?: string; // Penalties for frivolous motion

@@ -22,7 +22,7 @@ describe('CivilCaseFactory', () => {
       expect(civilCase.civil).toBeDefined();
       expect(civilCase.civil?.baseType).toBe('civil');
       expect(civilCase.civil?.causeOfAction).toBeTruthy();
-      expect(civilCase.civil?.burdenOfProof).toBe('preponderance');
+      expect(civilCase.civil?.burdenOfProof).toBe('preponderance-of-evidence');
       expect(civilCase.civil?.jurisdiction).toBe('state');
     });
 
@@ -238,7 +238,7 @@ describe('CivilCaseFactory', () => {
     it('should validate burden of proof for civil cases', () => {
       const civilCase = CivilCaseFactory.generateNYSCivilCase();
       
-      expect(civilCase.civil?.burdenOfProof).toBe('preponderance');
+      expect(civilCase.civil?.burdenOfProof).toBe('preponderance-of-evidence');
     });
 
     it('should validate evidence items have required properties', () => {

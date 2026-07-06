@@ -1,4 +1,5 @@
 import { Participant } from '../../types';
+import { EnhancedJudgeProfile } from '../../types/judge';
 import { ProceedingsBase } from './ProceedingsBase';
 
 /**

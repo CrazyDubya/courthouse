@@ -155,12 +155,7 @@ export class MotionProcessor extends ProceedingsBase {
     this.pendingMotions.push(motion);
 
     // Add to court calendar
-    this.courtCalendar.scheduleMotionHearing(
-      motion, 
-      judge.id, 
-      attorney.id, 
-      this.getOpposingParties(attorney.id)[0] || 'opposing-counsel'
-    );
+    this.courtCalendar.scheduleMotionHearing(motion, judge.id);
 
     await this.generateAndRecordStatement(
       attorney,
@@ -221,7 +216,7 @@ export class MotionProcessor extends ProceedingsBase {
       judge: judge.name,
       type: 'motion',
       subject: motion.type,
-      decision: ruling.decision,
+      decision: ruling.decision as 'sustained' | 'overruled' | 'granted' | 'denied',
       reasoning: ruling.legal_reasoning
     });
 
@@ -264,11 +259,17 @@ export class MotionProcessor extends ProceedingsBase {
     return {
       id: `ruling-${this.transcriptCounter.value++}`,
       motionId: motion.id,
+      judge: '',
       decision,
       legal_reasoning: `The court has reviewed the motion and finds that it should be ${decision} based on the legal standards and evidence presented.`,
+      factual_findings: [],
+      legal_conclusions: [],
       precedent_cases: [],
       rulingDate: new Date(),
-      effectiveDate: new Date()
+      effectiveDate: new Date(),
+      appealable: false,
+      interlocutory: true,
+      case_dispositive: false
     };
   }
 
@@ -354,8 +355,8 @@ export class MotionProcessor extends ProceedingsBase {
       reasons.push("drawing upon substantial judicial experience");
     }
     
-    const personalityFactor = judge.quirks.includes('cites_precedent_frequently') 
-      ? "and relevant case law" 
+    const personalityFactor = judge.quirks.quotesLaw
+      ? "and relevant case law"
       : "and applicable legal standards";
     
     return `${reasons.join(', ')} ${personalityFactor}, the court ${decision} this motion. The legal standard has ${decision === 'granted' ? 'been satisfied' : 'not been met'} based on the evidence and arguments presented.`;
