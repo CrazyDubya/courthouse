@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { Box, Sphere } from '@react-three/drei';
 import { useCourtroomMaterials, useFreshCourtroomMaterial } from '../materials';
@@ -10,16 +10,24 @@ export const EnhancedJudgeBench: React.FC<{ isActive?: boolean; isThinking?: boo
   // frame below. A shared instance would make every other mesh using the
   // `woodWalnutDark` preset glow along with the bench.
   const bodyMaterial = useFreshCourtroomMaterial('woodWalnutDark');
+  const glowState = useRef('');
 
-  // Animate glow effect for thinking state
+  // Animate glow effect for thinking state. Only the pulsing "thinking" state
+  // needs a per-frame write; the steady active/idle colors are written once on
+  // transition (tracked via glowState) so idle frames touch no material uniform.
   useFrame(({ clock }) => {
     if (isThinking) {
       const intensity = 0.5 + Math.sin(clock.elapsedTime * 3) * 0.3;
       bodyMaterial.emissive.setRGB(intensity * 0.2, intensity * 0.2, 0);
+      glowState.current = 'thinking';
     } else if (isActive) {
-      bodyMaterial.emissive.setRGB(0, 0.2, 0.3);
-    } else {
+      if (glowState.current !== 'active') {
+        bodyMaterial.emissive.setRGB(0, 0.2, 0.3);
+        glowState.current = 'active';
+      }
+    } else if (glowState.current !== 'idle') {
       bodyMaterial.emissive.setRGB(0, 0, 0);
+      glowState.current = 'idle';
     }
   });
 

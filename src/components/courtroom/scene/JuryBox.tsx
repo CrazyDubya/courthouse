@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Text } from '@react-three/drei';
+import { Box, Instance, Instances, Text } from '@react-three/drei';
 import { useCourtroomMaterials } from '../materials';
 
 // Enhanced jury box with individual seats
@@ -38,19 +38,33 @@ export const EnhancedJuryBox: React.FC<{
         <primitive object={materials.woodWalnutDark} attach="material" />
       </Box>
 
-      {/* Individual jury seats */}
+      {/* Instanced seat cushions (upholstered) — one draw call for all seats */}
+      <Instances castShadow receiveShadow>
+        <boxGeometry args={[0.8, 0.1, 0.8]} />
+        <primitive object={materials.fabricChair} attach="material" />
+        {positions.map((position, index) => (
+          <Instance
+            key={index}
+            position={[position[0], position[1] + 0.3, position[2]]}
+          />
+        ))}
+      </Instances>
+
+      {/* Instanced backrests (upholstered) — one draw call for all seats */}
+      <Instances castShadow receiveShadow>
+        <boxGeometry args={[0.8, 1, 0.1]} />
+        <primitive object={materials.fabricChair} attach="material" />
+        {positions.map((position, index) => (
+          <Instance
+            key={index}
+            position={[position[0], position[1] + 0.8, position[2] - 0.35]}
+          />
+        ))}
+      </Instances>
+
+      {/* Per-seat number labels + active glow (not instanceable) */}
       {positions.map((position, index) => (
         <group key={index} position={position}>
-          {/* Seat (upholstered cushion) */}
-          <Box args={[0.8, 0.1, 0.8]} position={[0, 0.3, 0]} castShadow receiveShadow>
-            <primitive object={materials.fabricChair} attach="material" />
-          </Box>
-
-          {/* Backrest (upholstered) */}
-          <Box args={[0.8, 1, 0.1]} position={[0, 0.8, -0.35]} castShadow receiveShadow>
-            <primitive object={materials.fabricChair} attach="material" />
-          </Box>
-
           {/* Seat number */}
           <Text
             position={[0, 0.4, 0.4]}

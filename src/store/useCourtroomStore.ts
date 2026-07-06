@@ -291,7 +291,12 @@ export const useCourtroomStore = create<CourtroomState>()(
             }
             
             const speaker = currentEngine.getCurrentSpeaker();
-            set({ activeSpeaker: speaker });
+            // Only publish a change: this loop ticks every 100ms, and an
+            // unconditional set() re-rendered the whole 3D scene 10x/sec even
+            // when the speaker was unchanged.
+            if (get().activeSpeaker !== speaker) {
+              set({ activeSpeaker: speaker });
+            }
             
             if (!currentEngine.isActive()) {
               console.log('🏁 Simulation completed');

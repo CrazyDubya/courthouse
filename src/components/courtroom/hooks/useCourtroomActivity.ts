@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import { Participant } from '../../../types';
 import { useCourtroomStore } from '../../../store/useCourtroomStore';
 
@@ -11,33 +12,38 @@ export interface CourtroomActivity {
 /**
  * Derives which role is speaking and which roles are "thinking" from the
  * participant list, the active speaker id, and the live LLM agent state.
- * Extracted verbatim from the original ImprovedCourtroom3D composition root.
+ *
+ * Subscribes to only the three store fields it reads (via selectors) so the 3D
+ * scene re-renders when *those* change rather than on every store mutation, and
+ * memoizes the derivation so it is not recomputed on unrelated re-renders. Logic
+ * is otherwise identical to the original composition-root computation.
  */
 export function useCourtroomActivity(
   participants: Participant[],
   activeSpeaker?: string
 ): CourtroomActivity {
-  const { activeLLMAgents, isProcessingAI, currentAIOperation } = useCourtroomStore();
+  const activeLLMAgents = useCourtroomStore((s) => s.activeLLMAgents);
+  const isProcessingAI = useCourtroomStore((s) => s.isProcessingAI);
+  const currentAIOperation = useCourtroomStore((s) => s.currentAIOperation);
 
-  const getActiveParticipantRole = (speakerId: string): string => {
-    const participant = participants.find(p => p.id === speakerId);
-    return participant?.role || '';
-  };
+  return useMemo(() => {
+    const activeRole = activeSpeaker
+      ? participants.find((p) => p.id === activeSpeaker)?.role || ''
+      : '';
 
-  const getThinkingParticipants = (): string[] => {
     const thinkingRoles: string[] = [];
 
-    // Check which agents are currently thinking
-    Array.from(activeLLMAgents.values()).forEach(agent => {
+    // Agents currently thinking.
+    Array.from(activeLLMAgents.values()).forEach((agent) => {
       if (agent.status === 'thinking') {
         thinkingRoles.push(agent.role);
       }
     });
 
-    // Also check if current AI operation mentions specific roles
+    // Also treat any role named in the current AI operation as thinking.
     if (isProcessingAI && currentAIOperation) {
       const operation = currentAIOperation.toLowerCase();
-      participants.forEach(p => {
+      participants.forEach((p) => {
         if (operation.includes(p.name.toLowerCase()) || operation.includes(p.role)) {
           if (!thinkingRoles.includes(p.role)) {
             thinkingRoles.push(p.role);
@@ -46,11 +52,6 @@ export function useCourtroomActivity(
       });
     }
 
-    return thinkingRoles;
-  };
-
-  const activeRole = activeSpeaker ? getActiveParticipantRole(activeSpeaker) : '';
-  const thinkingRoles = getThinkingParticipants();
-
-  return { activeRole, thinkingRoles };
+    return { activeRole, thinkingRoles };
+  }, [participants, activeSpeaker, activeLLMAgents, isProcessingAI, currentAIOperation]);
 }

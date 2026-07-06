@@ -1,37 +1,32 @@
 import React from 'react';
-import { Box, Plane } from '@react-three/drei';
+import { Instance, Instances, Plane } from '@react-three/drei';
 import { useCourtroomMaterials } from '../materials';
 
 // Gallery seating for observers
 export const GallerySeating: React.FC = () => {
   const materials = useCourtroomMaterials();
   const rows = 4;
+  const rowIndices = Array.from({ length: rows }, (_, rowIndex) => rowIndex);
 
   return (
     <group position={[0, 0, 3]}>
-      {Array.from({ length: rows }, (_, rowIndex) => (
-        <group key={rowIndex} position={[0, 0, rowIndex * 1.5]}>
-          {/* Bench (solid wood pew) */}
-          <Box
-            args={[12, 0.5, 0.8]}
-            position={[0, 0.25, 0]}
-            castShadow
-            receiveShadow
-          >
-            <primitive object={materials.woodMahogany} attach="material" />
-          </Box>
+      {/* Instanced benches (solid wood pews) — one draw call for all rows */}
+      <Instances castShadow receiveShadow>
+        <boxGeometry args={[12, 0.5, 0.8]} />
+        <primitive object={materials.woodMahogany} attach="material" />
+        {rowIndices.map((rowIndex) => (
+          <Instance key={rowIndex} position={[0, 0.25, rowIndex * 1.5]} />
+        ))}
+      </Instances>
 
-          {/* Backrest */}
-          <Box
-            args={[12, 1.5, 0.2]}
-            position={[0, 1, -0.3]}
-            castShadow
-            receiveShadow
-          >
-            <primitive object={materials.woodWalnutDark} attach="material" />
-          </Box>
-        </group>
-      ))}
+      {/* Instanced backrests — one draw call for all rows */}
+      <Instances castShadow receiveShadow>
+        <boxGeometry args={[12, 1.5, 0.2]} />
+        <primitive object={materials.woodWalnutDark} attach="material" />
+        {rowIndices.map((rowIndex) => (
+          <Instance key={rowIndex} position={[0, 1, rowIndex * 1.5 - 0.3]} />
+        ))}
+      </Instances>
 
       {/* Center aisle */}
       <Plane

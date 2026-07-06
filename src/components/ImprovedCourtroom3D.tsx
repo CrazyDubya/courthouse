@@ -15,6 +15,7 @@ import {
   BailiffStation,
 } from './courtroom/scene';
 import { CourtroomCharacters } from './courtroom/characters';
+import { PerfHud } from './courtroom/perf/PerfHud';
 
 interface Props {
   participants: Participant[];
@@ -26,7 +27,15 @@ export const ImprovedCourtroom3D: React.FC<Props> = ({ participants, activeSpeak
 
   return (
     <div className="w-full h-full">
-      <Canvas shadows camera={{ position: [0, 8, 12], fov: 60 }}>
+      <Canvas
+        shadows
+        camera={{ position: [0, 8, 12], fov: 60 }}
+        // Clamp the device pixel ratio: uncapped, this rendered at full retina/4K
+        // DPR. `performance.min` lets R3F drop DPR toward 1 under load and recover.
+        dpr={[1, 2]}
+        gl={{ powerPreference: 'high-performance', antialias: true }}
+        performance={{ min: 0.5 }}
+      >
         {/* Dynamic lighting based on active speaker */}
         <DynamicLighting activeSpeaker={activeRole} />
 
@@ -96,6 +105,9 @@ export const ImprovedCourtroom3D: React.FC<Props> = ({ participants, activeSpeak
 
         {/* Warm fog for depth */}
         <fog attach="fog" args={['#FFF8DC', 25, 60]} />
+
+        {/* Renderer stats overlay — hidden by default, press 'P' to toggle */}
+        <PerfHud />
       </Canvas>
     </div>
   );

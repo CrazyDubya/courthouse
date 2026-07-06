@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { Box, Sphere, Text } from '@react-three/drei';
 import { useCourtroomMaterials, useFreshCourtroomMaterial } from '../materials';
@@ -15,16 +15,24 @@ export const EnhancedAttorneyTable: React.FC<{
   // frame below. A shared instance would make every mesh using the
   // `woodMahogany` preset (benches, plant pots, window frames...) glow too.
   const topMaterial = useFreshCourtroomMaterial('woodMahogany');
+  const glowState = useRef('');
 
-  // Animate glow effect for thinking/active state
+  // Animate glow effect for thinking/active state. Only the pulsing "thinking"
+  // state writes per-frame; steady active/idle colors are written once on
+  // transition so idle frames touch no material uniform.
   useFrame(({ clock }) => {
     if (isThinking) {
       const intensity = 0.5 + Math.sin(clock.elapsedTime * 2.5) * 0.3;
       topMaterial.emissive.setRGB(intensity * 0.3, intensity * 0.3, 0);
+      glowState.current = 'thinking';
     } else if (isActive) {
-      topMaterial.emissive.setRGB(0, 0.3, 0.5);
-    } else {
+      if (glowState.current !== 'active') {
+        topMaterial.emissive.setRGB(0, 0.3, 0.5);
+        glowState.current = 'active';
+      }
+    } else if (glowState.current !== 'idle') {
       topMaterial.emissive.setRGB(0, 0, 0);
+      glowState.current = 'idle';
     }
   });
 
