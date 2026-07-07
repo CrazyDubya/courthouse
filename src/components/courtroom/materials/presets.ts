@@ -53,12 +53,13 @@ function materialFromTextureSet(
     // still renders — and unit tests never crash — with a plausible color.
     return new THREE.MeshStandardMaterial(params);
   }
-  return new THREE.MeshStandardMaterial({
-    ...params,
-    map: textures.map,
-    normalMap: textures.normalMap ?? undefined,
-    roughnessMap: textures.roughnessMap ?? undefined,
-  });
+  // Only attach maps that actually exist — passing `roughnessMap: undefined`
+  // to the constructor makes three.js log "parameter 'roughnessMap' has value
+  // of undefined" on every material.
+  const withMaps: THREE.MeshStandardMaterialParameters = { ...params, map: textures.map };
+  if (textures.normalMap) withMaps.normalMap = textures.normalMap;
+  if (textures.roughnessMap) withMaps.roughnessMap = textures.roughnessMap;
+  return new THREE.MeshStandardMaterial(withMaps);
 }
 
 // ---------------------------------------------------------------------------
