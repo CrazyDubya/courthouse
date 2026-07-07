@@ -88,6 +88,29 @@ export abstract class ProceedingsBase {
     this.currentSpeaker.value = null;
   }
 
+  /**
+   * Generates a statement via the agent, resolving to a canned `fallback` on
+   * timeout or error. NEVER rejects — this is what makes it safe to start ahead
+   * of playback (prefetch): an in-flight buffered generation can't surface an
+   * unhandled rejection. Semantics match the prior inline `Promise.race` against
+   * a fallback, so buffered generation is content-identical to the serial path.
+   */
+  protected async generateOrFallback(
+    agent: CourtroomAgent,
+    prompt: string,
+    fallback: string,
+    timeoutMs = 10000
+  ): Promise<string> {
+    try {
+      return await Promise.race([
+        agent.generateStatement(prompt),
+        new Promise<string>((resolve) => setTimeout(() => resolve(fallback), timeoutMs)),
+      ]);
+    } catch {
+      return fallback;
+    }
+  }
+
   protected async announcePhase(phaseName: string): Promise<void> {
     const judge = this.findParticipantByRole('judge');
     if (judge) {

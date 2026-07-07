@@ -41,42 +41,46 @@ export class TrialExecutor extends ProceedingsBase {
     if (agent && witnessAgent) {
       // Generate 3-4 realistic Q&A exchanges instead of just one
       const examExchanges = Math.min(4, Math.max(2, Math.floor(Math.random() * 3) + 2));
-      
+
+      // Buffered (depth-1 prefetch): generate the NEXT statement while the
+      // current one's reading delay plays, hiding LLM latency behind reading
+      // time. Questions are independent (static prompt + index); each answer
+      // depends only on its own question's text. generateOrFallback never
+      // throws, so an in-flight prefetch is safe. Content, order, and pacing
+      // are identical to the serial loop — only the latency moves.
+      let questionGen = this.generateOrFallback(
+        agent,
+        this.generateDirectExamPrompt(witness, examiner, 0),
+        this.getFallbackQuestion(witness, examiner, 0)
+      );
+
       for (let i = 0; i < examExchanges; i++) {
-        // Generate specific questions based on witness type and role
-        let questionPrompt = this.generateDirectExamPrompt(witness, examiner, i);
-        
-        try {
-          const question = await Promise.race([
-            agent.generateStatement(questionPrompt),
-            new Promise<string>((resolve) => 
-              setTimeout(() => resolve(this.getFallbackQuestion(witness, examiner, i)), 10000)
-            )
-          ]);
-          
-          await this.generateAndRecordStatement(examiner, question);
-          
-          // Generate realistic witness answer
-          let answerPrompt = this.generateWitnessAnswerPrompt(witness, examiner, question, i);
-          
-          const answer = await Promise.race([
-            witnessAgent.generateStatement(answerPrompt),
-            new Promise<string>((resolve) => 
-              setTimeout(() => resolve(this.getFallbackAnswer(witness, i)), 10000)
-            )
-          ]);
-          
-          await this.generateAndRecordStatement(witness, answer);
-          
-          // Small delay between Q&A exchanges
-          await this.delay(800 / this.settings.realtimeSpeed);
-          
-        } catch (error) {
-          console.error('Error in witness examination:', error);
-          // Use fallback Q&A
-          await this.generateAndRecordStatement(examiner, this.getFallbackQuestion(witness, examiner, i));
-          await this.generateAndRecordStatement(witness, this.getFallbackAnswer(witness, i));
+        const question = await questionGen;
+        // Start the answer now (needs this question's text) so it generates
+        // during the question's reading delay.
+        const answerGen = this.generateOrFallback(
+          witnessAgent,
+          this.generateWitnessAnswerPrompt(witness, examiner, question, i),
+          this.getFallbackAnswer(witness, i)
+        );
+
+        await this.generateAndRecordStatement(examiner, question);
+
+        const answer = await answerGen;
+        // Start the next (independent) question now so it generates during the
+        // answer's reading delay.
+        if (i + 1 < examExchanges) {
+          questionGen = this.generateOrFallback(
+            agent,
+            this.generateDirectExamPrompt(witness, examiner, i + 1),
+            this.getFallbackQuestion(witness, examiner, i + 1)
+          );
         }
+
+        await this.generateAndRecordStatement(witness, answer);
+
+        // Small delay between Q&A exchanges
+        await this.delay(800 / this.settings.realtimeSpeed);
       }
     }
   }
@@ -95,42 +99,38 @@ export class TrialExecutor extends ProceedingsBase {
     if (agent && witnessAgent) {
       // Generate 2-3 realistic cross-examination Q&A exchanges
       const crossExchanges = Math.min(3, Math.max(2, Math.floor(Math.random() * 2) + 2));
-      
+
+      // Buffered (depth-1 prefetch) — see examineWitness for the rationale.
+      // Same content/order/pacing; latency hidden behind reading delays.
+      let questionGen = this.generateOrFallback(
+        agent,
+        this.generateCrossExamPrompt(witness, examiner, 0),
+        this.getFallbackCrossQuestion(witness, examiner, 0)
+      );
+
       for (let i = 0; i < crossExchanges; i++) {
-        // Generate challenging cross-examination questions
-        let questionPrompt = this.generateCrossExamPrompt(witness, examiner, i);
-        
-        try {
-          const question = await Promise.race([
-            agent.generateStatement(questionPrompt),
-            new Promise<string>((resolve) => 
-              setTimeout(() => resolve(this.getFallbackCrossQuestion(witness, examiner, i)), 10000)
-            )
-          ]);
-          
-          await this.generateAndRecordStatement(examiner, question);
-          
-          // Generate defensive witness answer for cross-examination
-          let answerPrompt = this.generateCrossAnswerPrompt(witness, examiner, question, i);
-          
-          const answer = await Promise.race([
-            witnessAgent.generateStatement(answerPrompt),
-            new Promise<string>((resolve) => 
-              setTimeout(() => resolve(this.getFallbackCrossAnswer(witness, i)), 10000)
-            )
-          ]);
-          
-          await this.generateAndRecordStatement(witness, answer);
-          
-          // Small delay between Q&A exchanges
-          await this.delay(800 / this.settings.realtimeSpeed);
-          
-        } catch (error) {
-          console.error('Error in cross-examination:', error);
-          // Use fallback Q&A
-          await this.generateAndRecordStatement(examiner, this.getFallbackCrossQuestion(witness, examiner, i));
-          await this.generateAndRecordStatement(witness, this.getFallbackCrossAnswer(witness, i));
+        const question = await questionGen;
+        const answerGen = this.generateOrFallback(
+          witnessAgent,
+          this.generateCrossAnswerPrompt(witness, examiner, question, i),
+          this.getFallbackCrossAnswer(witness, i)
+        );
+
+        await this.generateAndRecordStatement(examiner, question);
+
+        const answer = await answerGen;
+        if (i + 1 < crossExchanges) {
+          questionGen = this.generateOrFallback(
+            agent,
+            this.generateCrossExamPrompt(witness, examiner, i + 1),
+            this.getFallbackCrossQuestion(witness, examiner, i + 1)
+          );
         }
+
+        await this.generateAndRecordStatement(witness, answer);
+
+        // Small delay between Q&A exchanges
+        await this.delay(800 / this.settings.realtimeSpeed);
       }
     }
   }
