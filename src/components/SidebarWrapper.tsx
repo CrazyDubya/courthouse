@@ -1,7 +1,27 @@
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { HiMenu, HiX } from 'react-icons/hi';
 import { useCourtroomStore } from '../store/useCourtroomStore';
+
+/**
+ * Reactive viewport check. The previous one-shot `window.innerWidth < 768`
+ * captured the width at first render only, so a sidebar could lay out in-flow
+ * (reserving 80px) and the mobile FAB never appeared. Listening for resize
+ * keeps every consumer correct across rotation/resize.
+ */
+function useIsMobile(breakpoint = 768): boolean {
+  const [isMobile, setIsMobile] = useState(
+    () => typeof window !== 'undefined' && window.innerWidth < breakpoint
+  );
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const onResize = () => setIsMobile(window.innerWidth < breakpoint);
+    onResize();
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
+  }, [breakpoint]);
+  return isMobile;
+}
 
 interface SidebarWrapperProps {
   side: 'left' | 'right';
@@ -60,8 +80,7 @@ export const SidebarWrapper: React.FC<SidebarWrapperProps> = ({
     document.addEventListener('mouseup', handleMouseUp);
   }, [width, setWidth, side]);
 
-  // Check if mobile screen
-  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+  const isMobile = useIsMobile();
 
   return (
     <>
@@ -80,7 +99,7 @@ export const SidebarWrapper: React.FC<SidebarWrapperProps> = ({
       <motion.div
         ref={sidebarRef}
         className={`
-          relative bg-gray-900 border-gray-800 overflow-hidden z-50
+          bg-gray-900 border-gray-800 overflow-hidden z-50
           ${side === 'left' ? 'border-r' : 'border-l'}
           ${isMobile ? 'fixed top-0 bottom-0 shadow-2xl' : 'relative'}
           ${isMobile && side === 'left' ? 'left-0' : ''}
@@ -190,8 +209,8 @@ export const MobileSidebarFAB: React.FC<{ side: 'left' | 'right' }> = ({ side })
   const toggleSidebar = side === 'left' ? toggleLeftSidebar : toggleRightSidebar;
 
   // Only show on mobile when sidebar is collapsed
-  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
-  
+  const isMobile = useIsMobile();
+
   if (!isMobile || !isCollapsed) {
     return null;
   }

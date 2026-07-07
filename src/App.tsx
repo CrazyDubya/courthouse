@@ -13,9 +13,26 @@ import { EnhancedJudgeFactory } from './services/EnhancedJudgeFactory';
 import { CaseScenarioFactory } from './services/CaseScenarioFactory';
 
 function App() {
-  const { currentCase, setCurrentCase, activeSpeaker, showValuationPanel, setShowValuationPanel } = useCourtroomStore();
+  const {
+    currentCase, setCurrentCase, activeSpeaker, showValuationPanel, setShowValuationPanel,
+    isLeftSidebarCollapsed, isRightSidebarCollapsed, toggleLeftSidebar, toggleRightSidebar,
+  } = useCourtroomStore();
   const [showSetup, setShowSetup] = useState(true);
   const [isGenerating, setIsGenerating] = useState(false);
+
+  // On a phone-sized viewport the fixed-width sidebars would cover the scene, so
+  // start them collapsed (slid off-screen) when the trial view opens — the
+  // floating buttons then open each as an overlay on demand.
+  useEffect(() => {
+    if (showSetup) return;
+    if (typeof window !== 'undefined' && window.innerWidth < 768) {
+      if (!isLeftSidebarCollapsed) toggleLeftSidebar();
+      if (!isRightSidebarCollapsed) toggleRightSidebar();
+    }
+    // Run only when entering/leaving the trial view; sidebar toggles thereafter
+    // are the user's own.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [showSetup]);
 
   const handleCaseGenerate = async (caseType: string, category: 'criminal' | 'civil') => {
     setIsGenerating(true);
