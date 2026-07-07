@@ -22,7 +22,8 @@ export const EnhancedJudgeBench: React.FC<{ isActive?: boolean; isThinking?: boo
       glowState.current = 'thinking';
     } else if (isActive) {
       if (glowState.current !== 'active') {
-        bodyMaterial.emissive.setRGB(0, 0.2, 0.3);
+        // Warm gold to match the palette — the old teal read muddy on wood.
+        bodyMaterial.emissive.setRGB(0.18, 0.13, 0.03);
         glowState.current = 'active';
       }
     } else if (glowState.current !== 'idle') {
@@ -43,8 +44,14 @@ export const EnhancedJudgeBench: React.FC<{ isActive?: boolean; isThinking?: boo
         <primitive object={materials.woodEbony} attach="material" />
       </Box>
 
-      {/* Judge's chair area (elevated platform) */}
-      <Box args={[2, 1.5, 1.5]} position={[0, 2.75, -0.5]} castShadow receiveShadow>
+      {/* Judge's chair: a real seat + backrest instead of the old solid
+          1.5-tall platform block — the seated judge figure (hips on the seat
+          surface, world y≈4.68) now reads head-and-shoulders above the bench
+          top instead of being embedded inside a box. */}
+      <Box args={[1.6, 0.15, 1.2]} position={[0, 2.1, -0.6]} castShadow receiveShadow>
+        <primitive object={materials.woodWalnutDark} attach="material" />
+      </Box>
+      <Box args={[1.7, 1.2, 0.15]} position={[0, 2.95, -1.1]} castShadow receiveShadow>
         <primitive object={materials.woodWalnutDark} attach="material" />
       </Box>
 
@@ -53,8 +60,9 @@ export const EnhancedJudgeBench: React.FC<{ isActive?: boolean; isThinking?: boo
         <primitive object={materials.brassBrushed} attach="material" />
       </Box>
 
-      {/* Court seal behind judge */}
-      <Sphere args={[1.2]} position={[0, 3, -1.5]} castShadow>
+      {/* Court seal: flattened into a wall medallion behind/above the chair —
+          the old full sphere (r=1.2) physically intersected the judge's torso. */}
+      <Sphere args={[1.2]} scale={[1, 1, 0.18]} position={[0, 3.4, -1.75]} castShadow>
         <primitive object={materials.brassBrushed} attach="material" />
       </Sphere>
 
@@ -62,14 +70,6 @@ export const EnhancedJudgeBench: React.FC<{ isActive?: boolean; isThinking?: boo
       <Box args={[0.3, 0.1, 0.3]} position={[1.5, 2.2, 0.5]} castShadow>
         <primitive object={materials.woodMahogany} attach="material" />
       </Box>
-
-      {/* Active speaker glow effect */}
-      {isActive && (
-        <mesh position={[0, 0, 0]}>
-          <boxGeometry args={[8.5, 4.5, 3]} />
-          <meshBasicMaterial color="#FFD700" transparent opacity={0.1} />
-        </mesh>
-      )}
     </group>
   );
 };

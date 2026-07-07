@@ -32,13 +32,6 @@ export const EnhancedWitnessStand: React.FC<{ isActive?: boolean }> = ({ isActiv
         <primitive object={materials.accentNavy} attach="material" />
       </Box>
 
-      {/* Active speaker glow */}
-      {isActive && (
-        <mesh position={[0, 0, 0]}>
-          <boxGeometry args={[3, 2.5, 3]} />
-          <meshBasicMaterial color="#FFD700" transparent opacity={0.15} />
-        </mesh>
-      )}
     </group>
   );
 };

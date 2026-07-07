@@ -23,12 +23,6 @@ export const CourtReporterStation: React.FC<{ isActive?: boolean }> = ({ isActiv
         <primitive object={materials.fabricChair} attach="material" />
       </Box>
 
-      {isActive && (
-        <mesh position={[0, 0.5, 0]}>
-          <boxGeometry args={[2, 1.2, 1.5]} />
-          <meshBasicMaterial color="#FFD700" transparent opacity={0.1} />
-        </mesh>
-      )}
     </group>
   );
 };
@@ -44,12 +38,6 @@ export const BailiffStation: React.FC<{ isActive?: boolean }> = ({ isActive }) =
         <primitive object={materials.woodWalnutDark} attach="material" />
       </Box>
 
-      {isActive && (
-        <mesh position={[0, 0.5, 0]}>
-          <cylinderGeometry args={[0.8, 0.8, 1.5]} />
-          <meshBasicMaterial color="#FFD700" transparent opacity={0.1} />
-        </mesh>
-      )}
     </group>
   );
 };

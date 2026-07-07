@@ -62,10 +62,11 @@ export const EnhancedJuryBox: React.FC<{
         ))}
       </Instances>
 
-      {/* Per-seat number labels + active glow (not instanceable) */}
+      {/* Per-seat number labels (not instanceable). The old translucent
+          "active juror glow" box is gone — speaker emphasis is now carried by
+          the follow spotlight + the figure's lean (characters layer). */}
       {positions.map((position, index) => (
         <group key={index} position={position}>
-          {/* Seat number */}
           <Text
             position={[0, 0.4, 0.4]}
             rotation={[-Math.PI / 3, 0, 0]}
@@ -76,14 +77,6 @@ export const EnhancedJuryBox: React.FC<{
           >
             {index + 1}
           </Text>
-
-          {/* Active juror glow */}
-          {activeJurors.includes(`juror-${index + 1}`) && (
-            <mesh position={[0, 0.3, 0]}>
-              <boxGeometry args={[1, 1.5, 1]} />
-              <meshBasicMaterial color="#FFD700" transparent opacity={0.1} />
-            </mesh>
-          )}
         </group>
       ))}
     </group>

@@ -20,11 +20,11 @@ export const FACING_POS_X = Math.PI / 2; // faces +X
 export const FACING_NEG_X = -Math.PI / 2; // faces -X
 
 // ---- Judge ----------------------------------------------------------------
-// Seated on the elevated chair platform BEHIND the bench. The bench body rises
-// to y≈4.5; at 4.2 the judge was fully hidden behind it. 4.85 puts his hips just
-// above the bench top so head + shoulders read clearly over it (as a real
-// elevated bench does), while z stays behind the bench top surface.
-export const JUDGE_POSITION: V3 = [0, 4.85, -8.6];
+// Hips on the judge's chair SEAT surface (JudgeBench local [0, 2.1, -0.6],
+// seat top ≈ world y 4.68) — head and shoulders clear the bench top (y 4.6)
+// the way a real elevated bench reads. The old anchor sat him inside the
+// former solid chair-platform box, which fully hid him.
+export const JUDGE_POSITION: V3 = [0, 4.68, -8.6];
 export const JUDGE_FACING = FACING_POS_Z; // toward the gallery/camera
 
 // ---- Attorneys --------------------------------------------------------------

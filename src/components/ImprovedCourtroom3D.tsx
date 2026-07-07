@@ -1,6 +1,6 @@
 import React from 'react';
 import { Canvas } from '@react-three/fiber';
-import { OrbitControls, Environment } from '@react-three/drei';
+import { OrbitControls, Environment, Lightformer } from '@react-three/drei';
 import { Participant } from '../types';
 import { useCourtroomActivity } from './courtroom/hooks/useCourtroomActivity';
 import {
@@ -109,8 +109,17 @@ export const ImprovedCourtroom3D: React.FC<Props> = ({ participants, activeSpeak
           target={[0, 2, -4]}
         />
 
-        {/* Environment mapping for natural lighting */}
-        <Environment preset="apartment" />
+        {/* Environment mapping: a procedurally-rendered warm room instead of
+            the old preset="apartment", which fetched a PolyHaven HDRI from a
+            CDN at runtime (network dependency + first-paint stall). Rendered
+            once locally (frames={1}); the lightformers approximate the side
+            windows + a soft ceiling so brass/metal keep their reflections. */}
+        <Environment resolution={64} frames={1}>
+          <color attach="background" args={['#e9dcc4']} />
+          <Lightformer intensity={1.1} position={[-10, 6, 0]} rotation-y={Math.PI / 2} scale={[8, 4, 1]} color="#fff4e0" />
+          <Lightformer intensity={1.1} position={[10, 6, 0]} rotation-y={-Math.PI / 2} scale={[8, 4, 1]} color="#fff4e0" />
+          <Lightformer intensity={0.7} position={[0, 10, 0]} rotation-x={Math.PI / 2} scale={[12, 12, 1]} color="#fff8dc" />
+        </Environment>
 
         {/* Warm fog for depth */}
         <fog attach="fog" args={['#FFF8DC', 25, 60]} />

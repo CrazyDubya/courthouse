@@ -27,7 +27,8 @@ export const EnhancedAttorneyTable: React.FC<{
       glowState.current = 'thinking';
     } else if (isActive) {
       if (glowState.current !== 'active') {
-        topMaterial.emissive.setRGB(0, 0.3, 0.5);
+        // Warm gold to match the palette — the old teal read muddy on wood.
+        topMaterial.emissive.setRGB(0.2, 0.15, 0.04);
         glowState.current = 'active';
       }
     } else if (glowState.current !== 'idle') {
@@ -74,14 +75,6 @@ export const EnhancedAttorneyTable: React.FC<{
       <Box args={[0.8, 1.2, 0.8]} position={[0, 0.6, 1.5]} castShadow receiveShadow>
         <primitive object={materials.fabricChair} attach="material" />
       </Box>
-
-      {/* Active speaker glow */}
-      {isActive && (
-        <mesh position={[0, 0, 0]}>
-          <boxGeometry args={[4, 1.5, 2.5]} />
-          <meshBasicMaterial color="#FFD700" transparent opacity={0.12} />
-        </mesh>
-      )}
 
       {/* Table label */}
       <Text
