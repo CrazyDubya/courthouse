@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react';
 import { Participant, ParticipantRole } from '../../../types';
+import { useCourtroomStore } from '../../../store/useCourtroomStore';
 import { PrincipalFigure } from './PrincipalFigure';
 import { CrowdInstancedFigures, CrowdSeatDatum } from './CrowdInstancedFigures';
 import { buildFigureAppearance } from './appearance';
@@ -32,6 +33,11 @@ interface PrincipalSlot {
   /** Direction extra same-role participants fan out along (rare — e.g. two
    * co-defendants). Defaults to +X. */
   fanAxis?: V3;
+  /** Cap on how many of this role occupy the slot. Extra witnesses beyond the
+   * one on the (elevated) stand would otherwise fan sideways INTO MID-AIR off
+   * the platform; only one witness testifies at a time anyway, so cap to 1 and
+   * seat the rest in the gallery (see buildCrowdSeats). */
+  maxOccupants?: number;
 }
 
 // One anchor per principal role. `prosecutor` and `plaintiff-attorney` share
@@ -45,7 +51,7 @@ const PRINCIPAL_SLOTS: PrincipalSlot[] = [
   { role: 'defense-attorney', position: DEFENSE_TABLE_CHAIR, rotationY: ATTORNEY_FACING },
   { role: 'plaintiff', position: PLAINTIFF_SEAT, rotationY: PARTY_FACING, fanAxis: [-1, 0, 0] },
   { role: 'defendant', position: DEFENDANT_SEAT, rotationY: PARTY_FACING, fanAxis: [1, 0, 0] },
-  { role: 'witness', position: WITNESS_POSITION, rotationY: WITNESS_FACING },
+  { role: 'witness', position: WITNESS_POSITION, rotationY: WITNESS_FACING, maxOccupants: 1 },
   { role: 'court-clerk', position: CLERK_POSITION, rotationY: CLERK_FACING },
   { role: 'bailiff', position: BAILIFF_POSITION, rotationY: BAILIFF_FACING },
 ];
@@ -62,10 +68,15 @@ interface PrincipalNode {
   rotationY: number;
 }
 
-function buildPrincipalNodes(participants: Participant[]): PrincipalNode[] {
+function buildPrincipalNodes(participants: Participant[], witnessTestifying: boolean): PrincipalNode[] {
   const nodes: PrincipalNode[] = [];
   for (const slot of PRINCIPAL_SLOTS) {
-    const matches = participants.filter((p) => p.role === slot.role);
+    // Witnesses are sequestered: none is in the room until the testimony
+    // phases, and then only one occupies the stand (maxOccupants: 1). Everyone
+    // else waits outside the courtroom, so we render no figure for them.
+    if (slot.role === 'witness' && !witnessTestifying) continue;
+    let matches = participants.filter((p) => p.role === slot.role);
+    if (slot.maxOccupants != null) matches = matches.slice(0, slot.maxOccupants);
     matches.forEach((participant, i) => {
       const offset = Math.min(i, MAX_FAN_OUT) * FAN_OUT_STEP;
       const axis = slot.fanAxis ?? ([1, 0, 0] as V3);
@@ -133,9 +144,14 @@ export const CourtroomCharacters: React.FC<CourtroomCharactersProps> = ({
   thinkingRoles,
   activeSpeakerId,
 }) => {
+  // Witnesses testify only during the case-in-chief phases; before/after that
+  // they are sequestered outside the courtroom (rendered nowhere).
+  const currentPhase = useCourtroomStore((s) => s.currentCase?.currentPhase);
+  const witnessTestifying = currentPhase === 'plaintiff-case' || currentPhase === 'defense-case';
+
   const principals = useMemo(
-    () => (participants?.length ? buildPrincipalNodes(participants) : []),
-    [participants]
+    () => (participants?.length ? buildPrincipalNodes(participants, witnessTestifying) : []),
+    [participants, witnessTestifying]
   );
   const crowdSeats = useMemo(
     () => (participants?.length ? buildCrowdSeats(participants) : []),
