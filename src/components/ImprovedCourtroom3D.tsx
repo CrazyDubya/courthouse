@@ -16,6 +16,7 @@ import {
 } from './courtroom/scene';
 import { CourtroomCharacters } from './courtroom/characters';
 import { PerfHud } from './courtroom/perf/PerfHud';
+import { CameraDirector, SpeakerCaption, StatusChyron, PhaseBanner, AmbienceToggle } from './courtroom/cinematics';
 
 interface Props {
   participants: Participant[];
@@ -26,7 +27,7 @@ export const ImprovedCourtroom3D: React.FC<Props> = ({ participants, activeSpeak
   const { activeRole, thinkingRoles } = useCourtroomActivity(participants, activeSpeaker);
 
   return (
-    <div className="w-full h-full">
+    <div className="w-full h-full relative">
       <Canvas
         shadows
         camera={{ position: [0, 8, 12], fov: 60 }}
@@ -89,8 +90,16 @@ export const ImprovedCourtroom3D: React.FC<Props> = ({ participants, activeSpeak
           activeSpeakerId={activeSpeaker}
         />
 
+        {/* Cinematics: speaker-following camera + in-world caption. Both derive
+            the current speaker from the store's append-only events log
+            (useLatchedSpeaker), so they HOLD the last speaker across the
+            activeSpeaker->null gap instead of flickering. */}
+        <CameraDirector participants={participants} />
+        <SpeakerCaption participants={participants} />
+
         {/* Camera controls */}
         <OrbitControls
+          makeDefault
           enablePan={true}
           enableZoom={true}
           enableRotate={true}
@@ -109,6 +118,13 @@ export const ImprovedCourtroom3D: React.FC<Props> = ({ participants, activeSpeak
         {/* Renderer stats overlay — hidden by default, press 'P' to toggle */}
         <PerfHud />
       </Canvas>
+
+      {/* Always-on "who + phase" readout (bottom-left), transient phase title
+          card, and off-by-default procedural ambience toggle. Plain DOM
+          overlays that read the store directly; no Canvas context needed. */}
+      <StatusChyron participants={participants} />
+      <PhaseBanner />
+      <AmbienceToggle />
     </div>
   );
 };
