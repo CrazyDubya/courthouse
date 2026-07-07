@@ -261,7 +261,9 @@ export const CaseSelector: React.FC<CaseSelectorProps> = ({
                   </div>
                 </div>
                 <h3 className="text-xl font-bold text-white">{caseType.title}</h3>
-                <span className="inline-block px-2 py-1 bg-white bg-opacity-20 rounded-full text-xs uppercase tracking-wide">
+                {/* bg-opacity-* was removed in Tailwind v4; the slash syntax is the
+                    v4 equivalent (was rendering solid white, hiding the label). */}
+                <span className="inline-block px-2 py-1 bg-white/20 rounded-full text-xs uppercase tracking-wide">
                   {caseType.category}
                 </span>
               </div>
